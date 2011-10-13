@@ -63,19 +63,12 @@ public class Downloader
         return null;
     }
 
-    public static void downloadImage(String urlS, String filename)
+    public static void downloadImage(String urlS, String filename) throws IOException
     {
-        try
-        {
-            URL url = new URL(urlS);
-            ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
-            FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir") +
-                    ApplicationConstants.IDEA_FILEPATH_HACK + "/imgdata/" + filename);
-            fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, 1 << 24);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        URL url = new URL(urlS);
+        ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
+        FileOutputStream fileOutputStream = new FileOutputStream(System.getProperty("user.dir") +
+                ApplicationConstants.IDEA_FILEPATH_HACK + "/imgdata/" + filename);
+        fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, 1 << 24);
     }
 }

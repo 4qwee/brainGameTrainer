@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class DOMParser
     private Document document;
     private Element rootElement;
 
-    public DOMParser(String source)
+    public DOMParser(String source) throws SAXParseException
     {
         try
         {

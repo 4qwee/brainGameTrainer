@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
 import com.sun.org.apache.bcel.internal.generic.RET;
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.parse.CheckQuestionsForImagesTask;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
@@ -20,6 +21,7 @@ public class DatabaseManager
 {
     private static PreparedStatement insertQuestionStatement;
     private static PreparedStatement insertTournamentStatement;
+    private static Logger logger = Logger.getLogger(DatabaseManager.class);
 
     static
     {
@@ -30,7 +32,7 @@ public class DatabaseManager
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot create statements!", e);
         }
     }
 
@@ -53,7 +55,9 @@ public class DatabaseManager
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot insert question!");
+            logger.error("Question: " + question.getQuestion());
+            logger.error(null, e);
         }
     }
 
@@ -79,7 +83,9 @@ public class DatabaseManager
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot insert tournament!");
+            logger.error("Tournament: " + tournament.getFilename());
+            logger.error(null, e);
 
             return 0;
         }

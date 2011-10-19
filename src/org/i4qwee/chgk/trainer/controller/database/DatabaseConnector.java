@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.ApplicationConstants;
 
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 public class DatabaseConnector
 {
     private static Connection connection;
+    private static Logger logger = Logger.getLogger(DatabaseConnector.class);
 
     static
     {
@@ -24,11 +26,11 @@ public class DatabaseConnector
         }
         catch (ClassNotFoundException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot connect to database!", e);
         }
     }
 

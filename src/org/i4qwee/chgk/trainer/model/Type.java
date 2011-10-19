@@ -44,6 +44,7 @@ public enum Type
             case 'Э':
                 return ERUDITE;
             case 'Г':
+            case 'Т':
                 return UNKNOWN;
             default:
                 throw new UnknownTypeError();

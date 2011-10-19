@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
+import org.apache.log4j.Logger;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import static org.i4qwee.chgk.trainer.controller.database.DatabaseScripts.*;
@@ -12,6 +14,7 @@ import static org.i4qwee.chgk.trainer.controller.database.DatabaseScripts.*;
 public class DatabaseRemover implements Runnable
 {
     private Statement statement;
+    private static Logger logger = Logger.getLogger(DatabaseRemover.class);
 
     public DatabaseRemover(Statement statement)
     {
@@ -27,7 +30,7 @@ public class DatabaseRemover implements Runnable
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot remove tables!", e);
         }
     }
 }

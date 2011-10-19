@@ -5,6 +5,8 @@ import org.i4qwee.chgk.trainer.controller.parse.CheckQuestionsForImagesTask;
 import org.i4qwee.chgk.trainer.controller.parse.DOMParser;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,7 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class DomParserTest
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws SAXException
     {
         DOMParser parser = new DOMParser("http://db.chgk.info/dbxml.php?tour=mgp1011.1");
 

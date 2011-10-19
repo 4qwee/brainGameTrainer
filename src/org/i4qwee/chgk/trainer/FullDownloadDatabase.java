@@ -1,8 +1,10 @@
 package org.i4qwee.chgk.trainer;
 
-import org.i4qwee.chgk.trainer.controller.database.*;
+import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.database.DatabaseConnector;
+import org.i4qwee.chgk.trainer.controller.database.DatabaseCreator;
+import org.i4qwee.chgk.trainer.controller.database.DatabaseRemover;
 import org.i4qwee.chgk.trainer.controller.parse.ParserAllTask;
-import org.i4qwee.chgk.trainer.controller.web.Downloader;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +16,8 @@ import java.sql.Statement;
  */
 public class FullDownloadDatabase
 {
+    private static Logger logger = Logger.getLogger(FullDownloadDatabase.class);
+
     public static void main(String[] args)
     {
         try
@@ -28,7 +32,7 @@ public class FullDownloadDatabase
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
 
         new ParserAllTask().run();

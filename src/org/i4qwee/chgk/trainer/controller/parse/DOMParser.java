@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.parse;
 
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.web.Downloader;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
@@ -30,7 +31,9 @@ public class DOMParser
     private Document document;
     private Element rootElement;
 
-    public DOMParser(String source) throws SAXParseException
+    private static Logger logger = Logger.getLogger(DOMParser.class);
+
+    public DOMParser(String source) throws SAXException
     {
         try
         {
@@ -39,21 +42,17 @@ public class DOMParser
                     .parse(Downloader.downloadURL2Stream(source))
                     .getDocumentElement();
         }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
         catch (IOException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
         catch (ParserConfigurationException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
     }
 
-    private Tournament getTournament(Element element)
+    private Tournament getTournament(Element element) throws AssertionError
     {
         String title = getTextValue(element, TITLE_TAG);
         short questionsNumber = getShortValue(element, QUESTIONS_NUMBER_TAG);
@@ -61,6 +60,9 @@ public class DOMParser
         String info = getTextValue(element, INFO_TAG);
         String url = getTextValue(element, URL_TAG);
         String filename = getTextValue(element, FILENAME_TAG);
+
+        if (filename == null)
+            throw new AssertionError("tour " + title + " is missing");
 
         if (filename.matches(FILENAME_REGEX))
             filename = filename.substring(0, filename.length() - 4);

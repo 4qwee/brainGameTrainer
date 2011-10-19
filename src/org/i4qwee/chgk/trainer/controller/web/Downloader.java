@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.web;
 
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.ApplicationConstants;
 
 import java.io.*;
@@ -15,6 +16,8 @@ import java.nio.channels.ReadableByteChannel;
  */
 public class Downloader
 {
+    private static Logger logger =Logger.getLogger(Downloader.class);
+
     public static String downloadURL2String(String urlS)
     {
         try
@@ -33,11 +36,11 @@ public class Downloader
         }
         catch (MalformedURLException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
 
         return "";
@@ -53,11 +56,11 @@ public class Downloader
         }
         catch (MalformedURLException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            logger.error(null, e);
         }
 
         return null;

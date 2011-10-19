@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.Tournament;
 import org.i4qwee.chgk.trainer.model.Type;
 
@@ -15,6 +16,7 @@ import java.sql.Statement;
 public class DatabaseCreator implements Runnable
 {
     private Statement statement;
+    private Logger logger = Logger.getLogger(DatabaseCreator.class);
 
     public DatabaseCreator(Statement statement)
     {
@@ -30,7 +32,7 @@ public class DatabaseCreator implements Runnable
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.error("Cannot create tables!", e);
         }
     }
 

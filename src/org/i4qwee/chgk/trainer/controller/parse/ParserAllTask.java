@@ -34,17 +34,17 @@ public class ParserAllTask implements Runnable
         bannedUrls = (ArrayList<String>) rootUrls.clone();
         bannedUrls.add("SPB-DT");
 
-//        for (String url : rootUrls)
-//        {
-//            logger.info("Processing " + url);
-//            processTournament(url, 0);
-//        }
-
-        for (int i = 4; i < rootUrls.size(); i++)
+        for (String url : rootUrls)
         {
-            logger.info("Processing " + rootUrls.get(i));
-            processTournament(rootUrls.get(i), 0);
+            logger.info("Processing " + url);
+            processTournament(url, 0);
         }
+
+//        for (int i = 4; i < rootUrls.size(); i++)
+//        {
+//            logger.info("Processing " + rootUrls.get(i));
+//            processTournament(rootUrls.get(i), 0);
+//        }
     }
 
     private void fillRootUrls()
@@ -63,7 +63,6 @@ public class ParserAllTask implements Runnable
         rootUrls.add("EF");
         rootUrls.add("BESKR");
         rootUrls.add("SVOYAK");
-        rootUrls.add("fariz96");
     }
 
     private void processTournament(String url, int parentId)

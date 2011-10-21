@@ -124,9 +124,4 @@ public class ParserAllTask implements Runnable
 
         return false;
     }
-
-    private void checkHardcodedErrors(Tournament tournament)
-    {
-
-    }
 }

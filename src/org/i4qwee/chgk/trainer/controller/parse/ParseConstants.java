@@ -9,7 +9,7 @@ public class ParseConstants
 {
     public static final String TOURNAMENT_LINK_REGEX = "<a href=\"/tour/(.*?)\">(.*?)</a>";
     public static final String FILENAME_REGEX = "(.*?)\\.[A-Za-z]+";
-    public static final String IMG_REGEX = "\\(pic:\\s(.+)\\)";
+    public static final String IMG_REGEX = "\\(pic:\\s(.+?)\\)";
 
     public static final String ALL_QUESTIONS_START = "^<ul>";
     public static final String ALL_QUESTIONS_END = "</ul>$";

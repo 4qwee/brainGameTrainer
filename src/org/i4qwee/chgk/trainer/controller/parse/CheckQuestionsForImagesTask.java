@@ -48,7 +48,7 @@ public class CheckQuestionsForImagesTask implements Runnable
     {
         Matcher matcher = pattern.matcher(source);
 
-        if (matcher.find())
+        while (matcher.find())
         {
             String imageName = source.substring(matcher.start(1), matcher.end(1));
             Downloader.downloadImage(ParseConstants.IMG_PATH + imageName, imageName);

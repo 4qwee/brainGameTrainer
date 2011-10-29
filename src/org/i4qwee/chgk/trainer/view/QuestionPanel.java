@@ -16,33 +16,24 @@ import java.awt.event.MouseListener;
  */
 public class QuestionPanel extends JPanel
 {
-    private static final String FONT_NAME = "Courier";
-    private static final int FONT_SIZE = 20;
-    private static final int MARGIN = 5;
-
     private JTextArea questionTextArea;
     private JTextArea answerTextArea;
 
     public QuestionPanel()
     {
-        Font font = new Font(FONT_NAME, Font.PLAIN, FONT_SIZE);
-        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        Border emptyBorder = BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN);
-        Border compoundBorder = BorderFactory.createCompoundBorder(emptyBorder, etchedBorder);
-
         questionTextArea = new JTextArea();
-        questionTextArea.setFont(font);
+        questionTextArea.setFont(DefaultUIProvider.getQuestionFont());
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         questionTextArea.setEditable(false);
-        questionTextArea.setBorder(compoundBorder);
+        questionTextArea.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
 
         answerTextArea = new JTextArea();
-        answerTextArea.setFont(font);
+        answerTextArea.setFont(DefaultUIProvider.getQuestionFont());
         answerTextArea.setLineWrap(true);
         answerTextArea.setWrapStyleWord(true);
         answerTextArea.setEditable(false);
-        answerTextArea.setBorder(compoundBorder);
+        answerTextArea.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
 
         JScrollPane scrollPane = new JScrollPane();
 

@@ -13,8 +13,6 @@ import java.awt.event.MouseListener;
 public class TimerButton extends JPanel
 {
     public static final String INIT_TEXT = "0:00:000";
-    private static final String FONT_NAME = "Courier";
-    public static final int MARGIN = 5;
 
     private JButton timeButton;
     private org.i4qwee.chgk.trainer.controller.time.Timer timer;
@@ -22,15 +20,14 @@ public class TimerButton extends JPanel
     public TimerButton()
     {
         timeButton = new JButton(INIT_TEXT);
-        timeButton.setFont(new Font(FONT_NAME, Font.BOLD, 50));
+        timeButton.setFont(DefaultUIProvider.getDisplayFont());
 
         setLayout(new BorderLayout());
         add(timeButton, BorderLayout.CENTER);
 
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN);
-        setBorder(emptyBorder);
+        setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
         timer = new org.i4qwee.chgk.trainer.controller.time.Timer(this);
     }
@@ -38,11 +35,6 @@ public class TimerButton extends JPanel
     public JButton getTimeButton()
     {
         return timeButton;
-    }
-
-    public org.i4qwee.chgk.trainer.controller.time.Timer getTimer()
-    {
-        return timer;
     }
 
     public void addMouseListener(MouseListener mouseListener)

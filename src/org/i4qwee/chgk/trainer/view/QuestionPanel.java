@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.model.Question;
+import sun.plugin2.message.JavaScriptReleaseObjectMessage;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -43,12 +44,14 @@ public class QuestionPanel extends JPanel
         answerTextArea.setEditable(false);
         answerTextArea.setBorder(compoundBorder);
 
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(boxLayout);
+        JScrollPane scrollPane = new JScrollPane();
 
-        add(questionTextArea);
-        add(Box.createVerticalStrut(10));
-        add(answerTextArea);
+        BoxLayout boxLayout = new BoxLayout(scrollPane, BoxLayout.Y_AXIS);
+        scrollPane.setLayout(boxLayout);
+
+        scrollPane.add(questionTextArea);
+        scrollPane.add(Box.createVerticalStrut(10));
+        scrollPane.add(answerTextArea);
     }
 
     public void setQuestion(Question question)

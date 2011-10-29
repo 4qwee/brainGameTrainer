@@ -1,17 +1,8 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.*;
-import org.i4qwee.chgk.trainer.controller.Timer;
-import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.model.GameStateSingleton;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static org.i4qwee.chgk.trainer.model.GameState.INIT;
 
 /**
  * User: 4qwee
@@ -25,7 +16,7 @@ public class TimerButton extends JPanel
     public static final int MARGIN = 5;
 
     private JButton timeButton;
-    private org.i4qwee.chgk.trainer.controller.Timer timer;
+    private org.i4qwee.chgk.trainer.controller.time.Timer timer;
 
     public TimerButton()
     {
@@ -40,7 +31,7 @@ public class TimerButton extends JPanel
         Border emptyBorder = BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN);
         setBorder(emptyBorder);
 
-        timer = new Timer(this);
+        timer = new org.i4qwee.chgk.trainer.controller.time.Timer(this);
     }
 
     public JButton getTimeButton()
@@ -48,7 +39,7 @@ public class TimerButton extends JPanel
         return timeButton;
     }
 
-    public Timer getTimer()
+    public org.i4qwee.chgk.trainer.controller.time.Timer getTimer()
     {
         return timer;
     }

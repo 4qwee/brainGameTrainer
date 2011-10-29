@@ -1,6 +1,7 @@
-package org.i4qwee.chgk.trainer.controller;
+package org.i4qwee.chgk.trainer.controller.time;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
 import org.i4qwee.chgk.trainer.model.GameState;
 import org.i4qwee.chgk.trainer.model.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.QuestionPanel;
@@ -32,7 +33,7 @@ public class TimeButtonActionListener implements ActionListener
         {
             case INIT:
                 setGameState(GameState.WAIT_START_TIMER);
-                //todo add get questions
+                questionPanel.setQuestion(QuestionsCache.getNextQuestion(), false);
                 break;
             case WAIT_START_TIMER:
                 timer.timerStart();
@@ -42,7 +43,7 @@ public class TimeButtonActionListener implements ActionListener
             case PAUSED:
                 break;
             case FINISHED:
-                //todo add get questions
+                questionPanel.setQuestion(QuestionsCache.getNextQuestion(), false);
                 break;
             default:
                 logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());

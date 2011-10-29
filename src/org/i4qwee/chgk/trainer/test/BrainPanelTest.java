@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.test;
 
+import com.alee.laf.WebLookAndFeel;
+import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 
 import javax.swing.*;
@@ -26,7 +28,8 @@ public class BrainPanelTest extends JFrame
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, IllegalAccessException, InstantiationException
     {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        UIManager.setLookAndFeel(WebLookAndFeel.class.getName());
 
         new BrainPanelTest();
     }

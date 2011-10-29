@@ -13,7 +13,7 @@ import javax.swing.*;
 public class BrainPanel extends JPanel
 {
     private QuestionPanel questionPanel;
-    private TimerButton timerButton;
+    private TimerButtonPanel timerButtonPanel;
 
     public BrainPanel()
     {
@@ -21,15 +21,19 @@ public class BrainPanel extends JPanel
         setLayout(mainBoxLayout);
 
         questionPanel = new QuestionPanel();
-        timerButton = new TimerButton();
-        timerButton.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
 
-        add(questionPanel);
-        add(timerButton);
+        timerButtonPanel = new TimerButtonPanel();
+        timerButtonPanel.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
+
+        ScorePanel scorePanel = new ScorePanel(timerButtonPanel);
+
+        add(new JScrollPane(questionPanel));
+        add(scorePanel);
 
         BrainMouseListener brainMouseListener = new BrainMouseListener();
         addMouseListener(brainMouseListener);
         questionPanel.addMouseListener(brainMouseListener);
-        timerButton.addMouseListener(brainMouseListener);
+        timerButtonPanel.addMouseListener(brainMouseListener);
+        scorePanel.addMouseListener(brainMouseListener);
     }
 }

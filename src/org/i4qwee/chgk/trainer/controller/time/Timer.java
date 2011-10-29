@@ -2,7 +2,7 @@ package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.model.GameState;
 import org.i4qwee.chgk.trainer.model.GameStateSingleton;
-import org.i4qwee.chgk.trainer.view.TimerButton;
+import org.i4qwee.chgk.trainer.view.TimerButtonPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,9 +23,9 @@ public class Timer implements Observer
     private int time;
     private JButton timeButton;
 
-    public Timer(TimerButton timerButton)
+    public Timer(TimerButtonPanel timerButtonPanel)
     {
-        this.timeButton = timerButton.getTimeButton();
+        this.timeButton = timerButtonPanel.getTimeButton();
         GameStateSingleton.getInstance().addObserver(this);
 
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
@@ -70,7 +70,7 @@ public class Timer implements Observer
     {
         timer.stop();
         time = 0;
-        timeButton.setText(TimerButton.INIT_TEXT);
+        timeButton.setText(TimerButtonPanel.INIT_TEXT);
     }
 
     public void update(Observable o, Object arg)

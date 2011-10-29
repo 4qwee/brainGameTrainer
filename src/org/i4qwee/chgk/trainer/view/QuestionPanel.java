@@ -35,14 +35,12 @@ public class QuestionPanel extends JPanel
         answerTextArea.setEditable(false);
         answerTextArea.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
 
-        JScrollPane scrollPane = new JScrollPane();
+        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        setLayout(boxLayout);
 
-        BoxLayout boxLayout = new BoxLayout(scrollPane, BoxLayout.Y_AXIS);
-        scrollPane.setLayout(boxLayout);
-
-        scrollPane.add(questionTextArea);
-        scrollPane.add(Box.createVerticalStrut(10));
-        scrollPane.add(answerTextArea);
+        add(questionTextArea);
+        add(Box.createVerticalStrut(10));
+        add(answerTextArea);
     }
 
     public void setQuestion(Question question)

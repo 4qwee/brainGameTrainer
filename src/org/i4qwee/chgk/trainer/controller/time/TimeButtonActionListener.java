@@ -18,12 +18,10 @@ public class TimeButtonActionListener implements ActionListener
 {
     private static Logger logger = Logger.getLogger(TimeButtonActionListener.class);
 
-    private Timer timer;
     private QuestionPanel questionPanel;
 
-    public TimeButtonActionListener(Timer timer, QuestionPanel questionPanel)
+    public TimeButtonActionListener(QuestionPanel questionPanel)
     {
-        this.timer = timer;
         this.questionPanel = questionPanel;
     }
 
@@ -36,7 +34,7 @@ public class TimeButtonActionListener implements ActionListener
                 questionPanel.setQuestion(QuestionsCache.getNextQuestion(), false);
                 break;
             case WAIT_START_TIMER:
-                timer.timerStart();
+                setGameState(GameState.RUNNING);
                 break;
             case RUNNING:
                 break;

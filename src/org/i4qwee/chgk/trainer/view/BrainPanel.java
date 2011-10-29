@@ -21,7 +21,7 @@ public class BrainPanel extends JPanel
 
         questionPanel = new QuestionPanel();
         timerButton = new TimerButton();
-        timerButton.getTimeButton().addActionListener(new TimeButtonActionListener(timerButton.getTimer(), questionPanel));
+        timerButton.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
 
         add(questionPanel);
         add(timerButton);

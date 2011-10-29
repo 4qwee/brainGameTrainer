@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.model.GameState;
+import org.i4qwee.chgk.trainer.model.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.TimerButton;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class Timer implements Observer
     public Timer(TimerButton timerButton)
     {
         this.timeButton = timerButton.getTimeButton();
+        GameStateSingleton.getInstance().addObserver(this);
 
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
         {

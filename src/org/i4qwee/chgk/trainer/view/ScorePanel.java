@@ -37,4 +37,14 @@ public class ScorePanel extends JPanel
         leftScorePanel.addMouseListener(mouseListener);
         rightScorePanel.addMouseListener(mouseListener);
     }
+
+    public void addScore2Left(int score)
+    {
+        leftScorePanel.addScore(score);
+    }
+
+    public void addScore2Right(int score)
+    {
+        rightScorePanel.addScore(score);
+    }
 }

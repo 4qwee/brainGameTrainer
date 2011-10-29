@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
-import com.sun.java.swing.plaf.motif.MotifLookAndFeel;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 
 import javax.swing.*;
@@ -19,7 +18,7 @@ public class BrainPanelTest extends JFrame
         super();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        BrainPanel brainPanel = new BrainPanel();
+        BrainPanel brainPanel = new BrainPanel(this);
         add(brainPanel);
 
         setSize(800, 600);

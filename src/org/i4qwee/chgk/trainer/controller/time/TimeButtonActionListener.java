@@ -42,6 +42,7 @@ public class TimeButtonActionListener implements ActionListener
                 break;
             case FINISHED:
                 questionPanel.setQuestion(QuestionsCache.getNextQuestion(), false);
+                setGameState(GameState.WAIT_START_TIMER);
                 break;
             default:
                 logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());

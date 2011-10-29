@@ -1,9 +1,11 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
+import org.i4qwee.chgk.trainer.controller.brain.ScoreManager;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 
 import javax.swing.*;
+import java.awt.event.MouseListener;
 
 /**
  * User: 4qwee
@@ -12,11 +14,16 @@ import javax.swing.*;
  */
 public class BrainPanel extends JPanel
 {
+    private JFrame parentFrame;
     private QuestionPanel questionPanel;
     private TimerButtonPanel timerButtonPanel;
+    private ScorePanel scorePanel;
+    private ScoreManager scoreManager;
 
-    public BrainPanel()
+    public BrainPanel(JFrame parentFrame)
     {
+        this.parentFrame = parentFrame;
+
         BoxLayout mainBoxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(mainBoxLayout);
 
@@ -25,15 +32,25 @@ public class BrainPanel extends JPanel
         timerButtonPanel = new TimerButtonPanel();
         timerButtonPanel.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
 
-        ScorePanel scorePanel = new ScorePanel(timerButtonPanel);
+        scorePanel = new ScorePanel(timerButtonPanel);
 
-        add(new JScrollPane(questionPanel));
+        scoreManager = new ScoreManager(scorePanel);
+
+        JScrollPane scrollPane = new JScrollPane(questionPanel);
+        scrollPane.setFocusable(false);
+
+        add(scrollPane);
         add(scorePanel);
 
-        BrainMouseListener brainMouseListener = new BrainMouseListener();
-        addMouseListener(brainMouseListener);
-        questionPanel.addMouseListener(brainMouseListener);
-        timerButtonPanel.addMouseListener(brainMouseListener);
-        scorePanel.addMouseListener(brainMouseListener);
+        addMouseListener(new BrainMouseListener(parentFrame, scoreManager));
+    }
+
+    public void addMouseListener(MouseListener mouseListener)
+    {
+        super.addMouseListener(mouseListener);
+
+        questionPanel.addMouseListener(mouseListener);
+        timerButtonPanel.addMouseListener(mouseListener);
+        scorePanel.addMouseListener(mouseListener);
     }
 }

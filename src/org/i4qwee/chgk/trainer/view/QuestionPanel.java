@@ -21,19 +21,10 @@ public class QuestionPanel extends JPanel
 
     public QuestionPanel()
     {
-        questionTextArea = new JTextArea();
-        questionTextArea.setFont(DefaultUIProvider.getQuestionFont());
-        questionTextArea.setLineWrap(true);
-        questionTextArea.setWrapStyleWord(true);
-        questionTextArea.setEditable(false);
-        questionTextArea.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
+        setFocusable(false);
 
-        answerTextArea = new JTextArea();
-        answerTextArea.setFont(DefaultUIProvider.getQuestionFont());
-        answerTextArea.setLineWrap(true);
-        answerTextArea.setWrapStyleWord(true);
-        answerTextArea.setEditable(false);
-        answerTextArea.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
+        questionTextArea = new SingleQuestionTextArea();
+        answerTextArea = new SingleQuestionTextArea();
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);

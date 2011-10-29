@@ -3,7 +3,9 @@ package org.i4qwee.chgk.trainer.controller.brain;
 import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.GameState;
 import org.i4qwee.chgk.trainer.model.GameStateSingleton;
+import org.i4qwee.chgk.trainer.view.BrainConfirmationDialog;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,6 +18,15 @@ public class BrainMouseListener extends MouseAdapter
 {
     private static Logger logger = Logger.getLogger(BrainMouseListener.class);
 
+    private JFrame parentFrame;
+    private ScoreManager scoreManager;
+
+    public BrainMouseListener(JFrame parentFrame, ScoreManager scoreManager)
+    {
+        this.parentFrame = parentFrame;
+        this.scoreManager = scoreManager;
+    }
+
     public void mousePressed(MouseEvent event)
     {
         switch (GameStateSingleton.getInstance().getGameState())
@@ -25,8 +36,13 @@ public class BrainMouseListener extends MouseAdapter
             case WAIT_START_TIMER:
                 break;
             case RUNNING:
-                //todo add impl
                 GameStateSingleton.getInstance().setGameState(GameState.PAUSED);
+
+                if (event.getButton() == MouseEvent.BUTTON1)
+                    new BrainConfirmationDialog(parentFrame, true, scoreManager);
+                else if (event.getButton() == MouseEvent.BUTTON3)
+                    new BrainConfirmationDialog(parentFrame, false, scoreManager);
+
                 break;
             case PAUSED:
                 break;

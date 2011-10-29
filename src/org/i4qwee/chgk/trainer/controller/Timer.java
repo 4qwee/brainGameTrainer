@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.controller;
 
 import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.view.TimerPanel;
+import org.i4qwee.chgk.trainer.view.TimerButton;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,11 +20,11 @@ public class Timer implements Observer
 
     private javax.swing.Timer timer;
     private int time;
-    private JLabel timeLabel;
+    private JButton timeButton;
 
-    public Timer(TimerPanel timerPanel)
+    public Timer(TimerButton timerButton)
     {
-        this.timeLabel = timerPanel.getTimeLabel();
+        this.timeButton = timerButton.getTimeButton();
 
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
         {
@@ -51,7 +51,7 @@ public class Timer implements Observer
         tmpTime = (time % 600000L - time % 60000L) / 60000L;
         timeText = Long.toString(tmpTime) + timeText;
 
-        timeLabel.setText(timeText);
+        timeButton.setText(timeText);
     }
 
     public void timerStart()
@@ -68,7 +68,7 @@ public class Timer implements Observer
     {
         timer.stop();
         time = 0;
-        timeLabel.setText(TimerPanel.INIT_TEXT);
+        timeButton.setText(TimerButton.INIT_TEXT);
     }
 
     public void update(Observable o, Object arg)

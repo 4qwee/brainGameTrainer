@@ -1,8 +1,7 @@
 package org.i4qwee.chgk.trainer.test;
 
-import org.i4qwee.chgk.trainer.controller.*;
 import org.i4qwee.chgk.trainer.controller.Timer;
-import org.i4qwee.chgk.trainer.view.TimerPanel;
+import org.i4qwee.chgk.trainer.view.TimerButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +23,10 @@ public class TimerPanelTest extends JFrame
         BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
         getContentPane().setLayout(boxLayout);
 
-        final TimerPanel timerPanel = new TimerPanel();
-        getContentPane().add(timerPanel);
+        final TimerButton timerButton = new TimerButton();
+        getContentPane().add(timerButton);
 
-        final org.i4qwee.chgk.trainer.controller.Timer timer = new Timer(timerPanel);
+        final org.i4qwee.chgk.trainer.controller.Timer timer = new Timer(timerButton);
 
         JPanel buttonsPanel = new JPanel();
         getContentPane().add(buttonsPanel);

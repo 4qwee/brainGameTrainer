@@ -35,6 +35,7 @@ public class ScoreManager
 
             currentPrice = 1;
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+            answerState = AnswerState.NOBODY_ANSWERED;
         }
         else
         {

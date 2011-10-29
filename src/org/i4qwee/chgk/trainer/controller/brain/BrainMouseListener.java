@@ -34,6 +34,17 @@ public class BrainMouseListener extends MouseAdapter
             case INIT:
                 break;
             case WAIT_START_TIMER:
+                if (event.getButton() == MouseEvent.BUTTON1)
+                {
+                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт слева!", "", JOptionPane.PLAIN_MESSAGE);
+                    scoreManager.answer(false, true);
+                }
+                else if (event.getButton() == MouseEvent.BUTTON3)
+                {
+                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт справа!", "", JOptionPane.PLAIN_MESSAGE);
+                    scoreManager.answer(false, false);
+                }
+
                 break;
             case RUNNING:
                 GameStateSingleton.getInstance().setGameState(GameState.PAUSED);

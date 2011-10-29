@@ -3,6 +3,7 @@ package org.i4qwee.chgk.trainer.view;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 /**
  * User: 4qwee
@@ -42,5 +43,11 @@ public class TimerButton extends JPanel
     public org.i4qwee.chgk.trainer.controller.time.Timer getTimer()
     {
         return timer;
+    }
+
+    public void addMouseListener(MouseListener mouseListener)
+    {
+        super.addMouseListener(mouseListener);
+        timeButton.addMouseListener(mouseListener);
     }
 }

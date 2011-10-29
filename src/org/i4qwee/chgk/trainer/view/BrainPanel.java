@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 
 import javax.swing.*;
@@ -25,5 +26,10 @@ public class BrainPanel extends JPanel
 
         add(questionPanel);
         add(timerButton);
+
+        BrainMouseListener brainMouseListener = new BrainMouseListener();
+        addMouseListener(brainMouseListener);
+        questionPanel.addMouseListener(brainMouseListener);
+        timerButton.addMouseListener(brainMouseListener);
     }
 }

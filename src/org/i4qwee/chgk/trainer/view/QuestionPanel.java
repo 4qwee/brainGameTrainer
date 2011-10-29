@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 /**
  * User: 4qwee
@@ -63,5 +64,12 @@ public class QuestionPanel extends JPanel
 
         if (hideAnswer)
             answerTextArea.setVisible(false);
+    }
+
+    public void addMouseListener(MouseListener mouseListener)
+    {
+        super.addMouseListener(mouseListener);
+        questionTextArea.addMouseListener(mouseListener);
+        answerTextArea.addMouseListener(mouseListener);
     }
 }

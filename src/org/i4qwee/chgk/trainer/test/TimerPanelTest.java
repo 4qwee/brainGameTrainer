@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.test;
 
+import org.i4qwee.chgk.trainer.controller.*;
+import org.i4qwee.chgk.trainer.controller.Timer;
 import org.i4qwee.chgk.trainer.view.TimerPanel;
 
 import javax.swing.*;
@@ -25,44 +27,60 @@ public class TimerPanelTest extends JFrame
         final TimerPanel timerPanel = new TimerPanel();
         getContentPane().add(timerPanel);
 
+        final org.i4qwee.chgk.trainer.controller.Timer timer = new Timer(timerPanel);
+
         JPanel buttonsPanel = new JPanel();
         getContentPane().add(buttonsPanel);
 
         BoxLayout buttonsBoxLayout = new BoxLayout(buttonsPanel, BoxLayout.X_AXIS);
         buttonsPanel.setLayout(buttonsBoxLayout);
 
+        Font font = new Font("Courier", Font.PLAIN, 15);
+
         JButton startButton = new JButton("Start");
+        startButton.setFont(font);
         startButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                timerPanel.timerStart();
+                timer.timerStart();
             }
         });
         buttonsPanel.add(startButton);
 
+        createHStrut(buttonsPanel);
+
         JButton stopButton = new JButton("Stop");
+        stopButton.setFont(font);
         stopButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                timerPanel.timerStop();
+                timer.timerStop();
             }
         });
         buttonsPanel.add(stopButton);
 
+        createHStrut(buttonsPanel);
+
         JButton restartButton = new JButton("Restart");
+        restartButton.setFont(font);
         restartButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                timerPanel.timerRestart();
+                timer.timerRestart();
             }
         });
         buttonsPanel.add(restartButton);
 
         setSize(300, 300);
         setVisible(true);
+    }
+
+    private void createHStrut(JPanel buttonsPanel)
+    {
+        buttonsPanel.add(Box.createHorizontalStrut(10));
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, IllegalAccessException, InstantiationException

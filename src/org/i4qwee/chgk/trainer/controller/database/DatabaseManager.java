@@ -5,12 +5,13 @@ import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.parse.CheckQuestionsForImagesTask;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
+import org.i4qwee.chgk.trainer.model.Type;
+import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: 4qwee
@@ -21,6 +22,7 @@ public class DatabaseManager
 {
     private static PreparedStatement insertQuestionStatement;
     private static PreparedStatement insertTournamentStatement;
+    private static PreparedStatement getRandomQuestionsStatement;
     private static Logger logger = Logger.getLogger(DatabaseManager.class);
 
     static
@@ -29,6 +31,7 @@ public class DatabaseManager
         {
             insertQuestionStatement = DatabaseConnector.getConnection().prepareStatement(DatabaseScripts.INSERT_QUESTION);
             insertTournamentStatement = DatabaseConnector.getConnection().prepareStatement(DatabaseScripts.INSERT_TOURNAMENT);
+            getRandomQuestionsStatement = DatabaseConnector.getConnection().prepareStatement(DatabaseScripts.GET_RANDOM_QUESTIONS);
         }
         catch (SQLException e)
         {
@@ -97,5 +100,48 @@ public class DatabaseManager
 
         for (Question question : questions)
             insertQuestion(question, parentId);
+    }
+
+    public static List<Question> getRandomQuestions(int count, Type type)
+    {
+        List<Question> questionList = new ArrayList<Question>(count);
+
+        try
+        {
+            getRandomQuestionsStatement.setShort(1, type.getShortType());
+            getRandomQuestionsStatement.setInt(2, count);
+
+            ResultSet questionsResultSet = getRandomQuestionsStatement.executeQuery();
+
+            while (questionsResultSet.next())
+            {
+                Question newQuestion = new Question();
+
+                newQuestion.setId(questionsResultSet.getInt(1));
+                newQuestion.setParentId(questionsResultSet.getInt(2));
+                newQuestion.setNumber(questionsResultSet.getShort(3));
+                newQuestion.setType(Type.parseType(questionsResultSet.getShort(4)));
+                newQuestion.setQuestion(questionsResultSet.getString(5));
+                newQuestion.setAnswer(questionsResultSet.getString(6));
+                newQuestion.setPassCriteria(questionsResultSet.getString(7));
+                newQuestion.setAuthors(questionsResultSet.getString(8));
+                newQuestion.setSources(questionsResultSet.getString(9));
+                newQuestion.setComments(questionsResultSet.getString(10));
+
+                questionList.add(newQuestion);
+            }
+        }
+        catch (SQLException e)
+        {
+            logger.error("Cannot get questions!");
+            logger.error(null, e);
+        }
+        catch (UnknownTypeError unknownTypeError)
+        {
+            logger.error("Unknown question type!");
+            logger.error(null, unknownTypeError);
+        }
+
+        return questionList;
     }
 }

@@ -51,4 +51,5 @@ public class DatabaseScripts
 
     public static final String INSERT_QUESTION = "insert into " + QUESTIONS_TABLE + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String INSERT_TOURNAMENT = "insert into " + TOURNAMENTS_TABLE + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String GET_RANDOM_QUESTIONS = "select * from questions where type=? order by random() limit ?";
 }

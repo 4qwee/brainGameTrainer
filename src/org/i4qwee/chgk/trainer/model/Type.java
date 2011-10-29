@@ -50,4 +50,27 @@ public enum Type
                 throw new UnknownTypeError();
         }
     }
+
+    public static Type parseType(short source) throws UnknownTypeError
+    {
+        switch (source)
+        {
+            case 1:
+                return CHGK;
+            case 2:
+                return BRAIN;
+            case 4:
+                return SVOYAK;
+            case 8:
+                return VERSE;
+            case 16:
+                return INTERNET;
+            case 32:
+                return ERUDITE;
+            case 64:
+                return UNKNOWN;
+            default:
+                throw new UnknownTypeError();
+        }
+    }
 }

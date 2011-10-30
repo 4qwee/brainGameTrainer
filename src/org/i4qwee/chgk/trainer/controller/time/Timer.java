@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.model.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.TimerButtonPanel;
 
 import javax.swing.*;

@@ -1,8 +1,10 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.model.AnswerSide;
+import org.i4qwee.chgk.trainer.model.AnswerState;
 import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.model.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.BrainConfirmationDialog;
 
 import javax.swing.*;
@@ -19,12 +21,10 @@ public class BrainMouseListener extends MouseAdapter
     private static Logger logger = Logger.getLogger(BrainMouseListener.class);
 
     private JFrame parentFrame;
-    private ScoreManager scoreManager;
 
-    public BrainMouseListener(JFrame parentFrame, ScoreManager scoreManager)
+    public BrainMouseListener(JFrame parentFrame)
     {
         this.parentFrame = parentFrame;
-        this.scoreManager = scoreManager;
     }
 
     public void mousePressed(MouseEvent event)
@@ -34,25 +34,28 @@ public class BrainMouseListener extends MouseAdapter
             case INIT:
                 break;
             case WAIT_START_TIMER:
+
                 if (event.getButton() == MouseEvent.BUTTON1)
                 {
+                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.LEFT);
                     JOptionPane.showMessageDialog(parentFrame, "Фальстарт слева!", "", JOptionPane.PLAIN_MESSAGE);
-                    scoreManager.answer(false, true);
                 }
                 else if (event.getButton() == MouseEvent.BUTTON3)
                 {
+                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.RIGHT);
                     JOptionPane.showMessageDialog(parentFrame, "Фальстарт справа!", "", JOptionPane.PLAIN_MESSAGE);
-                    scoreManager.answer(false, false);
                 }
 
+                ScoreManagerSingleton.getInstance().setFalseStart();
                 break;
             case RUNNING:
-                GameStateSingleton.getInstance().setGameState(GameState.PAUSED);
 
                 if (event.getButton() == MouseEvent.BUTTON1)
-                    new BrainConfirmationDialog(parentFrame, true, scoreManager);
+                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.LEFT);
                 else if (event.getButton() == MouseEvent.BUTTON3)
-                    new BrainConfirmationDialog(parentFrame, false, scoreManager);
+                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.RIGHT);
+
+                GameStateSingleton.getInstance().setGameState(GameState.PAUSED);
 
                 break;
             case PAUSED:

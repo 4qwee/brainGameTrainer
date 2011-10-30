@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
-import org.i4qwee.chgk.trainer.controller.brain.ScoreManager;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 
 import javax.swing.*;
@@ -14,16 +13,12 @@ import java.awt.event.MouseListener;
  */
 public class BrainPanel extends JPanel
 {
-    private JFrame parentFrame;
     private QuestionPanel questionPanel;
     private TimerButtonPanel timerButtonPanel;
     private ScorePanel scorePanel;
-    private ScoreManager scoreManager;
 
     public BrainPanel(JFrame parentFrame)
     {
-        this.parentFrame = parentFrame;
-
         BoxLayout mainBoxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(mainBoxLayout);
 
@@ -34,15 +29,15 @@ public class BrainPanel extends JPanel
 
         scorePanel = new ScorePanel(timerButtonPanel);
 
-        scoreManager = new ScoreManager(scorePanel);
-
         JScrollPane scrollPane = new JScrollPane(questionPanel);
         scrollPane.setFocusable(false);
 
         add(scrollPane);
         add(scorePanel);
 
-        addMouseListener(new BrainMouseListener(parentFrame, scoreManager));
+        addMouseListener(new BrainMouseListener(parentFrame));
+
+        new BrainConfirmationDialog(parentFrame);
     }
 
     public void addMouseListener(MouseListener mouseListener)

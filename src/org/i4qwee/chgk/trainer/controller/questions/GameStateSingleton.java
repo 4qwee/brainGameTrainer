@@ -1,6 +1,6 @@
-package org.i4qwee.chgk.trainer.model;
+package org.i4qwee.chgk.trainer.controller.questions;
 
-import com.sun.org.apache.bcel.internal.generic.RET;
+import org.i4qwee.chgk.trainer.model.GameState;
 
 import java.util.Observable;
 

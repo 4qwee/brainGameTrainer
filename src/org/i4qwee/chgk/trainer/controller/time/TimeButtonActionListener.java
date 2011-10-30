@@ -1,9 +1,9 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
 import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.model.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.QuestionPanel;
 
 import java.awt.event.ActionEvent;

@@ -1,19 +1,24 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.brain.ScoreManager;
+import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.lang.management.ThreadInfo;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 29.10.11
  * Time: 16:51
  */
-public class BrainConfirmationDialog extends JDialog
+public class BrainConfirmationDialog extends JDialog implements Observer
 {
-    private boolean isLeft;
-    private ScoreManager scoreManager;
+    Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
+    private JFrame owner;
 
     private KeyListener keyListener = new KeyAdapter()
     {
@@ -27,13 +32,14 @@ public class BrainConfirmationDialog extends JDialog
         }
     };
 
-    public BrainConfirmationDialog(JFrame owner, boolean isLeft, ScoreManager scoreManager)
+    public BrainConfirmationDialog(JFrame owner)
     {
-        super(owner, ModalityType.APPLICATION_MODAL);
+        super(owner, ModalityType.MODELESS);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        this.isLeft = isLeft;
-        this.scoreManager = scoreManager;
+        this.owner = owner;
+
+        GameStateSingleton.getInstance().addObserver(this);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
@@ -72,19 +78,35 @@ public class BrainConfirmationDialog extends JDialog
 
         setSize(220, 100);
         setResizable(false);
-        setLocation(owner.getX() + (owner.getWidth() - getWidth()) / 2, owner.getY() + (owner.getHeight() - getHeight()) / 2);
-        setVisible(true);
     }
 
     private void correct()
     {
-        scoreManager.answer(true, isLeft);
-        dispose();
+        ScoreManagerSingleton.getInstance().answer(true);
+        setVisible(false);
     }
 
     private void incorrect()
     {
-        scoreManager.answer(false, isLeft);
-        dispose();
+        ScoreManagerSingleton.getInstance().answer(false);
+        setVisible(false);
+    }
+
+    public void update(Observable o, Object arg)
+    {
+        switch (GameStateSingleton.getInstance().getGameState())
+        {
+            case INIT:
+            case WAIT_START_TIMER:
+            case RUNNING:
+            case FINISHED:
+                break;
+            case PAUSED:
+                setLocation(owner.getX() + (owner.getWidth() - getWidth()) / 2, owner.getY() + (owner.getHeight() - getHeight()) / 2);
+                setVisible(true);
+                break;
+            default:
+                logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());
+        }
     }
 }

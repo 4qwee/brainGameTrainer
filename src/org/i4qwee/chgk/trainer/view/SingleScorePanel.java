@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
 import javax.swing.*;
+import java.util.Observer;
 
 /**
  * User: 4qwee
@@ -9,7 +10,6 @@ import javax.swing.*;
  */
 public class SingleScorePanel extends JPanel
 {
-    private int score = 0;
     private JLabel scoreLabel;
 
     public SingleScorePanel()
@@ -21,19 +21,13 @@ public class SingleScorePanel extends JPanel
         add(scoreLabel);
     }
 
-    public void addScore(int score)
+    public void setScore(int score)
     {
-        this.score += score;
         scoreLabel.setText(String.valueOf(score));
     }
 
-    public void resetScore()
+    public JLabel getScoreLabel()
     {
-        score = 0;
-    }
-
-    public int getScore()
-    {
-        return score;
+        return scoreLabel;
     }
 }

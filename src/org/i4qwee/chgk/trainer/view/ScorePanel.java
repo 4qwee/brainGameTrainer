@@ -1,15 +1,22 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.model.AnswerSide;
+import org.i4qwee.chgk.trainer.model.GameState;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 29.10.11
  * Time: 13:09
  */
-public class ScorePanel extends JPanel
+public class ScorePanel extends JPanel implements Observer
 {
     public static final int MAX_HEIGHT = 100;
 
@@ -18,6 +25,10 @@ public class ScorePanel extends JPanel
 
     public ScorePanel(TimerButtonPanel timerButtonPanel)
     {
+        super();
+        ScoreManagerSingleton.getInstance().addObserver(this);
+        GameStateSingleton.getInstance().addObserver(this);
+
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.X_AXIS);
         setLayout(boxLayout);
 
@@ -38,13 +49,57 @@ public class ScorePanel extends JPanel
         rightScorePanel.addMouseListener(mouseListener);
     }
 
-    public void addScore2Left(int score)
+    public void update(Observable o, Object arg)
     {
-        leftScorePanel.addScore(score);
+        if (arg != null)
+        {
+            if (arg instanceof AnswerSide)
+            {
+                switch ((AnswerSide) arg)
+                {
+                    case LEFT:
+                        selectSingleScorePanel(true);
+                        break;
+                    case RIGHT:
+                        selectSingleScorePanel(false);
+                        break;
+                }
+            }
+            else if (arg instanceof GameState)
+            {
+                if (arg == GameState.FINISHED || arg == GameState.RUNNING)
+                    removeSelection();
+            }
+        }
+        else
+        {
+            switch (ScoreManagerSingleton.getInstance().getAnswerSide())
+            {
+                case LEFT:
+                    leftScorePanel.setScore(ScoreManagerSingleton.getInstance().getLeftScore());
+                    break;
+                case RIGHT:
+                    rightScorePanel.setScore(ScoreManagerSingleton.getInstance().getRightScore());
+                    break;
+            }
+        }
     }
 
-    public void addScore2Right(int score)
+    private void selectSingleScorePanel(boolean isLeft)
     {
-        rightScorePanel.addScore(score);
+        SingleScorePanel singleScorePanel;
+
+        if (isLeft)
+            singleScorePanel = leftScorePanel;
+        else
+            singleScorePanel = rightScorePanel;
+
+        singleScorePanel.setBackground(Color.magenta);
+    }
+
+    private void removeSelection()
+    {
+        leftScorePanel.setBackground(Color.white);
+        rightScorePanel.setBackground(Color.white);
     }
 }

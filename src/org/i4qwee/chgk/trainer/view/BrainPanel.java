@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
+import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ public class BrainPanel extends JPanel
         addMouseListener(new BrainMouseListener(parentFrame));
 
         new BrainConfirmationDialog(parentFrame);
+        SoundManagerSingleton.getInstance();
     }
 
     public void addMouseListener(MouseListener mouseListener)

@@ -8,4 +8,5 @@ package org.i4qwee.chgk.trainer.model;
 public class ApplicationConstants
 {
     public static final String IDEA_FILEPATH_HACK = "\\out\\production\\chgkTrainer\\";
+    public static final String APPLICATION_PATH = System.getProperty("user.dir");
 }

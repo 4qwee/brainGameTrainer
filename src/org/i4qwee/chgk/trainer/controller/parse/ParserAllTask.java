@@ -31,6 +31,7 @@ public class ParserAllTask implements Runnable
 
         fillRootUrls();
 
+        //noinspection unchecked
         bannedUrls = (ArrayList<String>) rootUrls.clone();
         bannedUrls.add("SPB-DT");
 
@@ -67,7 +68,7 @@ public class ParserAllTask implements Runnable
 
     private void processTournament(String url, int parentId)
     {
-        DOMParser parser = null;
+        DOMParser parser;
 
         try
         {
@@ -82,7 +83,7 @@ public class ParserAllTask implements Runnable
         int tournamentId =  DatabaseManager.insertTournament(parser.getMainTournament(), parentId);
         DatabaseManager.insertQuestions(parser.getQuestions(), tournamentId);
 
-        List<Tournament> tours = null;
+        List<Tournament> tours;
 
         try
         {

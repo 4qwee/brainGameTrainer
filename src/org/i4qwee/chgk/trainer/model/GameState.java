@@ -11,5 +11,5 @@ public enum GameState
     WAIT_START_TIMER,
     RUNNING,
     PAUSED,
-    FINISHED;
+    FINISHED
 }

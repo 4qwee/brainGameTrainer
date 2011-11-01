@@ -24,6 +24,7 @@ public class SoundManagerSingleton implements Observer
     private Clip warnClip;
     private Clip overClip;
 
+    @SuppressWarnings({"FieldCanBeLocal"})
     private boolean needStartSound = true;
 
     public static SoundManagerSingleton getInstance()

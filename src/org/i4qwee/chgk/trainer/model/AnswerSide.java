@@ -8,5 +8,5 @@ package org.i4qwee.chgk.trainer.model;
 public enum AnswerSide
 {
     LEFT,
-    RIGHT;
+    RIGHT
 }

@@ -1,6 +1,9 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.time.*;
+
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseListener;
@@ -15,7 +18,6 @@ public class TimerButtonPanel extends JPanel
     public static final String INIT_TEXT = "0:00:000";
 
     private JButton timeButton;
-    private org.i4qwee.chgk.trainer.controller.time.Timer timer;
 
     public TimerButtonPanel()
     {
@@ -27,7 +29,7 @@ public class TimerButtonPanel extends JPanel
 
         setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
-        timer = new org.i4qwee.chgk.trainer.controller.time.Timer(this);
+        new org.i4qwee.chgk.trainer.controller.time.Timer(this);
     }
 
     public JButton getTimeButton()

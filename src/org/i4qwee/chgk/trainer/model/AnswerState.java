@@ -8,5 +8,5 @@ package org.i4qwee.chgk.trainer.model;
 public enum AnswerState
 {
     NOBODY_ANSWERED,
-    ONE_ANSWERED;
+    ONE_ANSWERED
 }

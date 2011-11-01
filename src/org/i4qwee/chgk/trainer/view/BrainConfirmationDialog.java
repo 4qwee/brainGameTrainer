@@ -20,6 +20,7 @@ public class BrainConfirmationDialog extends JDialog implements Observer
     Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
     private JFrame owner;
 
+    @SuppressWarnings({"FieldCanBeLocal"})
     private KeyListener keyListener = new KeyAdapter()
     {
         @Override

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  * Date: 25.10.11
  * Time: 21:40
  */
+@SuppressWarnings({"ALL"})
 public class TimerTest extends JFrame
 {
     public TimerTest() throws HeadlessException

@@ -5,6 +5,7 @@ package org.i4qwee.chgk.trainer.test;
  * Date: 15.10.11
  * Time: 16:19
  */
+@SuppressWarnings({"ALL"})
 public class ExceptionTest
 {
     public static void main(String[] args)

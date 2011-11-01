@@ -18,6 +18,7 @@ public class QuestionPanel extends JPanel
 {
     private JTextArea questionTextArea;
     private JTextArea answerTextArea;
+    private QuestionCostPanel questionCostPanel;
 
     public QuestionPanel()
     {
@@ -25,10 +26,12 @@ public class QuestionPanel extends JPanel
 
         questionTextArea = new SingleQuestionTextArea();
         answerTextArea = new SingleQuestionTextArea();
+        questionCostPanel = new QuestionCostPanel();
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(boxLayout);
 
+        add(questionCostPanel);
         add(questionTextArea);
         add(Box.createVerticalStrut(10));
         add(answerTextArea);

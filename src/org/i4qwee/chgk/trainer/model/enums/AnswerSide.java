@@ -1,4 +1,4 @@
-package org.i4qwee.chgk.trainer.model;
+package org.i4qwee.chgk.trainer.model.enums;
 
 /**
  * User: 4qwee

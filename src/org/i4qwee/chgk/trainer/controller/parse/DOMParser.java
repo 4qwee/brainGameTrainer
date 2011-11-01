@@ -5,13 +5,12 @@ import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.web.Downloader;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
-import org.i4qwee.chgk.trainer.model.Type;
+import org.i4qwee.chgk.trainer.model.enums.Type;
 import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;

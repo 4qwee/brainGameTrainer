@@ -2,10 +2,8 @@ package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.model.AnswerSide;
-import org.i4qwee.chgk.trainer.model.AnswerState;
-import org.i4qwee.chgk.trainer.model.GameState;
-import org.i4qwee.chgk.trainer.view.BrainConfirmationDialog;
+import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
+import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;

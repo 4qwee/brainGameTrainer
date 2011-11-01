@@ -1,9 +1,10 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.model.AnswerSide;
-import org.i4qwee.chgk.trainer.model.AnswerState;
-import org.i4qwee.chgk.trainer.model.GameState;
+import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
+import org.i4qwee.chgk.trainer.model.enums.AnswerState;
+import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.model.events.PriceChangedEvent;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -13,7 +14,7 @@ import java.util.Observer;
  * Date: 30.10.11
  * Time: 20:36
  */
-public class ScoreManagerSingleton extends Observable
+public class ScoreManagerSingleton extends Observable implements Observer
 {
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
@@ -30,7 +31,7 @@ public class ScoreManagerSingleton extends Observable
 
     private ScoreManagerSingleton()
     {
-
+        GameStateSingleton.getInstance().addObserver(this);
     }
 
     public void setFalseStart()
@@ -72,6 +73,11 @@ public class ScoreManagerSingleton extends Observable
         return rightScore;
     }
 
+    public int getPrice()
+    {
+        return price;
+    }
+
     public void answer(boolean isCorrect)
     {
         if (isCorrect)
@@ -89,9 +95,7 @@ public class ScoreManagerSingleton extends Observable
             price = 1;
             answerState = AnswerState.NOBODY_ANSWERED;
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
-
             setChanged();
-            notifyObservers();
         }
         else
         {
@@ -105,6 +109,20 @@ public class ScoreManagerSingleton extends Observable
                     answerState = AnswerState.NOBODY_ANSWERED;
                     GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
                     price++;
+                    setChanged();
+                    break;
+            }
+        }
+    }
+
+    public void update(Observable o, Object arg)
+    {
+        if (arg != null && arg instanceof GameState)
+        {
+            switch ((GameState) arg)
+            {
+                case WAIT_START_TIMER:
+                    notifyObservers(new PriceChangedEvent(price));
                     break;
             }
         }

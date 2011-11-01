@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.test;
 
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
-import org.i4qwee.chgk.trainer.model.Type;
+import org.i4qwee.chgk.trainer.model.enums.Type;
 
 import javax.swing.*;
 import java.awt.*;

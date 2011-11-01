@@ -2,14 +2,13 @@ package org.i4qwee.chgk.trainer.test;
 
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
 import org.i4qwee.chgk.trainer.model.Question;
-import org.i4qwee.chgk.trainer.model.Type;
+import org.i4qwee.chgk.trainer.model.enums.Type;
 import org.i4qwee.chgk.trainer.view.QuestionPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
 
 /**

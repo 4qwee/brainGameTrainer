@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.model;
 
+import org.i4qwee.chgk.trainer.model.enums.Type;
+
 /**
  * User: 4qwee
  * Date: 03.09.11

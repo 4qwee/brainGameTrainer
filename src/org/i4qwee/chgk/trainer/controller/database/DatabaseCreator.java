@@ -1,10 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
 import org.apache.log4j.Logger;
-import org.i4qwee.chgk.trainer.model.Tournament;
-import org.i4qwee.chgk.trainer.model.Type;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 

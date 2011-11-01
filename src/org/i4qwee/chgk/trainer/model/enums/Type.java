@@ -1,4 +1,6 @@
-package org.i4qwee.chgk.trainer.model;
+package org.i4qwee.chgk.trainer.model.enums;
+
+import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 
 /**
  * User: 4qwee

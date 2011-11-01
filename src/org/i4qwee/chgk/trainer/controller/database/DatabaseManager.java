@@ -1,11 +1,10 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
-import com.sun.org.apache.bcel.internal.generic.RET;
 import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.parse.CheckQuestionsForImagesTask;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.Tournament;
-import org.i4qwee.chgk.trainer.model.Type;
+import org.i4qwee.chgk.trainer.model.enums.Type;
 import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 
 import java.sql.PreparedStatement;

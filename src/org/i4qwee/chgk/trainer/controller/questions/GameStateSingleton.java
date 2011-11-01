@@ -1,6 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.questions;
 
-import org.i4qwee.chgk.trainer.model.GameState;
+import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import java.util.Observable;
 

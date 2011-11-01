@@ -2,12 +2,11 @@ package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.ApplicationConstants;
-import org.i4qwee.chgk.trainer.model.GameState;
+import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -37,11 +37,9 @@ public class SoundManagerSingleton implements Observer
 
         try
         {
-            File startFile = new File(ApplicationConstants.APPLICATION_PATH + ApplicationConstants.IDEA_FILEPATH_HACK + "\\sounds\\start.wav");
-            AudioInputStream startAudioInputStream = AudioSystem.getAudioInputStream(startFile);
-            DataLine.Info startInfo = new DataLine.Info(Clip.class, startAudioInputStream.getFormat());
-            startClip = (Clip) AudioSystem.getLine(startInfo);
-            startClip.open(startAudioInputStream);
+            startClip = initSound("\\sounds\\start.wav");
+            warnClip = initSound("\\sounds\\warn.wav");
+            overClip = initSound("\\sounds\\over.wav");
         }
         catch (UnsupportedAudioFileException e)
         {
@@ -57,6 +55,27 @@ public class SoundManagerSingleton implements Observer
         }
     }
 
+    private Clip initSound(String source) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {
+        File startFile = new File(ApplicationConstants.APPLICATION_PATH + ApplicationConstants.IDEA_FILEPATH_HACK + source);
+        AudioInputStream startAudioInputStream = AudioSystem.getAudioInputStream(startFile);
+        DataLine.Info startInfo = new DataLine.Info(Clip.class, startAudioInputStream.getFormat());
+        Clip clip = (Clip) AudioSystem.getLine(startInfo);
+        clip.open(startAudioInputStream);
+
+        return clip;
+    }
+
+    public void playWarnSound()
+    {
+        warnClip.start();
+    }
+
+    public void playOverSound()
+    {
+        overClip.start();
+    }
+
     public void update(Observable o, Object arg)
     {
         if (arg != null && arg instanceof GameState)
@@ -66,6 +85,8 @@ public class SoundManagerSingleton implements Observer
                 case WAIT_START_TIMER:
                     needStartSound = true;
                     startClip.setMicrosecondPosition(0);
+                    warnClip.setMicrosecondPosition(0);
+                    overClip.setMicrosecondPosition(0);
                     break;
                 case RUNNING:
                     startClip.start();

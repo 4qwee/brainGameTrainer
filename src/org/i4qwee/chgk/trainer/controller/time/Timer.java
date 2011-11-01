@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
+import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.GameState;
 import org.i4qwee.chgk.trainer.view.TimerButtonPanel;
@@ -18,10 +19,14 @@ import java.util.Observer;
 public class Timer implements Observer
 {
     private static final int TIMER_DELAY = 13;
+    private static final int WARN_TIME = 15000;
+    private static final int OVER_TIME = 20000;
 
     private javax.swing.Timer timer;
     private int time;
     private JButton timeButton;
+
+    private boolean warnPlayed = false;
 
     public Timer(TimerButtonPanel timerButtonPanel)
     {
@@ -34,6 +39,21 @@ public class Timer implements Observer
             {
                 time += TIMER_DELAY;
                 setTimeLabelText();
+
+                if (!warnPlayed && time > WARN_TIME)
+                {
+                    SoundManagerSingleton.getInstance().playWarnSound();
+                    warnPlayed = true;
+                }
+
+                if (time > OVER_TIME)
+                {
+                    SoundManagerSingleton.getInstance().playOverSound();
+                    GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+
+                    time = OVER_TIME;
+                    setTimeLabelText();
+                }
             }
         });
     }
@@ -82,10 +102,9 @@ public class Timer implements Observer
 
         switch (gameState)
         {
-            case INIT:
-                break;
             case WAIT_START_TIMER:
                 timerRestart();
+                warnPlayed = false;
                 break;
             case RUNNING:
                 timerStart();

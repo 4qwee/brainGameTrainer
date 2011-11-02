@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.model.events.NamesChangedEvent;
 import org.i4qwee.chgk.trainer.model.events.PriceChangedEvent;
 
 import java.util.Observable;
@@ -20,7 +21,12 @@ public class ScoreManagerSingleton extends Observable implements Observer
 
     private int leftScore;
     private int rightScore;
+
+    private String leftName;
+    private String rightName;
+
     private int price = 1;
+
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
     private AnswerSide answerSide;
 
@@ -96,6 +102,7 @@ public class ScoreManagerSingleton extends Observable implements Observer
             answerState = AnswerState.NOBODY_ANSWERED;
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
             setChanged();
+            notifyObservers();
         }
         else
         {
@@ -126,5 +133,31 @@ public class ScoreManagerSingleton extends Observable implements Observer
                     break;
             }
         }
+    }
+
+    public void setNames(String leftName, String rightName)
+    {
+        this.leftName = leftName;
+        this.rightName = rightName;
+
+        setChanged();
+        notifyObservers(new NamesChangedEvent(leftName, rightName));
+    }
+
+    public String getLeftName()
+    {
+        return leftName;
+    }
+
+    public String getRightName()
+    {
+        return rightName;
+    }
+
+    public void newGame()
+    {
+        leftScore = rightScore = 0;
+        setChanged();
+        notifyObservers();
     }
 }

@@ -21,6 +21,7 @@ public class BrainPanelTest extends JFrame
         BrainPanel brainPanel = new BrainPanel(this);
         add(brainPanel);
 
+        pack();
         setSize(800, 600);
         setVisible(true);
     }

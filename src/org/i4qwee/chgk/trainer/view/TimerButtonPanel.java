@@ -1,10 +1,6 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.time.*;
-
 import javax.swing.*;
-import javax.swing.Timer;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseListener;
 

@@ -24,15 +24,10 @@ public class QuestionCostPanel extends JPanel implements Observer
 
         priceLabel = new JLabel(INIT_TEXT + ScoreManagerSingleton.getInstance().getPrice());
         priceLabel.setFont(DefaultUIProvider.getQuestionPriceFont());
-        priceLabel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
+//        priceLabel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.X_AXIS);
-        setLayout(boxLayout);
-
-        setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
-
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         add(priceLabel);
-        add(Box.createHorizontalGlue());
     }
 
     public void update(Observable o, Object arg)

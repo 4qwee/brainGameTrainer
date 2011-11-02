@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.model.events.NamesChangedEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,6 +71,10 @@ public class ScorePanel extends JPanel implements Observer
                 if (arg == GameState.FINISHED || arg == GameState.RUNNING)
                     removeSelection();
             }
+            else if (arg instanceof NamesChangedEvent)
+            {
+                setNames(((NamesChangedEvent) arg).getLeftName(), ((NamesChangedEvent) arg).getRightName());
+            }
         }
         else
         {
@@ -101,5 +106,21 @@ public class ScorePanel extends JPanel implements Observer
     {
         leftScorePanel.setBackground(Color.white);
         rightScorePanel.setBackground(Color.white);
+    }
+
+    public void setNames(String leftName, String rightName)
+    {
+        leftScorePanel.setName(leftName);
+        rightScorePanel.setName(rightName);
+    }
+
+    public String getLeftName()
+    {
+        return leftScorePanel.getName();
+    }
+
+    public String getRightName()
+    {
+        return rightScorePanel.getName();
     }
 }

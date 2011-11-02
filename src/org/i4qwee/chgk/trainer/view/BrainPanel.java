@@ -17,11 +17,15 @@ public class BrainPanel extends JPanel
     private QuestionPanel questionPanel;
     private TimerButtonPanel timerButtonPanel;
     private ScorePanel scorePanel;
+    private TopPanel topPanel;
 
     public BrainPanel(JFrame parentFrame)
     {
         BoxLayout mainBoxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(mainBoxLayout);
+
+        topPanel = new TopPanel(parentFrame);
+        add(topPanel);
 
         questionPanel = new QuestionPanel();
 
@@ -31,6 +35,7 @@ public class BrainPanel extends JPanel
         scorePanel = new ScorePanel(timerButtonPanel);
 
         JScrollPane scrollPane = new JScrollPane(questionPanel);
+        scrollPane.setBorder(null);
         scrollPane.setFocusable(false);
 
         add(scrollPane);

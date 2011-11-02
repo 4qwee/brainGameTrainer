@@ -1,12 +1,12 @@
-package org.i4qwee.chgk.trainer.view;
+package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.lang.management.ThreadInfo;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,7 +15,7 @@ import java.util.Observer;
  * Date: 29.10.11
  * Time: 16:51
  */
-public class BrainConfirmationDialog extends JDialog implements Observer
+public class BrainConfirmationDialog extends AbstractDialog implements Observer
 {
     Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
     private JFrame owner;
@@ -35,7 +35,7 @@ public class BrainConfirmationDialog extends JDialog implements Observer
 
     public BrainConfirmationDialog(JFrame owner)
     {
-        super(owner, ModalityType.MODELESS);
+        super(owner);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         this.owner = owner;
@@ -103,8 +103,7 @@ public class BrainConfirmationDialog extends JDialog implements Observer
             case FINISHED:
                 break;
             case PAUSED:
-                setLocation(owner.getX() + (owner.getWidth() - getWidth()) / 2, owner.getY() + (owner.getHeight() - getHeight()) / 2);
-                setVisible(true);
+                showDialog();
                 break;
             default:
                 logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());

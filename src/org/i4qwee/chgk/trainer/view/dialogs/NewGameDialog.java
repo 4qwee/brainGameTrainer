@@ -1,6 +1,7 @@
-package org.i4qwee.chgk.trainer.view;
+package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,13 +13,13 @@ import java.awt.event.ActionListener;
  * Date: 02.11.11
  * Time: 22:23
  */
-public class NewGameDialog extends JDialog
+public class NewGameDialog extends AbstractDialog
 {
     private JFrame owner;
 
     public NewGameDialog(JFrame owner)
     {
-        super(owner, ModalityType.MODELESS);
+        super(owner);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         this.owner = owner;
@@ -79,11 +80,5 @@ public class NewGameDialog extends JDialog
 
         setSize(300, 130);
         setResizable(false);
-    }
-
-    public void showDialog()
-    {
-        setLocation(owner.getX() + (owner.getWidth() - getWidth()) / 2, owner.getY() + (owner.getHeight() - getHeight()) / 2);
-        setVisible(true);
     }
 }

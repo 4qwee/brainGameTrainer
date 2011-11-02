@@ -3,6 +3,7 @@ package org.i4qwee.chgk.trainer.view;
 import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
+import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
 
 import javax.swing.*;
 import java.awt.event.MouseListener;

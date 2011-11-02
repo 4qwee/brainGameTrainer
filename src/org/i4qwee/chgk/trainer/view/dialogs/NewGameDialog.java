@@ -73,7 +73,7 @@ public class NewGameDialog extends AbstractDialog
             }
         });
 
-        buttonsPanel.add(Box.createHorizontalStrut(10));
+        buttonsPanel.add(Box.createHorizontalStrut(5));
         buttonsPanel.add(cancelButton);
 
         setContentPane(mainPanel);

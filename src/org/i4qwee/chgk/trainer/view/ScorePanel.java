@@ -78,15 +78,8 @@ public class ScorePanel extends JPanel implements Observer
         }
         else
         {
-            switch (ScoreManagerSingleton.getInstance().getAnswerSide())
-            {
-                case LEFT:
-                    leftScorePanel.setScore(ScoreManagerSingleton.getInstance().getLeftScore());
-                    break;
-                case RIGHT:
-                    rightScorePanel.setScore(ScoreManagerSingleton.getInstance().getRightScore());
-                    break;
-            }
+            leftScorePanel.setScore(ScoreManagerSingleton.getInstance().getLeftScore());
+            rightScorePanel.setScore(ScoreManagerSingleton.getInstance().getRightScore());
         }
     }
 

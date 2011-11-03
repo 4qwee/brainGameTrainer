@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
  * Date: 29.10.11
  * Time: 10:24
  */
-public class QuestionPanel extends JPanel
+public class QuestionPanel extends AbstractPanel
 {
     private JTextArea questionTextArea;
     private JTextArea answerTextArea;
@@ -43,12 +43,5 @@ public class QuestionPanel extends JPanel
 
         if (hideAnswer)
             answerTextArea.setVisible(false);
-    }
-
-    public void addMouseListener(MouseListener mouseListener)
-    {
-        super.addMouseListener(mouseListener);
-        questionTextArea.addMouseListener(mouseListener);
-        answerTextArea.addMouseListener(mouseListener);
     }
 }

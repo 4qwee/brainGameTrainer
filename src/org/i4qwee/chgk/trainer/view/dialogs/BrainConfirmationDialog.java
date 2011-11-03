@@ -17,8 +17,7 @@ import java.util.Observer;
  */
 public class BrainConfirmationDialog extends AbstractDialog implements Observer
 {
-    Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
-    private JFrame owner;
+    private Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
 
     @SuppressWarnings({"FieldCanBeLocal"})
     private KeyListener keyListener = new KeyAdapter()
@@ -37,8 +36,6 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
     {
         super(owner);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-
-        this.owner = owner;
 
         GameStateSingleton.getInstance().addObserver(this);
 

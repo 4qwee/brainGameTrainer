@@ -13,27 +13,23 @@ import java.awt.event.MouseListener;
  * Date: 29.10.11
  * Time: 11:10
  */
-public class BrainPanel extends JPanel
+public class BrainPanel extends AbstractPanel
 {
-    private QuestionPanel questionPanel;
-    private TimerButtonPanel timerButtonPanel;
-    private ScorePanel scorePanel;
-    private TopPanel topPanel;
 
     public BrainPanel(JFrame parentFrame)
     {
         BoxLayout mainBoxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(mainBoxLayout);
 
-        topPanel = new TopPanel(parentFrame);
+        TopPanel topPanel = new TopPanel(parentFrame);
         add(topPanel);
 
-        questionPanel = new QuestionPanel();
+        QuestionPanel questionPanel = new QuestionPanel();
 
-        timerButtonPanel = new TimerButtonPanel();
+        TimerButtonPanel timerButtonPanel = new TimerButtonPanel();
         timerButtonPanel.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
 
-        scorePanel = new ScorePanel(timerButtonPanel);
+        ScorePanel scorePanel = new ScorePanel(timerButtonPanel);
 
         JScrollPane scrollPane = new JScrollPane(questionPanel);
         scrollPane.setBorder(null);
@@ -42,18 +38,11 @@ public class BrainPanel extends JPanel
         add(scrollPane);
         add(scorePanel);
 
-        addMouseListener(new BrainMouseListener(parentFrame));
+        BrainMouseListener brainMouseListener = new BrainMouseListener(parentFrame);
+        addMouseListener(brainMouseListener);
+        questionPanel.addMouseListener(brainMouseListener);
 
         new BrainConfirmationDialog(parentFrame);
         SoundManagerSingleton.getInstance();
-    }
-
-    public void addMouseListener(MouseListener mouseListener)
-    {
-        super.addMouseListener(mouseListener);
-
-        questionPanel.addMouseListener(mouseListener);
-        timerButtonPanel.addMouseListener(mouseListener);
-        scorePanel.addMouseListener(mouseListener);
     }
 }

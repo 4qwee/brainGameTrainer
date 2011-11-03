@@ -13,7 +13,7 @@ import java.util.Observer;
  * Date: 01.11.11
  * Time: 9:48
  */
-public class QuestionCostPanel extends JPanel implements Observer
+public class QuestionCostPanel extends AbstractPanel implements Observer
 {
     private static final String INIT_TEXT = "Цена вопроса: ";
     private JLabel priceLabel;

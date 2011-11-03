@@ -17,7 +17,7 @@ import java.util.Observer;
  * Date: 29.10.11
  * Time: 13:09
  */
-public class ScorePanel extends JPanel implements Observer
+public class ScorePanel extends AbstractPanel implements Observer
 {
     public static final int MAX_HEIGHT = 100;
 

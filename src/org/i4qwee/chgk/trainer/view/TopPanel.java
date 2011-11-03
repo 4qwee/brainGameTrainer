@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * Date: 02.11.11
  * Time: 21:44
  */
-public class TopPanel extends JPanel
+public class TopPanel extends AbstractPanel
 {
     public static final int MAX_HEIGHT = 30;
     private NewGameDialog newGameDialog;

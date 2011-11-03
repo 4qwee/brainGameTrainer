@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
  * Date: 25.10.11
  * Time: 21:59
  */
-public class TimerButtonPanel extends JPanel
+public class TimerButtonPanel extends AbstractPanel
 {
     public static final String INIT_TEXT = "0:00:000";
 

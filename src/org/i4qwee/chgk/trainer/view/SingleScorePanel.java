@@ -9,7 +9,7 @@ import java.util.Observer;
  * Date: 29.10.11
  * Time: 13:14
  */
-public class SingleScorePanel extends JPanel
+public class SingleScorePanel extends AbstractPanel
 {
     private JLabel scoreLabel;
     private JLabel nameLabel;

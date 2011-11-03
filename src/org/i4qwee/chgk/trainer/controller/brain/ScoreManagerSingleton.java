@@ -144,14 +144,17 @@ public class ScoreManagerSingleton extends Observable implements Observer
         notifyObservers(new NamesChangedEvent(leftName, rightName));
     }
 
-    public String getLeftName()
+    public String getAnswersName()
     {
-        return leftName;
-    }
-
-    public String getRightName()
-    {
-        return rightName;
+        switch (answerSide)
+        {
+            case LEFT:
+                return leftName;
+            case RIGHT:
+                return rightName;
+            default:
+                return null;
+        }
     }
 
     public void newGame()

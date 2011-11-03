@@ -106,14 +106,4 @@ public class ScorePanel extends AbstractPanel implements Observer
         leftScorePanel.setName(leftName);
         rightScorePanel.setName(rightName);
     }
-
-    public String getLeftName()
-    {
-        return leftScorePanel.getName();
-    }
-
-    public String getRightName()
-    {
-        return rightScorePanel.getName();
-    }
 }

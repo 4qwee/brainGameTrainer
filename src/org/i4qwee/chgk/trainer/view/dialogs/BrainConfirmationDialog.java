@@ -6,6 +6,7 @@ import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,6 +32,7 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
                 incorrect();
         }
     };
+    private JLabel label;
 
     public BrainConfirmationDialog(JFrame owner)
     {
@@ -41,12 +43,10 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
 
         JPanel mainPanel = new JPanel();
         mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
-        add(mainPanel);
 
-        BoxLayout mainBoxLayout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
-        mainPanel.setLayout(mainBoxLayout);
+        mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel label = new JLabel("Ответ правильный?");
+        label = new JLabel();
 
         mainPanel.add(label);
         mainPanel.add(Box.createHorizontalGlue());
@@ -74,7 +74,9 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
         mainPanel.add(yesButton);
         mainPanel.add(noButton);
 
-        setSize(220, 100);
+        setContentPane(mainPanel);
+
+        setSize(300, 100);
         setResizable(false);
     }
 
@@ -94,12 +96,15 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
     {
         switch (GameStateSingleton.getInstance().getGameState())
         {
-            case INIT:
-            case WAIT_START_TIMER:
-            case RUNNING:
-            case FINISHED:
-                break;
             case PAUSED:
+
+                String name = ScoreManagerSingleton.getInstance().getAnswersName();
+
+                if (name != null && !name.equals(""))
+                    label.setText(ScoreManagerSingleton.getInstance().getAnswersName() + ", правильно?");
+                else
+                    label.setText("Правильно?");
+
                 showDialog();
                 break;
             default:

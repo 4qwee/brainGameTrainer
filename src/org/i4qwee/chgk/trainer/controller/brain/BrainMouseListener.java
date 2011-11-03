@@ -34,15 +34,16 @@ public class BrainMouseListener extends MouseAdapter
             case WAIT_START_TIMER:
 
                 if (event.getButton() == MouseEvent.BUTTON1)
-                {
                     ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.LEFT);
-                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт слева!", "", JOptionPane.PLAIN_MESSAGE);
-                }
                 else if (event.getButton() == MouseEvent.BUTTON3)
-                {
                     ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.RIGHT);
-                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт справа!", "", JOptionPane.PLAIN_MESSAGE);
-                }
+
+                String name = ScoreManagerSingleton.getInstance().getAnswersName();
+
+                if (name != null && !name.equals(""))
+                    JOptionPane.showMessageDialog(parentFrame, name + ", фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
 
                 ScoreManagerSingleton.getInstance().setFalseStart();
                 break;

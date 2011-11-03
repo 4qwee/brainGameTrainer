@@ -15,14 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class NewGameDialog extends AbstractDialog
 {
-    private JFrame owner;
-
     public NewGameDialog(JFrame owner)
     {
         super(owner);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
-        this.owner = owner;
 
         JPanel mainPanel = new JPanel();
         mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());

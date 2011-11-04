@@ -18,11 +18,8 @@ public class BrainMouseListener extends MouseAdapter
 {
     private static Logger logger = Logger.getLogger(BrainMouseListener.class);
 
-    private JFrame parentFrame;
-
-    public BrainMouseListener(JFrame parentFrame)
+    public BrainMouseListener()
     {
-        this.parentFrame = parentFrame;
     }
 
     public void mousePressed(MouseEvent event)
@@ -41,9 +38,9 @@ public class BrainMouseListener extends MouseAdapter
                 String name = ScoreManagerSingleton.getInstance().getAnswersName();
 
                 if (name != null && !name.equals(""))
-                    JOptionPane.showMessageDialog(parentFrame, name + ", фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), name + ", фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
                 else
-                    JOptionPane.showMessageDialog(parentFrame, "Фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
 
                 ScoreManagerSingleton.getInstance().setFalseStart();
                 break;

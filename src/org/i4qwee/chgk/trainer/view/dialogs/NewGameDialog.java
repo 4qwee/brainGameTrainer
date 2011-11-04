@@ -1,80 +1,77 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
-import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
+import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-/**
- * User: 4qwee
- * Date: 02.11.11
- * Time: 22:23
- */
 public class NewGameDialog extends AbstractDialog
 {
+    private JPanel contentPane;
+    private JButton buttonOK;
+    private JButton buttonCancel;
+    private JTextField leftName;
+    private JTextField rightName;
+    private JTextField roundsCount;
+
     public NewGameDialog(JFrame owner)
     {
         super(owner);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
-
-        BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
-        mainPanel.setLayout(boxLayout);
-
-        JPanel namesPanel = new JPanel(new GridLayout(2, 2));
-        namesPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
-        mainPanel.add(namesPanel);
-
-        namesPanel.add(new JLabel("Имя левого игрока"));
-
-        final JTextField leftNameTextField = new JTextField();
-        namesPanel.add(leftNameTextField);
-
-        namesPanel.add(new JLabel("Имя правого игрока"));
-
-        final JTextField rightNameTextField = new JTextField();
-        namesPanel.add(rightNameTextField);
-
-        JPanel buttonsPanel = new JPanel();
-        mainPanel.add(buttonsPanel);
-
-        BoxLayout buttonsBoxLayout = new BoxLayout(buttonsPanel, BoxLayout.X_AXIS);
-        buttonsPanel.setLayout(buttonsBoxLayout);
-
-        JButton okButton = new JButton("Готово");
-        okButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                setVisible(false);
-                ScoreManagerSingleton.getInstance().setNames(leftNameTextField.getText(), rightNameTextField.getText());
-                ScoreManagerSingleton.getInstance().newGame();
-            }
-        });
-
-        buttonsPanel.add(Box.createHorizontalGlue());
-        buttonsPanel.add(okButton);
-
-        JButton cancelButton = new JButton("Отмена");
-        cancelButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                setVisible(false);
-            }
-        });
-
-        buttonsPanel.add(Box.createHorizontalStrut(5));
-        buttonsPanel.add(cancelButton);
-
-        setContentPane(mainPanel);
-
-        setSize(300, 130);
         setResizable(false);
+        setSize(350, 200);
+
+        setContentPane(contentPane);
+        setModal(true);
+        getRootPane().setDefaultButton(buttonOK);
+
+        buttonOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onOK();
+            }
+        });
+
+        buttonCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onCancel();
+            }
+        });
+
+// call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                onCancel();
+            }
+        });
+
+// call onCancel() on ESCAPE
+        contentPane.registerKeyboardAction(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onOK()
+    {
+        ScoreManagerSingleton.getInstance().setNames(leftName.getText(), rightName.getText());
+        GameStateSingleton.getInstance().setMaxRoundsCount(Integer.parseInt(roundsCount.getText()));
+        ScoreManagerSingleton.getInstance().newGame();
+        dispose();
+    }
+
+    private void onCancel()
+    {
+        dispose();
     }
 }

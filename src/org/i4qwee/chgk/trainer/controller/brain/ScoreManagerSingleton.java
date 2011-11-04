@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
@@ -46,21 +47,6 @@ public class ScoreManagerSingleton extends Observable implements Observer
         GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
     }
 
-    public AnswerState getAnswerState()
-    {
-        return answerState;
-    }
-
-    public void setAnswerState(AnswerState answerState)
-    {
-        this.answerState = answerState;
-    }
-
-    public AnswerSide getAnswerSide()
-    {
-        return answerSide;
-    }
-
     public void setAnswerSide(AnswerSide answerSide)
     {
         this.answerSide = answerSide;
@@ -103,6 +89,8 @@ public class ScoreManagerSingleton extends Observable implements Observer
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
             setChanged();
             notifyObservers();
+            setChanged();
+            notifyObservers(new PriceChangedEvent(price));
         }
         else
         {
@@ -113,13 +101,18 @@ public class ScoreManagerSingleton extends Observable implements Observer
                     GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
                     break;
                 case ONE_ANSWERED:
-                    answerState = AnswerState.NOBODY_ANSWERED;
-                    GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
-                    price++;
-                    setChanged();
+                    noOneAnswered();
                     break;
             }
         }
+    }
+
+    public void noOneAnswered()
+    {
+        answerState = AnswerState.NOBODY_ANSWERED;
+        GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+        price++;
+        setChanged();
     }
 
     public void update(Observable o, Object arg)
@@ -159,8 +152,20 @@ public class ScoreManagerSingleton extends Observable implements Observer
 
     public void newGame()
     {
+        GameStateSingleton.getInstance().setGameState(GameState.INIT);
+        GameStateSingleton.getInstance().resetRoundsCount();
         leftScore = rightScore = 0;
         setChanged();
         notifyObservers();
+    }
+
+    public String getLeftName()
+    {
+        return leftName;
+    }
+
+    public String getRightName()
+    {
+        return rightName;
     }
 }

@@ -107,8 +107,6 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
 
                 showDialog();
                 break;
-            default:
-                logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());
         }
     }
 }

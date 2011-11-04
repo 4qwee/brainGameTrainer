@@ -38,7 +38,7 @@ public class BrainPanel extends AbstractPanel
         add(scrollPane);
         add(scorePanel);
 
-        BrainMouseListener brainMouseListener = new BrainMouseListener(parentFrame);
+        BrainMouseListener brainMouseListener = new BrainMouseListener();
         addMouseListener(brainMouseListener);
         questionPanel.addMouseListener(brainMouseListener);
 

@@ -15,9 +15,9 @@ public class NewGameDialog extends AbstractDialog
     private JTextField rightName;
     private JTextField roundsCount;
 
-    public NewGameDialog(JFrame owner)
+    public NewGameDialog()
     {
-        super(owner);
+        super();
 
         setResizable(false);
         setSize(350, 200);

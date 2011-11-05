@@ -4,7 +4,9 @@ import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.enums.Type;
+import org.i4qwee.chgk.trainer.view.dialogs.LoadingDialog;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -18,13 +20,27 @@ public class QuestionsCache
 
     private static int position;
     private static List<Question> questions;
+    private static LoadingDialog loadingDialog = new LoadingDialog();
 
     public static Question getNextQuestion()
     {
         if (questions == null || ++position >= questions.size())
         {
-            position = 0;
-            questions = DatabaseManager.getRandomQuestions(50, Type.BRAIN); //todo remove this hardcode
+            Runnable getQuestionRunnable = new Runnable()
+            {
+                public void run()
+                {
+                    position = 0;
+                    questions = DatabaseManager.getRandomQuestions(50, Type.BRAIN); //todo remove this hardcode
+
+                    loadingDialog.dispose();
+                }
+            };
+
+            Thread getQuestionThread = new Thread(getQuestionRunnable);
+            getQuestionThread.start();
+            
+            loadingDialog.showDialog();
         }
 
         return questions.get(position);

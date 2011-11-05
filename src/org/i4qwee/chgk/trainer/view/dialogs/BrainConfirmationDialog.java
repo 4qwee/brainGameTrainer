@@ -15,10 +15,8 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
     private JButton incorrectButton;
     private JLabel messageLabel;
 
-    public BrainConfirmationDialog(JFrame owner)
+    public BrainConfirmationDialog()
     {
-        super(owner);
-
         GameStateSingleton.getInstance().addObserver(this);
 
         setResizable(false);

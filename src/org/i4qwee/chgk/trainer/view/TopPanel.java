@@ -41,6 +41,6 @@ public class TopPanel extends AbstractPanel
         });
         add(newGameButton);
 
-        newGameDialog = new NewGameDialog(parentFrame);
+        newGameDialog = new NewGameDialog();
     }
 }

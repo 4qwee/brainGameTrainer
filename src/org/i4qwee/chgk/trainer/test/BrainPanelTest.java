@@ -23,6 +23,11 @@ public class BrainPanelTest extends JFrame
 
         pack();
         setSize(800, 600);
+
+        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+
+        setLocation(centerPoint.x - getWidth() / 2, centerPoint.y - getHeight() / 2);
+
         setVisible(true);
     }
 
@@ -31,6 +36,6 @@ public class BrainPanelTest extends JFrame
 //        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         UIManager.setLookAndFeel(WebLookAndFeel.class.getName());
 
-        new BrainPanelTest();
+        BrainPanelTest brainPanelTest = new BrainPanelTest();
     }
 }

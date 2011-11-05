@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
+import org.i4qwee.chgk.trainer.view.dialogs.LoadingDialog;
 
 import javax.swing.*;
 
@@ -41,7 +42,7 @@ public class BrainPanel extends AbstractPanel
         addMouseListener(brainMouseListener);
         questionPanel.addMouseListener(brainMouseListener);
 
-        new BrainConfirmationDialog(parentFrame);
+        new BrainConfirmationDialog();
         SoundManagerSingleton.getInstance();
     }
 }

@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * User: 4qwee
@@ -9,18 +10,16 @@ import javax.swing.*;
  */
 public abstract class AbstractDialog extends JDialog
 {
-    private JFrame owner;
-
-    public AbstractDialog(JFrame owner)
+    public AbstractDialog()
     {
-        super(owner, ModalityType.MODELESS);
-        this.owner = owner;
+        super();
     }
 
     public void showDialog()
     {
-        pack();
-        setLocation(owner.getX() + (owner.getWidth() - getWidth()) / 2, owner.getY() + (owner.getHeight() - getHeight()) / 2);
+        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
+
+        setLocation(centerPoint.x - getWidth() / 2, centerPoint.y - getHeight() / 2);
         setVisible(true);
     }
 }

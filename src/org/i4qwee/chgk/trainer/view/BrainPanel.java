@@ -6,7 +6,6 @@ import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
 
 import javax.swing.*;
-import java.awt.event.MouseListener;
 
 /**
  * User: 4qwee

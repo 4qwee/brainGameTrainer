@@ -67,6 +67,7 @@ public class NewGameDialog extends AbstractDialog
         ScoreManagerSingleton.getInstance().setNames(leftName.getText(), rightName.getText());
         GameStateSingleton.getInstance().setMaxRoundsCount(Integer.parseInt(roundsCount.getText()));
         ScoreManagerSingleton.getInstance().newGame();
+
         dispose();
     }
 

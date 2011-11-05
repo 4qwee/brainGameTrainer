@@ -1,95 +1,86 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
-import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * User: 4qwee
- * Date: 29.10.11
- * Time: 16:51
- */
 public class BrainConfirmationDialog extends AbstractDialog implements Observer
 {
-    private Logger logger = Logger.getLogger(BrainConfirmationDialog.class);
-
-    @SuppressWarnings({"FieldCanBeLocal"})
-    private KeyListener keyListener = new KeyAdapter()
-    {
-        @Override
-        public void keyPressed(KeyEvent e)
-        {
-            if (e.getKeyCode() == KeyEvent.VK_LEFT)
-                correct();
-            else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-                incorrect();
-        }
-    };
-    private JLabel label;
+    private JPanel contentPane;
+    private JButton correctButton;
+    private JButton incorrectButton;
+    private JLabel messageLabel;
 
     public BrainConfirmationDialog(JFrame owner)
     {
         super(owner);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         GameStateSingleton.getInstance().addObserver(this);
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
-
-        mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        label = new JLabel();
-
-        mainPanel.add(label);
-        mainPanel.add(Box.createHorizontalGlue());
-
-        JButton yesButton = new JButton("Да");
-        yesButton.addKeyListener(keyListener);
-        yesButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                correct();
-            }
-        });
-
-        JButton noButton = new JButton("Нет");
-        noButton.addKeyListener(keyListener);
-        noButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                incorrect();
-            }
-        });
-
-        mainPanel.add(yesButton);
-        mainPanel.add(noButton);
-
-        setContentPane(mainPanel);
-
-        setSize(300, 100);
         setResizable(false);
+
+        setContentPane(contentPane);
+        getRootPane().setDefaultButton(correctButton);
+
+        correctButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onCorrect();
+            }
+        });
+
+        incorrectButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onIncorrect();
+            }
+        });
+
+// call onIncorrect() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                onIncorrect();
+            }
+        });
+
+// call onIncorrect() on LEFT
+        contentPane.registerKeyboardAction(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onCorrect();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+// call onIncorrect() on RIGHT
+        contentPane.registerKeyboardAction(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                onIncorrect();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void correct()
+    private void onCorrect()
     {
         ScoreManagerSingleton.getInstance().answer(true);
-        setVisible(false);
+        dispose();
     }
 
-    private void incorrect()
+    private void onIncorrect()
     {
         ScoreManagerSingleton.getInstance().answer(false);
-        setVisible(false);
+        dispose();
     }
 
     public void update(Observable o, Object arg)
@@ -101,9 +92,9 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
                 String name = ScoreManagerSingleton.getInstance().getAnswersName();
 
                 if (name != null && !name.equals(""))
-                    label.setText(ScoreManagerSingleton.getInstance().getAnswersName() + ", правильно?");
+                    messageLabel.setText(ScoreManagerSingleton.getInstance().getAnswersName() + ", правильно?");
                 else
-                    label.setText("Правильно?");
+                    messageLabel.setText("Правильно?");
 
                 showDialog();
                 break;

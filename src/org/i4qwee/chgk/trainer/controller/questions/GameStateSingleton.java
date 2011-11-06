@@ -2,6 +2,7 @@ package org.i4qwee.chgk.trainer.controller.questions;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.model.events.RoundChangedEvent;
 
 import javax.swing.*;
 import java.util.Observable;
@@ -16,7 +17,7 @@ public class GameStateSingleton extends Observable
     private static GameStateSingleton ourInstance = new GameStateSingleton();
 
     private GameState gameState;
-    private int roundsCount = 0;
+    private int roundsCount = 1;
     private int maxRoundsCount = 0;
 
     public static GameStateSingleton getInstance()
@@ -36,26 +37,44 @@ public class GameStateSingleton extends Observable
 
     public void setGameState(GameState gameState)
     {
-        if (gameState.equals(GameState.FINISHED))
+        switch (gameState)
         {
-            if (++roundsCount == maxRoundsCount)
-            {
-                if (ScoreManagerSingleton.getInstance().getLeftScore() > ScoreManagerSingleton.getInstance().getRightScore())
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
-                else if (ScoreManagerSingleton.getInstance().getLeftScore() < ScoreManagerSingleton.getInstance().getRightScore())
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
-                else
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);
+            case FINISHED:
+                if (roundsCount++ == maxRoundsCount)
+                {
+                    if (ScoreManagerSingleton.getInstance().getLeftScore() > ScoreManagerSingleton.getInstance().getRightScore())
+                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                    else if (ScoreManagerSingleton.getInstance().getLeftScore() < ScoreManagerSingleton.getInstance().getRightScore())
+                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);
 
-                ScoreManagerSingleton.getInstance().newGame();
-            }
+                    ScoreManagerSingleton.getInstance().newGame();
+                }
+
+                break;
+            case INIT:
+            case WAIT_START_TIMER:
+                fireRoundChangedEvent();
         }
 
         this.gameState = gameState;
 
+        fireGamesStateChangedEvent(gameState);
+    }
+
+    private void fireGamesStateChangedEvent(GameState gameState)
+    {
         setChanged();
 
         notifyObservers(gameState);
+    }
+
+    private void fireRoundChangedEvent()
+    {
+        setChanged();
+
+        notifyObservers(new RoundChangedEvent(roundsCount, maxRoundsCount));
     }
 
     public void setMaxRoundsCount(int maxRoundsCount)
@@ -65,6 +84,6 @@ public class GameStateSingleton extends Observable
 
     public void resetRoundsCount()
     {
-        roundsCount = 0;
+        roundsCount = 1;
     }
 }

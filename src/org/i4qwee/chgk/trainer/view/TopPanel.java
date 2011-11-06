@@ -26,8 +26,13 @@ public class TopPanel extends AbstractPanel
 
         setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_HEIGHT));
 
-        QuestionCostPanel questionCostPanel = new QuestionCostPanel();
-        add(questionCostPanel);
+        QuestionCostLabel questionCostLabel = new QuestionCostLabel();
+        add(questionCostLabel);
+
+        add(Box.createHorizontalStrut(10));
+
+        RoundsLabel roundsLabel = new RoundsLabel();
+        add(roundsLabel);
 
         add(Box.createHorizontalGlue());
 

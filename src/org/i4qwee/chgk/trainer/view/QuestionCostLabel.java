@@ -13,26 +13,22 @@ import java.util.Observer;
  * Date: 01.11.11
  * Time: 9:48
  */
-public class QuestionCostPanel extends AbstractPanel implements Observer
+public class QuestionCostLabel extends JLabel implements Observer
 {
     private static final String INIT_TEXT = "Цена вопроса: ";
-    private JLabel priceLabel;
 
-    public QuestionCostPanel()
+    public QuestionCostLabel()
     {
         ScoreManagerSingleton.getInstance().addObserver(this);
 
-        priceLabel = new JLabel(INIT_TEXT + ScoreManagerSingleton.getInstance().getPrice());
-        priceLabel.setFont(DefaultUIProvider.getQuestionPriceFont());
+        setText(INIT_TEXT + ScoreManagerSingleton.getInstance().getPrice());
+        setFont(DefaultUIProvider.getQuestionPriceFont());
 //        priceLabel.setBorder(DefaultUIProvider.getDefaultEmptyBorder());
-
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-        add(priceLabel);
     }
 
     public void update(Observable o, Object arg)
     {
         if (arg != null && arg instanceof PriceChangedEvent)
-            priceLabel.setText(INIT_TEXT + ((PriceChangedEvent) arg).getPrice());
+            setText(INIT_TEXT + ((PriceChangedEvent) arg).getPrice());
     }
 }

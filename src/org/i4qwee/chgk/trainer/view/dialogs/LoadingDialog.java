@@ -23,12 +23,13 @@ public class LoadingDialog extends AbstractDialog
         setModal(true);
 
         JPanel mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(300, 250));
         mainPanel.setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
 
         BoxLayout boxLayout = new BoxLayout(mainPanel, BoxLayout.Y_AXIS);
         mainPanel.setLayout(boxLayout);
 
-        mainPanel.add(Box.createHorizontalStrut(10));
+        mainPanel.add(Box.createVerticalGlue());
 
         JLabel imageLabel = new JLabel(loaderImage);
         imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);

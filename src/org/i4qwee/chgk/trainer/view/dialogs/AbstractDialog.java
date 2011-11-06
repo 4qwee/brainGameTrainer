@@ -20,6 +20,8 @@ public abstract class AbstractDialog extends JDialog
         Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
 
         setLocation(centerPoint.x - getWidth() / 2, centerPoint.y - getHeight() / 2);
+
+        pack();
         setVisible(true);
     }
 }

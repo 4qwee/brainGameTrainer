@@ -1,8 +1,9 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.Observer;
 
 /**
  * User: 4qwee
@@ -13,9 +14,13 @@ public class SingleScorePanel extends AbstractPanel
 {
     private JLabel scoreLabel;
     private JLabel nameLabel;
+    private boolean selected;
+    private AnswerSide answerSide;
 
-    public SingleScorePanel()
+    public SingleScorePanel(AnswerSide answerSide)
     {
+        this.answerSide = answerSide;
+
         setBorder(DefaultUIProvider.getDefaultEmptyEtchedBorder());
         setPreferredSize(new Dimension(150, ScorePanel.MAX_HEIGHT));
 
@@ -46,5 +51,34 @@ public class SingleScorePanel extends AbstractPanel
     public String getName()
     {
         return nameLabel.getText();
+    }
+
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
+        repaint();
+    }
+
+    public void paintComponent(Graphics graphics)
+    {
+        if (selected)
+        {
+            Graphics2D graphics2D = (Graphics2D) graphics;
+
+            graphics2D.setPaint(Color.white);
+            graphics2D.fillRect(0, 0, getWidth(), getHeight());
+
+            GradientPaint gradientPaint;
+
+            if (answerSide == AnswerSide.LEFT)
+                gradientPaint = new GradientPaint(0, 0, Color.white, getWidth(), 0, new Color(68, 2, 4));
+            else
+                gradientPaint = new GradientPaint(0, 0, new Color(68, 2, 4), getWidth(), 0, Color.white);
+
+            graphics2D.setPaint(gradientPaint);
+            graphics2D.fillRect(5, 5, getWidth() - 10, getHeight() - 10);
+        }
+        else
+            super.paintComponent(graphics);
     }
 }

@@ -35,8 +35,8 @@ public class ScorePanel extends AbstractPanel implements Observer
 
         setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_HEIGHT));
 
-        leftScorePanel = new SingleScorePanel();
-        rightScorePanel = new SingleScorePanel();
+        leftScorePanel = new SingleScorePanel(AnswerSide.LEFT);
+        rightScorePanel = new SingleScorePanel(AnswerSide.RIGHT);
 
         add(leftScorePanel);
         add(timerButtonPanel);
@@ -59,10 +59,10 @@ public class ScorePanel extends AbstractPanel implements Observer
                 switch ((AnswerSide) arg)
                 {
                     case LEFT:
-                        selectSingleScorePanel(true);
+                        selectSingleScorePanel(AnswerSide.LEFT);
                         break;
                     case RIGHT:
-                        selectSingleScorePanel(false);
+                        selectSingleScorePanel(AnswerSide.RIGHT);
                         break;
                 }
             }
@@ -83,22 +83,23 @@ public class ScorePanel extends AbstractPanel implements Observer
         }
     }
 
-    private void selectSingleScorePanel(boolean isLeft)
+    private void selectSingleScorePanel(AnswerSide answerSide)
     {
-        SingleScorePanel singleScorePanel;
+        if (answerSide == AnswerSide.LEFT)
+            setSelected(leftScorePanel);
+        else if (answerSide == AnswerSide.RIGHT)
+            setSelected(rightScorePanel);
+    }
 
-        if (isLeft)
-            singleScorePanel = leftScorePanel;
-        else
-            singleScorePanel = rightScorePanel;
-
-        singleScorePanel.setBackground(Color.magenta);
+    private void setSelected(SingleScorePanel singleScorePanel)
+    {
+        singleScorePanel.setSelected(true);
     }
 
     private void removeSelection()
     {
-        leftScorePanel.setBackground(Color.white);
-        rightScorePanel.setBackground(Color.white);
+        leftScorePanel.setSelected(false);
+        rightScorePanel.setSelected(false);
     }
 
     public void setNames(String leftName, String rightName)

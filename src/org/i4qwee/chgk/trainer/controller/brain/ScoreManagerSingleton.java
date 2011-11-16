@@ -155,6 +155,7 @@ public class ScoreManagerSingleton extends Observable implements Observer
         GameStateSingleton.getInstance().setGameState(GameState.INIT);
         GameStateSingleton.getInstance().resetRoundsCount();
         leftScore = rightScore = 0;
+        price = 1;
         setChanged();
         notifyObservers();
     }

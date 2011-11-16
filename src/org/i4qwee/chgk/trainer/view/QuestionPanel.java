@@ -3,7 +3,7 @@ package org.i4qwee.chgk.trainer.view;
 import org.i4qwee.chgk.trainer.model.Question;
 
 import javax.swing.*;
-import java.awt.event.MouseListener;
+import java.awt.*;
 
 /**
  * User: 4qwee
@@ -12,8 +12,8 @@ import java.awt.event.MouseListener;
  */
 public class QuestionPanel extends AbstractPanel
 {
-    private JTextArea questionTextArea;
-    private JTextArea answerTextArea;
+    private JEditorPane questionTextArea;
+    private JEditorPane answerTextArea;
 
     public QuestionPanel()
     {
@@ -39,9 +39,27 @@ public class QuestionPanel extends AbstractPanel
     {
         questionTextArea.setText(question.getQuestion());
 
-        answerTextArea.setText(question.getAnswer());
+        answerTextArea.setText(prepareAnswer(question));
 
         if (hideAnswer)
             answerTextArea.setVisible(false);
+    }
+
+    private String prepareAnswer(Question question)
+    {
+        String answerString = "<html>" + "<b>Ответ: </b>" + question.getAnswer();
+
+        if (question.getComments() != null)
+            answerString += "<br/><br/>" + "<b>Комментарий: </b>" + question.getComments();
+
+        return answerString;
+    }
+
+    public void setMaximumSize(Dimension maximumSize)
+    {
+        super.setMaximumSize(maximumSize);
+
+        questionTextArea.setMaximumSize(maximumSize);
+        answerTextArea.setMaximumSize(maximumSize);
     }
 }

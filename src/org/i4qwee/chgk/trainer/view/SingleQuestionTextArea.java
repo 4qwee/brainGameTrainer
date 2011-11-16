@@ -1,6 +1,8 @@
 package org.i4qwee.chgk.trainer.view;
 
 import javax.swing.*;
+import javax.swing.text.EditorKit;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 
 /**
@@ -8,19 +10,20 @@ import java.awt.*;
  * Date: 29.10.11
  * Time: 14:02
  */
-public class SingleQuestionTextArea extends JTextArea
+public class SingleQuestionTextArea extends JEditorPane
 {
     public SingleQuestionTextArea()
     {
         super();
 
         setFont(DefaultUIProvider.getQuestionFont());
-        setLineWrap(true);
-        setWrapStyleWord(true);
+        setEditorKit(new HTMLEditorKit());
         setEditable(false);
         setBorder(DefaultUIProvider.getDefaultEmptyEtchedEmptyBorder());
         setMargin(new Insets(20, 20, 20, 20));
         setFocusable(false);
+        setAlignmentX(JEditorPane.LEFT_ALIGNMENT);
+        putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
     }
 
     public void paintComponent(Graphics graphics)

@@ -7,6 +7,9 @@ import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
 import org.i4qwee.chgk.trainer.view.dialogs.LoadingDialog;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * User: 4qwee
@@ -24,7 +27,7 @@ public class BrainPanel extends AbstractPanel
         TopPanel topPanel = new TopPanel(parentFrame);
         add(topPanel);
 
-        QuestionPanel questionPanel = new QuestionPanel();
+        final QuestionPanel questionPanel = new QuestionPanel();
 
         TimerButtonPanel timerButtonPanel = new TimerButtonPanel();
         timerButtonPanel.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
@@ -34,6 +37,7 @@ public class BrainPanel extends AbstractPanel
         JScrollPane scrollPane = new JScrollPane(questionPanel);
         scrollPane.setBorder(null);
         scrollPane.setFocusable(false);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         add(scrollPane);
         add(scorePanel);
@@ -44,5 +48,15 @@ public class BrainPanel extends AbstractPanel
 
         new BrainConfirmationDialog();
         SoundManagerSingleton.getInstance();
+
+        addComponentListener(new ComponentAdapter()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                questionPanel.setMaximumSize(new Dimension(getWidth(), Integer.MAX_VALUE));
+                questionPanel.invalidate();
+            }
+        });
     }
 }

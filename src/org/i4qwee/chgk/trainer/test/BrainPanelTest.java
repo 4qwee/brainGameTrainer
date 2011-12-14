@@ -5,6 +5,7 @@ import org.i4qwee.chgk.trainer.view.BrainPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  * User: 4qwee
@@ -18,8 +19,24 @@ public class BrainPanelTest extends JFrame
         super();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        BrainPanel brainPanel = new BrainPanel(this);
-        add(brainPanel);
+        JLayeredPane layeredPane = new JLayeredPane();
+        setLayeredPane(layeredPane);
+
+        final BrainPanel brainPanel = new BrainPanel(this);
+        layeredPane.add(brainPanel, JLayeredPane.DEFAULT_LAYER);
+
+
+
+        layeredPane.addComponentListener(new ComponentAdapter()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                Component component = e.getComponent();
+                brainPanel.setSize(component.getSize());
+                brainPanel.validate();
+            }
+        });
 
         pack();
         setSize(800, 600);

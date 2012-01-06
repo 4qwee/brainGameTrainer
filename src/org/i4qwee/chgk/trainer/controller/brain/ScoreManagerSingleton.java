@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.brain.manager.PriceManager;
+import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
@@ -25,8 +26,9 @@ public class ScoreManagerSingleton extends Observable
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
     private AnswerSide answerSide;
 
-    private final ScoreManager scoreManager;
-    private final PriceManager priceManager;
+    private final ScoreManager scoreManager = ScoreManager.getInstance();
+    private final PriceManager priceManager = PriceManager.getInstance();
+    private final RoundManager roundManager = RoundManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -35,8 +37,6 @@ public class ScoreManagerSingleton extends Observable
 
     private ScoreManagerSingleton()
     {
-        scoreManager = ScoreManager.getInstance();
-        priceManager = PriceManager.getInstance();
     }
 
     public void setFalseStart()
@@ -120,7 +120,7 @@ public class ScoreManagerSingleton extends Observable
     public void newGame()
     {
         GameStateSingleton.getInstance().setGameState(GameState.INIT);
-        GameStateSingleton.getInstance().resetRoundsCount();
+        roundManager.setRound(1);
 
         scoreManager.setLeftScore(0);
         scoreManager.setRightScore(0);

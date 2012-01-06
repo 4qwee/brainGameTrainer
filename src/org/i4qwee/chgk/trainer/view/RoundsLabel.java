@@ -1,40 +1,40 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.brain.listener.RoundListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.model.events.RoundChangedEvent;
 
 import javax.swing.*;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 06.11.11
  * Time: 10:57
  */
-public class RoundsLabel extends JLabel implements Observer
+public class RoundsLabel extends JLabel implements RoundListener
 {
     public static final String INIT_TEXT = "Раунд ";
     public static final String ADDITIONAL_OF_TEXT = " из ";
 
+    private final GameStateSingleton gameStateSingleton = GameStateSingleton.getInstance();
+    private final RoundManager roundManager = RoundManager.getInstance();
+
     public RoundsLabel()
     {
-        GameStateSingleton.getInstance().addObserver(this);
+        roundManager.addListener(this);
 
         setText(INIT_TEXT + 1);
         setFont(DefaultUIProvider.getQuestionPriceFont());
     }
 
-    public void update(Observable o, Object arg)
+    public void onRoundChange(int round)
     {
-        if (arg != null && arg instanceof RoundChangedEvent)
-        {
-            String text = INIT_TEXT + ((RoundChangedEvent) arg).getRound();
+        String text = INIT_TEXT + round;
+        int maxRounds = gameStateSingleton.getMaxRoundsCount();
 
-            if (((RoundChangedEvent) arg).getMaxRoundsCount() != 0)
-                text += ADDITIONAL_OF_TEXT + ((RoundChangedEvent) arg).getMaxRoundsCount();
+        if (maxRounds != 0)
+            text += ADDITIONAL_OF_TEXT + maxRounds;
 
-            setText(text);
-        }
+        setText(text);
     }
 }

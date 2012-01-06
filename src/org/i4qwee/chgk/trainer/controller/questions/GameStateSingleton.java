@@ -1,9 +1,9 @@
 package org.i4qwee.chgk.trainer.controller.questions;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
-import org.i4qwee.chgk.trainer.model.events.RoundChangedEvent;
 
 import javax.swing.*;
 import java.util.Observable;
@@ -18,10 +18,10 @@ public class GameStateSingleton extends Observable
     private static GameStateSingleton ourInstance = new GameStateSingleton();
 
     private GameState gameState;
-    private int roundsCount = 1;
     private int maxRoundsCount = 0;
 
     private ScoreManager scoreManager;
+    private RoundManager roundManager = RoundManager.getInstance();
 
     public static GameStateSingleton getInstance()
     {
@@ -44,7 +44,9 @@ public class GameStateSingleton extends Observable
         switch (gameState)
         {
             case FINISHED:
-                if (roundsCount++ == maxRoundsCount)
+                roundManager.setRound(roundManager.getRound() + 1);
+
+                if (roundManager.getRound() > maxRoundsCount)
                 {
                     if (scoreManager.getLeftScore() > scoreManager.getRightScore())
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
@@ -57,9 +59,6 @@ public class GameStateSingleton extends Observable
                 }
 
                 break;
-            case INIT:
-            case WAIT_START_TIMER:
-                fireRoundChangedEvent();
         }
 
         this.gameState = gameState;
@@ -74,20 +73,13 @@ public class GameStateSingleton extends Observable
         notifyObservers(gameState);
     }
 
-    private void fireRoundChangedEvent()
+    public int getMaxRoundsCount()
     {
-        setChanged();
-
-        notifyObservers(new RoundChangedEvent(roundsCount, maxRoundsCount));
+        return maxRoundsCount;
     }
 
     public void setMaxRoundsCount(int maxRoundsCount)
     {
         this.maxRoundsCount = maxRoundsCount;
-    }
-
-    public void resetRoundsCount()
-    {
-        roundsCount = 1;
     }
 }

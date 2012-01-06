@@ -1,22 +1,19 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 import org.i4qwee.chgk.trainer.model.events.NamesChangedEvent;
-import org.i4qwee.chgk.trainer.model.events.PriceChangedEvent;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 30.10.11
  * Time: 20:36
  */
-public class ScoreManagerSingleton extends Observable implements Observer
+public class ScoreManagerSingleton extends Observable
 {
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
@@ -25,8 +22,6 @@ public class ScoreManagerSingleton extends Observable implements Observer
 
     private String leftName;
     private String rightName;
-
-    private int price = 1;
 
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
     private AnswerSide answerSide;
@@ -38,7 +33,6 @@ public class ScoreManagerSingleton extends Observable implements Observer
 
     private ScoreManagerSingleton()
     {
-        GameStateSingleton.getInstance().addObserver(this);
     }
 
     public void setFalseStart()
@@ -65,9 +59,14 @@ public class ScoreManagerSingleton extends Observable implements Observer
         return rightScore;
     }
 
-    public int getPrice()
+    private int getPrice()
     {
-        return price;
+        return PriceManager.getInstance().getPrice();
+    }
+
+    private void setPrice(int price)
+    {
+        PriceManager.getInstance().setPrice(price);
     }
 
     public void answer(boolean isCorrect)
@@ -77,20 +76,18 @@ public class ScoreManagerSingleton extends Observable implements Observer
             switch (answerSide)
             {
                 case LEFT:
-                    leftScore += price;
+                    leftScore += getPrice();
                     break;
                 case RIGHT:
-                    rightScore += price;
+                    rightScore += getPrice();
                     break;
             }
 
-            price = 1;
+            setPrice(1);
             answerState = AnswerState.NOBODY_ANSWERED;
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
             setChanged();
             notifyObservers();
-            setChanged();
-            notifyObservers(new PriceChangedEvent(price));
         }
         else
         {
@@ -111,21 +108,7 @@ public class ScoreManagerSingleton extends Observable implements Observer
     {
         answerState = AnswerState.NOBODY_ANSWERED;
         GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
-        price++;
-        setChanged();
-    }
-
-    public void update(Observable o, Object arg)
-    {
-        if (arg != null && arg instanceof GameState)
-        {
-            switch ((GameState) arg)
-            {
-                case WAIT_START_TIMER:
-                    notifyObservers(new PriceChangedEvent(price));
-                    break;
-            }
-        }
+        setPrice(getPrice() + 1);
     }
 
     public void setNames(String leftName, String rightName)
@@ -155,9 +138,10 @@ public class ScoreManagerSingleton extends Observable implements Observer
         GameStateSingleton.getInstance().setGameState(GameState.INIT);
         GameStateSingleton.getInstance().resetRoundsCount();
         leftScore = rightScore = 0;
-        price = 1;
         setChanged();
         notifyObservers();
+
+        setPrice(1);
     }
 
     public String getLeftName()

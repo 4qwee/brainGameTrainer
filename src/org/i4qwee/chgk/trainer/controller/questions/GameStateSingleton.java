@@ -18,7 +18,6 @@ public class GameStateSingleton extends Observable
     private static GameStateSingleton ourInstance = new GameStateSingleton();
 
     private GameState gameState;
-    private int maxRoundsCount = 0;
 
     private ScoreManager scoreManager;
     private RoundManager roundManager = RoundManager.getInstance();
@@ -45,19 +44,6 @@ public class GameStateSingleton extends Observable
         {
             case FINISHED:
                 roundManager.setRound(roundManager.getRound() + 1);
-
-                if (roundManager.getRound() > maxRoundsCount)
-                {
-                    if (scoreManager.getLeftScore() > scoreManager.getRightScore())
-                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
-                    else if (scoreManager.getLeftScore() < scoreManager.getRightScore())
-                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
-                    else
-                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);
-
-                    ScoreManagerSingleton.getInstance().newGame();
-                }
-
                 break;
         }
 
@@ -71,15 +57,5 @@ public class GameStateSingleton extends Observable
         setChanged();
 
         notifyObservers(gameState);
-    }
-
-    public int getMaxRoundsCount()
-    {
-        return maxRoundsCount;
-    }
-
-    public void setMaxRoundsCount(int maxRoundsCount)
-    {
-        this.maxRoundsCount = maxRoundsCount;
     }
 }

@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 
 import javax.swing.*;
@@ -65,7 +66,7 @@ public class NewGameDialog extends AbstractDialog
     private void onOK()
     {
         ScoreManagerSingleton.getInstance().setNames(leftName.getText(), rightName.getText());
-        GameStateSingleton.getInstance().setMaxRoundsCount(Integer.parseInt(roundsCount.getText()));
+        RoundManager.getInstance().setMaxRound(Integer.parseInt(roundsCount.getText()));
         ScoreManagerSingleton.getInstance().newGame();
 
         dispose();

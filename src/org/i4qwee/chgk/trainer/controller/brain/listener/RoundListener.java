@@ -7,5 +7,5 @@ package org.i4qwee.chgk.trainer.controller.brain.listener;
  */
 public interface RoundListener
 {
-    void onRoundChange(int round);
+    void onRoundChanged(int round, int maxRound);
 }

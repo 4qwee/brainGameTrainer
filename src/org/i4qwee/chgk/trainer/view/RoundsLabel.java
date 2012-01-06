@@ -2,7 +2,6 @@ package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.RoundListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 
 import javax.swing.*;
 
@@ -16,7 +15,6 @@ public class RoundsLabel extends JLabel implements RoundListener
     public static final String INIT_TEXT = "Раунд ";
     public static final String ADDITIONAL_OF_TEXT = " из ";
 
-    private final GameStateSingleton gameStateSingleton = GameStateSingleton.getInstance();
     private final RoundManager roundManager = RoundManager.getInstance();
 
     public RoundsLabel()
@@ -27,13 +25,12 @@ public class RoundsLabel extends JLabel implements RoundListener
         setFont(DefaultUIProvider.getQuestionPriceFont());
     }
 
-    public void onRoundChange(int round)
+    public void onRoundChanged(int round, int maxRound)
     {
         String text = INIT_TEXT + round;
-        int maxRounds = gameStateSingleton.getMaxRoundsCount();
 
-        if (maxRounds != 0)
-            text += ADDITIONAL_OF_TEXT + maxRounds;
+        if (maxRound != 0)
+            text += ADDITIONAL_OF_TEXT + maxRound;
 
         setText(text);
     }

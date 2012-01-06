@@ -12,6 +12,7 @@ public class RoundManager extends Manager<RoundListener>
     private static final RoundManager instance = new RoundManager();
 
     private int round;
+    private int maxRound;
 
     public RoundManager()
     {
@@ -33,10 +34,21 @@ public class RoundManager extends Manager<RoundListener>
         notifyListeners();
     }
 
+    public int getMaxRound()
+    {
+        return maxRound;
+    }
+
+    public void setMaxRound(int maxRound)
+    {
+        this.maxRound = maxRound;
+        notifyListeners();
+    }
+
     @Override
     protected void notifyListeners()
     {
         for (RoundListener listener : listeners)
-            listener.onRoundChange(round);
+            listener.onRoundChanged(round, maxRound);
     }
 }

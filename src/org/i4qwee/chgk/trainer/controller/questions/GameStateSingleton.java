@@ -19,7 +19,6 @@ public class GameStateSingleton extends Observable
 
     private GameState gameState;
 
-    private ScoreManager scoreManager;
     private RoundManager roundManager = RoundManager.getInstance();
 
     public static GameStateSingleton getInstance()
@@ -30,7 +29,6 @@ public class GameStateSingleton extends Observable
     private GameStateSingleton()
     {
         gameState = GameState.INIT;
-        scoreManager = ScoreManager.getInstance();
     }
 
     public GameState getGameState()

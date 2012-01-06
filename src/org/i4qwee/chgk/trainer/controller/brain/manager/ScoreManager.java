@@ -14,7 +14,7 @@ public class ScoreManager extends Manager<ScoreListener>
     private int leftScore = 0;
     private int rightScore = 0;
 
-    public ScoreManager()
+    private ScoreManager()
     {
     }
 

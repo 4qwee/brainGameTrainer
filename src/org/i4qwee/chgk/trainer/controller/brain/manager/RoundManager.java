@@ -14,7 +14,7 @@ public class RoundManager extends Manager<RoundListener>
     private int round;
     private int maxRound;
 
-    public RoundManager()
+    private RoundManager()
     {
     }
 

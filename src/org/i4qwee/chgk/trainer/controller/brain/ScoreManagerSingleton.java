@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
+import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.PriceManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
@@ -7,7 +8,6 @@ import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
-import org.i4qwee.chgk.trainer.model.events.NamesChangedEvent;
 
 import java.util.Observable;
 
@@ -20,15 +20,13 @@ public class ScoreManagerSingleton extends Observable
 {
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
-    private String leftName;
-    private String rightName;
-
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
     private AnswerSide answerSide;
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final PriceManager priceManager = PriceManager.getInstance();
     private final RoundManager roundManager = RoundManager.getInstance();
+    private final NamesManager namesManager = NamesManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -95,23 +93,14 @@ public class ScoreManagerSingleton extends Observable
         priceManager.setPrice(priceManager.getPrice() + 1);
     }
 
-    public void setNames(String leftName, String rightName)
-    {
-        this.leftName = leftName;
-        this.rightName = rightName;
-
-        setChanged();
-        notifyObservers(new NamesChangedEvent(leftName, rightName));
-    }
-
     public String getAnswersName()
     {
         switch (answerSide)
         {
             case LEFT:
-                return leftName;
+                return namesManager.getLeftName();
             case RIGHT:
-                return rightName;
+                return namesManager.getRightName();
             default:
                 return null;
         }
@@ -126,15 +115,5 @@ public class ScoreManagerSingleton extends Observable
         scoreManager.setRightScore(0);
 
         priceManager.setPrice(1);
-    }
-
-    public String getLeftName()
-    {
-        return leftName;
-    }
-
-    public String getRightName()
-    {
-        return rightName;
     }
 }

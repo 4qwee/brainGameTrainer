@@ -75,8 +75,8 @@ public class ScoreManagerSingleton extends Observable
     public void noOneAnswered()
     {
         answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
-        gameStateManager.setGameState(GameState.FINISHED);
         priceManager.setPrice(priceManager.getPrice() + 1);
+        gameStateManager.setGameState(GameState.FINISHED);
     }
 
     public void newGame()

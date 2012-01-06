@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
+import org.i4qwee.chgk.trainer.controller.brain.manager.PriceManager;
+import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
@@ -17,14 +19,14 @@ public class ScoreManagerSingleton extends Observable
 {
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
-    private int leftScore;
-    private int rightScore;
-
     private String leftName;
     private String rightName;
 
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
     private AnswerSide answerSide;
+
+    private final ScoreManager scoreManager;
+    private final PriceManager priceManager;
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -33,6 +35,8 @@ public class ScoreManagerSingleton extends Observable
 
     private ScoreManagerSingleton()
     {
+        scoreManager = ScoreManager.getInstance();
+        priceManager = PriceManager.getInstance();
     }
 
     public void setFalseStart()
@@ -49,26 +53,6 @@ public class ScoreManagerSingleton extends Observable
         notifyObservers(answerSide);
     }
 
-    public int getLeftScore()
-    {
-        return leftScore;
-    }
-
-    public int getRightScore()
-    {
-        return rightScore;
-    }
-
-    private int getPrice()
-    {
-        return PriceManager.getInstance().getPrice();
-    }
-
-    private void setPrice(int price)
-    {
-        PriceManager.getInstance().setPrice(price);
-    }
-
     public void answer(boolean isCorrect)
     {
         if (isCorrect)
@@ -76,14 +60,14 @@ public class ScoreManagerSingleton extends Observable
             switch (answerSide)
             {
                 case LEFT:
-                    leftScore += getPrice();
+                    scoreManager.increaseLeftScore(priceManager.getPrice());
                     break;
                 case RIGHT:
-                    rightScore += getPrice();
+                    scoreManager.increaseRightScore(priceManager.getPrice());
                     break;
             }
 
-            setPrice(1);
+            priceManager.setPrice(1);
             answerState = AnswerState.NOBODY_ANSWERED;
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
             setChanged();
@@ -108,7 +92,7 @@ public class ScoreManagerSingleton extends Observable
     {
         answerState = AnswerState.NOBODY_ANSWERED;
         GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
-        setPrice(getPrice() + 1);
+        priceManager.setPrice(priceManager.getPrice() + 1);
     }
 
     public void setNames(String leftName, String rightName)
@@ -137,11 +121,11 @@ public class ScoreManagerSingleton extends Observable
     {
         GameStateSingleton.getInstance().setGameState(GameState.INIT);
         GameStateSingleton.getInstance().resetRoundsCount();
-        leftScore = rightScore = 0;
-        setChanged();
-        notifyObservers();
 
-        setPrice(1);
+        scoreManager.setLeftScore(0);
+        scoreManager.setRightScore(0);
+
+        priceManager.setPrice(1);
     }
 
     public String getLeftName()

@@ -1,20 +1,17 @@
-package org.i4qwee.chgk.trainer.controller.brain;
+package org.i4qwee.chgk.trainer.controller.brain.manager;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.i4qwee.chgk.trainer.controller.brain.listener.PriceListener;
 
 /**
  * User: 4qwee
  * Date: 06.01.12
  * Time: 10:39
  */
-public class PriceManager
+public class PriceManager extends Manager<PriceListener>
 {
     private static final PriceManager instance = new PriceManager();
 
     private int price = 1;
-
-    private List<PriceListener> listeners = new ArrayList<PriceListener>();
 
     private PriceManager()
     {
@@ -36,14 +33,10 @@ public class PriceManager
         notifyListeners();
     }
 
-    private void notifyListeners()
+    @Override
+    protected void notifyListeners()
     {
         for (PriceListener listener : listeners)
             listener.onPriceChanged(price);
-    }
-
-    public void addListener(PriceListener listener)
-    {
-        listeners.add(listener);
     }
 }

@@ -1,6 +1,8 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.listener.ScoreListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
@@ -17,18 +19,21 @@ import java.util.Observer;
  * Date: 29.10.11
  * Time: 13:09
  */
-public class ScorePanel extends AbstractPanel implements Observer
+public class ScorePanel extends AbstractPanel implements Observer, ScoreListener
 {
     public static final int MAX_HEIGHT = 100;
 
     SingleScorePanel leftScorePanel;
     SingleScorePanel rightScorePanel;
 
+    ScoreManager scoreManager = ScoreManager.getInstance();
+
     public ScorePanel(TimerButtonPanel timerButtonPanel)
     {
         super();
         ScoreManagerSingleton.getInstance().addObserver(this);
         GameStateSingleton.getInstance().addObserver(this);
+        scoreManager.addListener(this);
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.X_AXIS);
         setLayout(boxLayout);
@@ -76,11 +81,6 @@ public class ScorePanel extends AbstractPanel implements Observer
                 setNames(((NamesChangedEvent) arg).getLeftName(), ((NamesChangedEvent) arg).getRightName());
             }
         }
-        else
-        {
-            leftScorePanel.setScore(ScoreManagerSingleton.getInstance().getLeftScore());
-            rightScorePanel.setScore(ScoreManagerSingleton.getInstance().getRightScore());
-        }
     }
 
     private void selectSingleScorePanel(AnswerSide answerSide)
@@ -106,5 +106,11 @@ public class ScorePanel extends AbstractPanel implements Observer
     {
         leftScorePanel.setName(leftName);
         rightScorePanel.setName(rightName);
+    }
+
+    public void onScoreChanged(int leftScore, int rightScore)
+    {
+        leftScorePanel.setScore(scoreManager.getLeftScore());
+        rightScorePanel.setScore(scoreManager.getRightScore());
     }
 }

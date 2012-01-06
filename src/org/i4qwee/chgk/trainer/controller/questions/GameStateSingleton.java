@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.questions;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 import org.i4qwee.chgk.trainer.model.events.RoundChangedEvent;
 
@@ -20,6 +21,8 @@ public class GameStateSingleton extends Observable
     private int roundsCount = 1;
     private int maxRoundsCount = 0;
 
+    private ScoreManager scoreManager;
+
     public static GameStateSingleton getInstance()
     {
         return ourInstance;
@@ -28,6 +31,7 @@ public class GameStateSingleton extends Observable
     private GameStateSingleton()
     {
         gameState = GameState.INIT;
+        scoreManager = ScoreManager.getInstance();
     }
 
     public GameState getGameState()
@@ -42,9 +46,9 @@ public class GameStateSingleton extends Observable
             case FINISHED:
                 if (roundsCount++ == maxRoundsCount)
                 {
-                    if (ScoreManagerSingleton.getInstance().getLeftScore() > ScoreManagerSingleton.getInstance().getRightScore())
+                    if (scoreManager.getLeftScore() > scoreManager.getRightScore())
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
-                    else if (ScoreManagerSingleton.getInstance().getLeftScore() < ScoreManagerSingleton.getInstance().getRightScore())
+                    else if (scoreManager.getLeftScore() < scoreManager.getRightScore())
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), ScoreManagerSingleton.getInstance().getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
                     else
                         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);

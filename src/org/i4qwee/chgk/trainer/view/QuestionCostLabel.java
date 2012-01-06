@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.brain.PriceListener;
-import org.i4qwee.chgk.trainer.controller.brain.PriceManager;
+import org.i4qwee.chgk.trainer.controller.brain.listener.PriceListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.PriceManager;
 
 import javax.swing.*;
 

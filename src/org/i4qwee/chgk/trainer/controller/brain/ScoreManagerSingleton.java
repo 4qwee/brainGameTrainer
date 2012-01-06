@@ -16,12 +16,11 @@ public class ScoreManagerSingleton extends Observable
 {
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
-    private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
-
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final PriceManager priceManager = PriceManager.getInstance();
     private final RoundManager roundManager = RoundManager.getInstance();
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
+    private final AnswerStateManager answerStateManager = AnswerStateManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -34,7 +33,7 @@ public class ScoreManagerSingleton extends Observable
 
     public void setFalseStart()
     {
-        answerState = AnswerState.ONE_ANSWERED;
+        answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
         GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
     }
 
@@ -53,17 +52,17 @@ public class ScoreManagerSingleton extends Observable
             }
 
             priceManager.setPrice(1);
-            answerState = AnswerState.NOBODY_ANSWERED;
+            answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
             GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
             setChanged();
             notifyObservers();
         }
         else
         {
-            switch (answerState)
+            switch (answerStateManager.getAnswerState())
             {
                 case NOBODY_ANSWERED:
-                    answerState = AnswerState.ONE_ANSWERED;
+                    answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
                     GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
                     break;
                 case ONE_ANSWERED:
@@ -75,7 +74,7 @@ public class ScoreManagerSingleton extends Observable
 
     public void noOneAnswered()
     {
-        answerState = AnswerState.NOBODY_ANSWERED;
+        answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
         GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
         priceManager.setPrice(priceManager.getPrice() + 1);
     }

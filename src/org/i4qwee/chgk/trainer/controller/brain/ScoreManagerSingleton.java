@@ -1,11 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
-import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.PriceManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
+import org.i4qwee.chgk.trainer.controller.brain.manager.*;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
-import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 
@@ -21,12 +17,11 @@ public class ScoreManagerSingleton extends Observable
     private static ScoreManagerSingleton ourInstance = new ScoreManagerSingleton();
 
     private AnswerState answerState = AnswerState.NOBODY_ANSWERED;
-    private AnswerSide answerSide;
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final PriceManager priceManager = PriceManager.getInstance();
     private final RoundManager roundManager = RoundManager.getInstance();
-    private final NamesManager namesManager = NamesManager.getInstance();
+    private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -43,19 +38,11 @@ public class ScoreManagerSingleton extends Observable
         GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
     }
 
-    public void setAnswerSide(AnswerSide answerSide)
-    {
-        this.answerSide = answerSide;
-
-        setChanged();
-        notifyObservers(answerSide);
-    }
-
     public void answer(boolean isCorrect)
     {
         if (isCorrect)
         {
-            switch (answerSide)
+            switch (answerSideManager.getAnswerSide())
             {
                 case LEFT:
                     scoreManager.increaseLeftScore(priceManager.getPrice());
@@ -91,19 +78,6 @@ public class ScoreManagerSingleton extends Observable
         answerState = AnswerState.NOBODY_ANSWERED;
         GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
         priceManager.setPrice(priceManager.getPrice() + 1);
-    }
-
-    public String getAnswersName()
-    {
-        switch (answerSide)
-        {
-            case LEFT:
-                return namesManager.getLeftName();
-            case RIGHT:
-                return namesManager.getRightName();
-            default:
-                return null;
-        }
     }
 
     public void newGame()

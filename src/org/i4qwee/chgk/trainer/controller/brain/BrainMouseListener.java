@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
@@ -18,6 +19,8 @@ public class BrainMouseListener extends MouseAdapter
 {
     private static Logger logger = Logger.getLogger(BrainMouseListener.class);
 
+    private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
+
     public BrainMouseListener()
     {
     }
@@ -30,12 +33,9 @@ public class BrainMouseListener extends MouseAdapter
                 break;
             case WAIT_START_TIMER:
 
-                if (event.getButton() == MouseEvent.BUTTON1)
-                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.LEFT);
-                else if (event.getButton() == MouseEvent.BUTTON3)
-                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.RIGHT);
+                setAnswerSide(event);
 
-                String name = ScoreManagerSingleton.getInstance().getAnswersName();
+                String name = answerSideManager.getAnswersName();
 
                 if (name != null && !name.equals(""))
                     JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), name + ", фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
@@ -44,12 +44,10 @@ public class BrainMouseListener extends MouseAdapter
 
                 ScoreManagerSingleton.getInstance().setFalseStart();
                 break;
+
             case RUNNING:
 
-                if (event.getButton() == MouseEvent.BUTTON1)
-                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.LEFT);
-                else if (event.getButton() == MouseEvent.BUTTON3)
-                    ScoreManagerSingleton.getInstance().setAnswerSide(AnswerSide.RIGHT);
+                setAnswerSide(event);
 
                 GameStateSingleton.getInstance().setGameState(GameState.PAUSED);
 
@@ -61,5 +59,13 @@ public class BrainMouseListener extends MouseAdapter
             default:
                 logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());
         }
+    }
+
+    private void setAnswerSide(MouseEvent event)
+    {
+        if (event.getButton() == MouseEvent.BUTTON1)
+            answerSideManager.setAnswerSide(AnswerSide.LEFT);
+        else if (event.getButton() == MouseEvent.BUTTON3)
+            answerSideManager.setAnswerSide(AnswerSide.RIGHT);
     }
 }

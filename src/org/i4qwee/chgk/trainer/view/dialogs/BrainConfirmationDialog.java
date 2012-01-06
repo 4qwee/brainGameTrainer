@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 
 import javax.swing.*;
@@ -14,6 +15,8 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
     private JButton correctButton;
     private JButton incorrectButton;
     private JLabel messageLabel;
+
+    private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
 
     public BrainConfirmationDialog()
     {
@@ -87,10 +90,10 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
         {
             case PAUSED:
 
-                String name = ScoreManagerSingleton.getInstance().getAnswersName();
+                String name = answerSideManager.getAnswersName();
 
                 if (name != null && !name.equals(""))
-                    messageLabel.setText(ScoreManagerSingleton.getInstance().getAnswersName() + ", правильно?");
+                    messageLabel.setText(name + ", правильно?");
                 else
                     messageLabel.setText("Правильно?");
 

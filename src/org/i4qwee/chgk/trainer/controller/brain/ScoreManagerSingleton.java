@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.i4qwee.chgk.trainer.controller.brain.manager.*;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerState;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 
@@ -21,6 +20,7 @@ public class ScoreManagerSingleton extends Observable
     private final RoundManager roundManager = RoundManager.getInstance();
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
     private final AnswerStateManager answerStateManager = AnswerStateManager.getInstance();
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -34,7 +34,7 @@ public class ScoreManagerSingleton extends Observable
     public void setFalseStart()
     {
         answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
-        GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
+        gameStateManager.setGameState(GameState.RUNNING);
     }
 
     public void answer(boolean isCorrect)
@@ -53,7 +53,7 @@ public class ScoreManagerSingleton extends Observable
 
             priceManager.setPrice(1);
             answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
-            GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+            gameStateManager.setGameState(GameState.FINISHED);
             setChanged();
             notifyObservers();
         }
@@ -63,7 +63,7 @@ public class ScoreManagerSingleton extends Observable
             {
                 case NOBODY_ANSWERED:
                     answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
-                    GameStateSingleton.getInstance().setGameState(GameState.RUNNING);
+                    gameStateManager.setGameState(GameState.RUNNING);
                     break;
                 case ONE_ANSWERED:
                     noOneAnswered();
@@ -75,13 +75,13 @@ public class ScoreManagerSingleton extends Observable
     public void noOneAnswered()
     {
         answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
-        GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+        gameStateManager.setGameState(GameState.FINISHED);
         priceManager.setPrice(priceManager.getPrice() + 1);
     }
 
     public void newGame()
     {
-        GameStateSingleton.getInstance().setGameState(GameState.INIT);
+        gameStateManager.setGameState(GameState.INIT);
         roundManager.setRound(1);
 
         scoreManager.setLeftScore(0);

@@ -1,21 +1,20 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.ApplicationConstants;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 31.10.11
  * Time: 8:44
  */
-public class SoundManagerSingleton implements Observer
+public class SoundManagerSingleton implements GameStateListener
 {
     private static SoundManagerSingleton ourInstance = new SoundManagerSingleton();
 
@@ -33,7 +32,7 @@ public class SoundManagerSingleton implements Observer
 
     private SoundManagerSingleton()
     {
-        GameStateSingleton.getInstance().addObserver(this);
+        GameStateManager.getInstance().addListener(this);
 
         try
         {
@@ -76,23 +75,20 @@ public class SoundManagerSingleton implements Observer
         overClip.start();
     }
 
-    public void update(Observable o, Object arg)
+    public void onGameStageChanged(GameState gameState)
     {
-        if (arg != null && arg instanceof GameState)
+        switch (gameState)
         {
-            switch ((GameState) arg)
-            {
-                case WAIT_START_TIMER:
-                    needStartSound = true;
-                    startClip.setMicrosecondPosition(0);
-                    warnClip.setMicrosecondPosition(0);
-                    overClip.setMicrosecondPosition(0);
-                    break;
-                case RUNNING:
-                    startClip.start();
-                    needStartSound = false;
-                    break;
-            }
+            case WAIT_START_TIMER:
+                needStartSound = true;
+                startClip.setMicrosecondPosition(0);
+                warnClip.setMicrosecondPosition(0);
+                overClip.setMicrosecondPosition(0);
+                break;
+            case RUNNING:
+                startClip.start();
+                needStartSound = false;
+                break;
         }
     }
 }

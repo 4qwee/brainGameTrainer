@@ -2,22 +2,21 @@ package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 import org.i4qwee.chgk.trainer.view.TimerButtonPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 27.10.11
  * Time: 7:23
  */
-public class Timer implements Observer
+public class Timer implements GameStateListener
 {
     private static final int TIMER_DELAY = 13;
     private static final int WARN_TIME = 15000;
@@ -29,10 +28,12 @@ public class Timer implements Observer
 
     private boolean warnPlayed = false;
 
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
+
     public Timer(TimerButtonPanel timerButtonPanel)
     {
         this.timeButton = timerButtonPanel.getTimeButton();
-        GameStateSingleton.getInstance().addObserver(this);
+        gameStateManager.addListener(this);
 
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
         {
@@ -50,7 +51,7 @@ public class Timer implements Observer
                 if (time > OVER_TIME)
                 {
                     SoundManagerSingleton.getInstance().playOverSound();
-                    GameStateSingleton.getInstance().setGameState(GameState.FINISHED);
+                    gameStateManager.setGameState(GameState.FINISHED);
 
                     time = OVER_TIME;
                     setTimeLabelText();
@@ -95,13 +96,8 @@ public class Timer implements Observer
         timeButton.setText(TimerButtonPanel.INIT_TEXT);
     }
 
-    public void update(Observable o, Object arg)
+    public void onGameStageChanged(GameState gameState)
     {
-        if (!(arg instanceof GameState))
-            return;
-
-        GameState gameState = (GameState) arg;
-
         switch (gameState)
         {
             case WAIT_START_TIMER:

@@ -1,26 +1,26 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.listener.AnswerSideListener;
+import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.listener.NamesListener;
 import org.i4qwee.chgk.trainer.controller.brain.listener.ScoreListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * User: 4qwee
  * Date: 29.10.11
  * Time: 13:09
  */
-public class ScorePanel extends AbstractPanel implements Observer, ScoreListener, NamesListener
+public class ScorePanel extends AbstractPanel implements ScoreListener, NamesListener, GameStateListener, AnswerSideListener
 {
     public static final int MAX_HEIGHT = 100;
 
@@ -29,12 +29,15 @@ public class ScorePanel extends AbstractPanel implements Observer, ScoreListener
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final NamesManager namesManager = NamesManager.getInstance();
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
+    private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
+
 
     public ScorePanel(TimerButtonPanel timerButtonPanel)
     {
         super();
-        ScoreManagerSingleton.getInstance().addObserver(this);
-        GameStateSingleton.getInstance().addObserver(this);
+        gameStateManager.addListener(this);
+        answerSideManager.addListener(this);
 
         scoreManager.addListener(this);
         namesManager.addListener(this);
@@ -57,30 +60,6 @@ public class ScorePanel extends AbstractPanel implements Observer, ScoreListener
         super.addMouseListener(mouseListener);
         leftScorePanel.addMouseListener(mouseListener);
         rightScorePanel.addMouseListener(mouseListener);
-    }
-
-    public void update(Observable o, Object arg)
-    {
-        if (arg != null)
-        {
-            if (arg instanceof AnswerSide)
-            {
-                switch ((AnswerSide) arg)
-                {
-                    case LEFT:
-                        selectSingleScorePanel(AnswerSide.LEFT);
-                        break;
-                    case RIGHT:
-                        selectSingleScorePanel(AnswerSide.RIGHT);
-                        break;
-                }
-            }
-            else if (arg instanceof GameState)
-            {
-                if (arg == GameState.FINISHED || arg == GameState.RUNNING)
-                    removeSelection();
-            }
-        }
     }
 
     private void selectSingleScorePanel(AnswerSide answerSide)
@@ -117,5 +96,24 @@ public class ScorePanel extends AbstractPanel implements Observer, ScoreListener
     public void onNamesChanged(String leftName, String rightName)
     {
         setNames(leftName, rightName);
+    }
+
+    public void onGameStageChanged(GameState gameState)
+    {
+        if (gameState == GameState.FINISHED || gameState == GameState.RUNNING)
+            removeSelection();
+    }
+
+    public void onAnswerSideChanged(AnswerSide answerSide)
+    {
+        switch (answerSide)
+        {
+            case LEFT:
+                selectSingleScorePanel(AnswerSide.LEFT);
+                break;
+            case RIGHT:
+                selectSingleScorePanel(AnswerSide.RIGHT);
+                break;
+        }
     }
 }

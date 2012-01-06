@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
 import org.apache.log4j.Logger;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 import org.i4qwee.chgk.trainer.view.QuestionPanel;
@@ -20,6 +20,8 @@ public class TimeButtonActionListener implements ActionListener
 
     private QuestionPanel questionPanel;
 
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
+
     public TimeButtonActionListener(QuestionPanel questionPanel)
     {
         this.questionPanel = questionPanel;
@@ -27,7 +29,7 @@ public class TimeButtonActionListener implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-        switch (GameStateSingleton.getInstance().getGameState())
+        switch (gameStateManager.getGameState())
         {
             case INIT:
                 setGameState(GameState.WAIT_START_TIMER);
@@ -45,12 +47,12 @@ public class TimeButtonActionListener implements ActionListener
                 setGameState(GameState.WAIT_START_TIMER);
                 break;
             default:
-                logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());
+                logger.error("Unsupported game state: " + gameStateManager.getGameState());
         }
     }
 
     private void setGameState(GameState gameState)
     {
-        GameStateSingleton.getInstance().setGameState(gameState);
+        gameStateManager.setGameState(gameState);
     }
 }

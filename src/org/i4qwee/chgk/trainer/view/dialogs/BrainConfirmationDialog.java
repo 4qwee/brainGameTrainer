@@ -1,15 +1,15 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
+import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Observable;
-import java.util.Observer;
 
-public class BrainConfirmationDialog extends AbstractDialog implements Observer
+public class BrainConfirmationDialog extends AbstractDialog implements GameStateListener
 {
     private JPanel contentPane;
     private JButton correctButton;
@@ -17,10 +17,12 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
     private JLabel messageLabel;
 
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
 
     public BrainConfirmationDialog()
     {
-        GameStateSingleton.getInstance().addObserver(this);
+        gameStateManager.addListener(this);
+
 
         setResizable(false);
 
@@ -84,9 +86,9 @@ public class BrainConfirmationDialog extends AbstractDialog implements Observer
         dispose();
     }
 
-    public void update(Observable o, Object arg)
+    public void onGameStageChanged(GameState gameState)
     {
-        switch (GameStateSingleton.getInstance().getGameState())
+        switch (gameState)
         {
             case PAUSED:
 

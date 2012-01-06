@@ -2,7 +2,7 @@ package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
 
@@ -20,6 +20,7 @@ public class BrainMouseListener extends MouseAdapter
     private static Logger logger = Logger.getLogger(BrainMouseListener.class);
 
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
+    private final GameStateManager gameStateManager = GameStateManager.getInstance();
 
     public BrainMouseListener()
     {
@@ -27,7 +28,7 @@ public class BrainMouseListener extends MouseAdapter
 
     public void mousePressed(MouseEvent event)
     {
-        switch (GameStateSingleton.getInstance().getGameState())
+        switch (gameStateManager.getGameState())
         {
             case INIT:
                 break;
@@ -49,7 +50,7 @@ public class BrainMouseListener extends MouseAdapter
 
                 setAnswerSide(event);
 
-                GameStateSingleton.getInstance().setGameState(GameState.PAUSED);
+                gameStateManager.setGameState(GameState.PAUSED);
 
                 break;
             case PAUSED:
@@ -57,7 +58,7 @@ public class BrainMouseListener extends MouseAdapter
             case FINISHED:
                 break;
             default:
-                logger.error("Unsupported game state: " + GameStateSingleton.getInstance().getGameState());
+                logger.error("Unsupported game state: " + gameStateManager.getGameState());
         }
     }
 

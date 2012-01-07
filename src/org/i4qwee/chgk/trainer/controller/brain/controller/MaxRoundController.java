@@ -35,10 +35,20 @@ public class MaxRoundController implements RoundListener
     {
         if (round > maxRound)
         {
+            String leftName = namesManager.getLeftName();
+            
+            if (leftName == null || leftName.equals(""))
+                leftName = "Левый";
+            
+            String rightName = namesManager.getRightName();
+            
+            if (rightName == null || rightName.equals(""))
+                rightName = "Правый";
+
             if (scoreManager.getLeftScore() > scoreManager.getRightScore())
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), namesManager.getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), leftName + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
             else if (scoreManager.getLeftScore() < scoreManager.getRightScore())
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), namesManager.getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), rightName + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
             else
                 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);
 

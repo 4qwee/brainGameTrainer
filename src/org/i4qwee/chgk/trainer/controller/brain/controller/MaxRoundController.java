@@ -33,7 +33,7 @@ public class MaxRoundController implements RoundListener
 
     public void onRoundChanged(int round, int maxRound)
     {
-        if (round > maxRound)
+        if (maxRound != 0 && round > maxRound)
         {
             String leftName = namesManager.getLeftName();
             

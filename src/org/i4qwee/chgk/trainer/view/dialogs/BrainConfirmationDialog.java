@@ -5,6 +5,7 @@ import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,8 +24,11 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
     {
         gameStateManager.addListener(this);
 
-
         setResizable(false);
+        setAlwaysOnTop(true);
+        setUndecorated(true);
+
+        contentPane.setBorder(DefaultUIProvider.getDefaultEmptyEtchedEmptyBorder());
 
         setContentPane(contentPane);
         getRootPane().setDefaultButton(correctButton);

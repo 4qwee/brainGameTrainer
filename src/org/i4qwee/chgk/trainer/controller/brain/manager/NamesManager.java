@@ -25,7 +25,10 @@ public class NamesManager extends Manager<NamesListener>
 
     public String getLeftName()
     {
-        return leftName;
+        if (leftName == null || leftName.equals(""))
+            return "Левый";
+        else
+            return leftName;
     }
 
     public void setLeftName(String leftName)
@@ -36,7 +39,10 @@ public class NamesManager extends Manager<NamesListener>
 
     public String getRightName()
     {
-        return rightName;
+        if (rightName == null || rightName.equals(""))
+            return "Правый";
+        else
+            return rightName;
     }
 
     public void setRightName(String rightName)

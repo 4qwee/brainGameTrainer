@@ -17,8 +17,6 @@ public class RoundsController implements GameStateListener
     private final GameStateManager gameStateManager = GameStateManager.getInstance();
     private final RoundManager roundManager = RoundManager.getInstance();
 
-    private boolean isFinishedOnce = false;
-
     private RoundsController()
     {
         gameStateManager.addListener(this);
@@ -31,9 +29,9 @@ public class RoundsController implements GameStateListener
 
     public void onGameStageChanged(GameState gameState)
     {
-        if (isFinishedOnce && gameState == GameState.WAIT_START_TIMER)
+        if (gameState == GameState.WAIT_START_TIMER)
             roundManager.setRound(roundManager.getRound() + 1);
-        else if (gameState == GameState.FINISHED)
-            isFinishedOnce = true;
+        else if (gameState == GameState.INIT)
+            roundManager.setRound(0);
     }
 }

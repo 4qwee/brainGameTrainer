@@ -82,7 +82,6 @@ public class ScoreManagerSingleton extends Observable
     public void newGame()
     {
         gameStateManager.setGameState(GameState.INIT);
-        roundManager.setRound(1);
 
         scoreManager.setLeftScore(0);
         scoreManager.setRightScore(0);

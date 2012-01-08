@@ -13,6 +13,9 @@ public abstract class AbstractDialog extends JDialog
     public AbstractDialog()
     {
         super();
+
+        setAlwaysOnTop(true);
+        setUndecorated(true);
     }
 
     public void showDialog()

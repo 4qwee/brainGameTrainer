@@ -5,6 +5,7 @@ import org.i4qwee.chgk.trainer.controller.brain.listener.RoundListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import javax.swing.*;
 
@@ -20,6 +21,7 @@ public class MaxRoundController implements RoundListener
     private final RoundManager roundManager = RoundManager.getInstance();
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final NamesManager namesManager = NamesManager.getInstance();
+    private final MessageDialog messageDialog = MessageDialog.getInstance();
 
     private MaxRoundController()
     {
@@ -36,11 +38,11 @@ public class MaxRoundController implements RoundListener
         if (maxRound != 0 && round > maxRound)
         {
             if (scoreManager.getLeftScore() > scoreManager.getRightScore())
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), namesManager.getLeftName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                messageDialog.show(namesManager.getLeftName() + " выиграл!");
             else if (scoreManager.getLeftScore() < scoreManager.getRightScore())
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), namesManager.getRightName() + " выиграл!", "", JOptionPane.PLAIN_MESSAGE);
+                messageDialog.show(namesManager.getRightName() + " выиграл!");
             else
-                JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Ничья!", "", JOptionPane.PLAIN_MESSAGE);
+                messageDialog.show("Ничья!");
 
             ScoreManagerSingleton.getInstance().newGame();
         }

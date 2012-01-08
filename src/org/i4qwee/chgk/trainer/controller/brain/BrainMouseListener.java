@@ -5,6 +5,7 @@ import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -38,10 +39,7 @@ public class BrainMouseListener extends MouseAdapter
 
                 String name = answerSideManager.getAnswersName();
 
-                if (name != null && !name.equals(""))
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), name + ", фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
-                else
-                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Фальстарт!", "", JOptionPane.PLAIN_MESSAGE);
+                MessageDialog.getInstance().show(name + ", фальстарт!");
 
                 ScoreManagerSingleton.getInstance().setFalseStart();
                 break;

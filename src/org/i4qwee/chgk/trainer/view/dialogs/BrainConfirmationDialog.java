@@ -25,8 +25,6 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
         gameStateManager.addListener(this);
 
         setResizable(false);
-        setAlwaysOnTop(true);
-        setUndecorated(true);
 
         contentPane.setBorder(DefaultUIProvider.getDefaultEmptyEtchedEmptyBorder());
 

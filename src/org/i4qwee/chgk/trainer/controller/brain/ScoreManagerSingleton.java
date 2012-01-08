@@ -17,7 +17,6 @@ public class ScoreManagerSingleton extends Observable
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final PriceManager priceManager = PriceManager.getInstance();
-    private final RoundManager roundManager = RoundManager.getInstance();
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
     private final AnswerStateManager answerStateManager = AnswerStateManager.getInstance();
     private final GameStateManager gameStateManager = GameStateManager.getInstance();

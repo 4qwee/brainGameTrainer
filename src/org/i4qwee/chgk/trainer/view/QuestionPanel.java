@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.brain.listener.QuestionListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.QuestionManager;
 import org.i4qwee.chgk.trainer.model.Question;
 
 import javax.swing.*;
@@ -10,8 +12,10 @@ import java.awt.*;
  * Date: 29.10.11
  * Time: 10:24
  */
-public class QuestionPanel extends AbstractPanel
+public class QuestionPanel extends AbstractPanel implements QuestionListener
 {
+    private final QuestionManager questionManager = QuestionManager.getInstance();
+
     private JEditorPane questionTextArea;
     private JEditorPane answerTextArea;
 
@@ -28,6 +32,8 @@ public class QuestionPanel extends AbstractPanel
         add(questionTextArea);
         add(Box.createVerticalStrut(10));
         add(answerTextArea);
+
+        questionManager.addListener(this);
     }
 
     public void setQuestion(Question question)
@@ -61,5 +67,10 @@ public class QuestionPanel extends AbstractPanel
 
         questionTextArea.setMaximumSize(maximumSize);
         answerTextArea.setMaximumSize(maximumSize);
+    }
+
+    public void onQuestionChange(Question question)
+    {
+        setQuestion(question, false);;
     }
 }

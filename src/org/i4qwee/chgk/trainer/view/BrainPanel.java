@@ -28,7 +28,6 @@ public class BrainPanel extends AbstractPanel
         final QuestionPanel questionPanel = new QuestionPanel();
 
         TimerButtonPanel timerButtonPanel = new TimerButtonPanel();
-        timerButtonPanel.getTimeButton().addActionListener(new TimeButtonActionListener(questionPanel));
 
         ScorePanel scorePanel = new ScorePanel(timerButtonPanel);
 

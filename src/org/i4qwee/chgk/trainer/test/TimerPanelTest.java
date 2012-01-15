@@ -26,7 +26,7 @@ public class TimerPanelTest extends JFrame
         final TimerButtonPanel timerButtonPanel = new TimerButtonPanel();
         getContentPane().add(timerButtonPanel);
 
-        final Timer timer = new org.i4qwee.chgk.trainer.controller.time.Timer(timerButtonPanel);
+        final Timer timer = new org.i4qwee.chgk.trainer.controller.time.Timer();
 
         JPanel buttonsPanel = new JPanel();
         getContentPane().add(buttonsPanel);
@@ -42,7 +42,7 @@ public class TimerPanelTest extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                timer.timerStart();
+                timer.start();
             }
         });
         buttonsPanel.add(startButton);
@@ -55,7 +55,7 @@ public class TimerPanelTest extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                timer.timerStop();
+                timer.stop();
             }
         });
         buttonsPanel.add(stopButton);
@@ -68,7 +68,7 @@ public class TimerPanelTest extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                timer.timerRestart();
+                timer.restart();
             }
         });
         buttonsPanel.add(restartButton);

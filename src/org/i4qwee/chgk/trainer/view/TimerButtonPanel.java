@@ -1,5 +1,8 @@
 package org.i4qwee.chgk.trainer.view;
 
+import org.i4qwee.chgk.trainer.controller.brain.listener.TimeListener;
+import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
@@ -9,9 +12,11 @@ import java.awt.event.MouseListener;
  * Date: 25.10.11
  * Time: 21:59
  */
-public class TimerButtonPanel extends AbstractPanel
+public class TimerButtonPanel extends AbstractPanel implements TimeListener
 {
     public static final String INIT_TEXT = "0:00:000";
+
+    private final TimeManager timeManager = TimeManager.getInstance();
 
     private JButton timeButton;
 
@@ -25,7 +30,7 @@ public class TimerButtonPanel extends AbstractPanel
 
         setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
-        new org.i4qwee.chgk.trainer.controller.time.Timer(this);
+        timeManager.addListener(this);
     }
 
     public JButton getTimeButton()
@@ -37,5 +42,10 @@ public class TimerButtonPanel extends AbstractPanel
     {
         super.addMouseListener(mouseListener);
         timeButton.addMouseListener(mouseListener);
+    }
+
+    public void onTimeChanged(int time)
+    {
+        timeButton.setText(TimeManager.getTimeString(time));
     }
 }

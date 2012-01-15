@@ -2,12 +2,10 @@ package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
-import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
+import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
-import org.i4qwee.chgk.trainer.view.TimerButtonPanel;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,103 +14,70 @@ import java.awt.event.ActionListener;
  * Date: 27.10.11
  * Time: 7:23
  */
-public class Timer implements GameStateListener
+public class Timer
 {
+    private static final Timer instance = new Timer();
+
     private static final int TIMER_DELAY = 13;
     private static final int WARN_TIME = 15000;
     private static final int OVER_TIME = 20000;
 
     private javax.swing.Timer timer;
-    private int time;
-    private JButton timeButton;
 
     private boolean warnPlayed = false;
 
     private final GameStateManager gameStateManager = GameStateManager.getInstance();
+    private final TimeManager timeManager = TimeManager.getInstance();
+    private final SoundManagerSingleton soundManager = SoundManagerSingleton.getInstance();
+    private final ScoreManagerSingleton scoreManager = ScoreManagerSingleton.getInstance();
 
-    public Timer(TimerButtonPanel timerButtonPanel)
+    public Timer()
     {
-        this.timeButton = timerButtonPanel.getTimeButton();
-        gameStateManager.addListener(this);
-
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                time += TIMER_DELAY;
-                setTimeLabelText();
+                int time = timeManager.getTime();
+
+                timeManager.setTime(time + TIMER_DELAY);
 
                 if (!warnPlayed && time > WARN_TIME)
                 {
-                    SoundManagerSingleton.getInstance().playWarnSound();
+                    soundManager.playWarnSound();
                     warnPlayed = true;
                 }
 
                 if (time > OVER_TIME)
                 {
-                    SoundManagerSingleton.getInstance().playOverSound();
+                    soundManager.playOverSound();
                     gameStateManager.setGameState(GameState.FINISHED);
 
-                    time = OVER_TIME;
-                    setTimeLabelText();
-                    ScoreManagerSingleton.getInstance().noOneAnswered();
+                    timeManager.setTime(OVER_TIME);
+                    scoreManager.noOneAnswered();
                 }
             }
         });
     }
 
-    private void setTimeLabelText()
+    public static Timer getInstance()
     {
-        long tmpTime = time % 10L;
-        String timeText = Long.toString(tmpTime);
-        tmpTime = (time % 100L - time % 10L) / 10L;
-        timeText = Long.toString(tmpTime) + timeText;
-        tmpTime = (time % 1000L - time % 100L) / 100L;
-        timeText = ":" + Long.toString(tmpTime) + timeText;
-        tmpTime = (time % 10000L - time % 1000L) / 1000L;
-        timeText = Long.toString(tmpTime) + timeText;
-        tmpTime = (time % 60000L - time % 10000L) / 10000L;
-        timeText = ":" + Long.toString(tmpTime) + timeText;
-        tmpTime = (time % 600000L - time % 60000L) / 60000L;
-        timeText = Long.toString(tmpTime) + timeText;
-
-        timeButton.setText(timeText);
+        return instance;
     }
 
-    public void timerStart()
+    public void start()
     {
         timer.start();
     }
 
-    public void timerStop()
+    public void stop()
     {
         timer.stop();
     }
 
-    public void timerRestart()
+    public void restart()
     {
         timer.stop();
-        time = 0;
-        timeButton.setText(TimerButtonPanel.INIT_TEXT);
-    }
-
-    public void onGameStageChanged(GameState gameState)
-    {
-        switch (gameState)
-        {
-            case WAIT_START_TIMER:
-                timerRestart();
-                warnPlayed = false;
-                break;
-            case RUNNING:
-                timerStart();
-                break;
-            case PAUSED:
-                timerStop();
-                break;
-            case FINISHED:
-                timerStop();
-                break;
-        }
+        timeManager.setTime(0);
+        warnPlayed = false;
     }
 }

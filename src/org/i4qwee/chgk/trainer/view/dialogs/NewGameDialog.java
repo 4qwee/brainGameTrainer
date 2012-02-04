@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
+import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,6 +24,8 @@ public class NewGameDialog extends AbstractDialog
 
         setResizable(false);
         setSize(350, 200);
+
+        contentPane.setBorder(DefaultUIProvider.getDefaultEmptyEtchedEmptyBorder());
 
         setContentPane(contentPane);
         setModal(true);

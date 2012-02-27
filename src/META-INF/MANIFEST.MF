@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: lib/WebLookAndFeel_no_examples.jar lib/annotations.jar lib/xercesImpl.
+ jar lib/sqlitejdbc-v056.jar lib/log4j-1.2.16.jar
+Main-Class: org.i4qwee.chgk.trainer.test.BrainPanelTest
+

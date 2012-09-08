@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="brainGameTrainer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/brainGameTrainer_jar</output-path>
+    <root id="archive" name="brainGameTrainer.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="brainGameTrainer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/xercesImpl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/WebLookAndFeel_no_examples.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-1.2.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlitejdbc-v056.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

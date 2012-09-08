@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class LoadingDialog extends AbstractDialog
 {
-    private ImageIcon loaderImage = new ImageIcon(ApplicationConstants.APPLICATION_PATH + ApplicationConstants.IDEA_FILEPATH_HACK + "img/loader.gif");
+    private ImageIcon loaderImage = new ImageIcon(ApplicationConstants.APPLICATION_PATH + "/img/loader.gif");
 
     public LoadingDialog()
     {

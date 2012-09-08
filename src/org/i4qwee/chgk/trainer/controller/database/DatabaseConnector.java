@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
 import org.apache.log4j.Logger;
-import org.i4qwee.chgk.trainer.model.ApplicationConstants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +21,7 @@ public class DatabaseConnector
         try
         {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + ApplicationConstants.IDEA_FILEPATH_HACK + "\\main.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "/main.db");
         }
         catch (ClassNotFoundException e)
         {

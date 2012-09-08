@@ -41,7 +41,8 @@ public class BrainPanelTest extends JFrame
         });
 
         pack();
-        setSize(800, 600);
+
+        setFullScreen();
 
         Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
 
@@ -50,11 +51,20 @@ public class BrainPanelTest extends JFrame
         setVisible(true);
     }
 
+    private void setFullScreen()
+    {
+        setExtendedState(Frame.MAXIMIZED_BOTH);
+
+        removeNotify();
+        setUndecorated(true);
+        addNotify();
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, IllegalAccessException, InstantiationException
     {
 //        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         UIManager.setLookAndFeel(WebLookAndFeel.class.getName());
 
-        BrainPanelTest brainPanelTest = new BrainPanelTest();
+        new BrainPanelTest();
     }
 }

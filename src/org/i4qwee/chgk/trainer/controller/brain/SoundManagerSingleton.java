@@ -36,9 +36,9 @@ public class SoundManagerSingleton implements GameStateListener
 
         try
         {
-            startClip = initSound("\\sounds\\start.wav");
-            warnClip = initSound("\\sounds\\warn.wav");
-            overClip = initSound("\\sounds\\over.wav");
+            startClip = initSound("/sounds/start.wav");
+            warnClip = initSound("/sounds/warn.wav");
+            overClip = initSound("/sounds/over.wav");
         }
         catch (UnsupportedAudioFileException e)
         {
@@ -56,7 +56,7 @@ public class SoundManagerSingleton implements GameStateListener
 
     private Clip initSound(String source) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
-        File startFile = new File(ApplicationConstants.APPLICATION_PATH + ApplicationConstants.IDEA_FILEPATH_HACK + source);
+        File startFile = new File(ApplicationConstants.APPLICATION_PATH + source);
         AudioInputStream startAudioInputStream = AudioSystem.getAudioInputStream(startFile);
         DataLine.Info startInfo = new DataLine.Info(Clip.class, startAudioInputStream.getFormat());
         Clip clip = (Clip) AudioSystem.getLine(startInfo);

@@ -2,6 +2,7 @@ package org.i4qwee.chgk.trainer.controller.brain.manager;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
 
 /**
  * User: 4qwee
@@ -38,6 +39,19 @@ public class GameStateManager extends Manager<GameStateListener>
     protected void notifyListeners()
     {
         for (GameStateListener listener : listeners)
-            listener.onGameStageChanged(gameState);
+        {
+            if (!(listener instanceof BrainConfirmationDialog))
+            {
+                listener.onGameStageChanged(gameState);
+            }
+        }
+
+        for (GameStateListener listener : listeners)
+        {
+            if (listener instanceof BrainConfirmationDialog)
+            {
+                listener.onGameStageChanged(gameState);
+            }
+        }
     }
 }

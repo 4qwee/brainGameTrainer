@@ -18,13 +18,13 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
     private JLabel messageLabel;
 
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
-    private final GameStateManager gameStateManager = GameStateManager.getInstance();
 
     public BrainConfirmationDialog()
     {
-        gameStateManager.addListener(this);
+        GameStateManager.getInstance().addListener(this);
 
         setResizable(false);
+        setModal(true);
 
         contentPane.setBorder(DefaultUIProvider.getDefaultEmptyEtchedEmptyBorder());
 

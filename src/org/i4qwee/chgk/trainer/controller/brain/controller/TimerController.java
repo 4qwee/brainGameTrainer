@@ -14,11 +14,11 @@ public class TimerController implements GameStateListener
 {
     private static final TimerController instance = new TimerController();
 
-    private final GameStateManager gameStateManager = GameStateManager.getInstance();
     private final Timer timer = Timer.getInstance();
 
     private TimerController()
     {
+        GameStateManager gameStateManager = GameStateManager.getInstance();
         gameStateManager.addListener(this);
     }
 

@@ -64,7 +64,7 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
             {
                 onCorrect();
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 // call onIncorrect() on RIGHT
         contentPane.registerKeyboardAction(new ActionListener()
@@ -73,7 +73,7 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
             {
                 onIncorrect();
             }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
 
     private void onCorrect()

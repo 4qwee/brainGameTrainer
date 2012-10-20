@@ -14,26 +14,21 @@ import java.io.IOException;
  * Date: 31.10.11
  * Time: 8:44
  */
-public class SoundManagerSingleton implements GameStateListener
+public class SoundManager
 {
-    private static SoundManagerSingleton ourInstance = new SoundManagerSingleton();
+    private static SoundManager ourInstance = new SoundManager();
 
     private Clip startClip;
     private Clip warnClip;
     private Clip overClip;
 
-    @SuppressWarnings({"FieldCanBeLocal"})
-    private boolean needStartSound = true;
-
-    public static SoundManagerSingleton getInstance()
+    public static SoundManager getInstance()
     {
         return ourInstance;
     }
 
-    private SoundManagerSingleton()
+    private SoundManager()
     {
-        GameStateManager.getInstance().addListener(this);
-
         try
         {
             startClip = initSound("/sounds/start.wav");
@@ -75,20 +70,18 @@ public class SoundManagerSingleton implements GameStateListener
         overClip.start();
     }
 
-    public void onGameStageChanged(GameState gameState)
+    public void playStartSound()
     {
-        switch (gameState)
-        {
-            case WAIT_START_TIMER:
-                needStartSound = true;
-                startClip.setMicrosecondPosition(0);
-                warnClip.setMicrosecondPosition(0);
-                overClip.setMicrosecondPosition(0);
-                break;
-            case RUNNING:
-                startClip.start();
-                needStartSound = false;
-                break;
-        }
+        startClip.start();
+    }
+
+    public void resetSounds()
+    {
+        startClip.stop();
+        startClip.setMicrosecondPosition(0);
+        warnClip.stop();
+        warnClip.setMicrosecondPosition(0);
+        overClip.stop();
+        overClip.setMicrosecondPosition(0);
     }
 }

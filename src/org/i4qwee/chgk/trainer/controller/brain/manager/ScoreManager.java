@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain.manager;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.ScoreListener;
+import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 
 /**
  * User: 4qwee
@@ -60,5 +61,13 @@ public class ScoreManager extends Manager<ScoreListener>
     {
         for (ScoreListener listener : listeners)
             listener.onScoreChanged(leftScore, rightScore);
+    }
+
+    public void increaseScore(AnswerSide answerSide, int score)
+    {
+        if (answerSide == AnswerSide.LEFT)
+            increaseLeftScore(score);
+        else if (answerSide == AnswerSide.RIGHT)
+            increaseRightScore(score);
     }
 }

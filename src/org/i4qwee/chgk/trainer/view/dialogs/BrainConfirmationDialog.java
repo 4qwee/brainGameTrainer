@@ -1,6 +1,5 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
-import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
@@ -16,6 +15,8 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
     private JButton correctButton;
     private JButton incorrectButton;
     private JLabel messageLabel;
+
+    private boolean isCorrect;
 
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
 
@@ -78,31 +79,38 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
 
     private void onCorrect()
     {
-        ScoreManagerSingleton.getInstance().answer(true);
+        isCorrect = true;
         dispose();
     }
 
     private void onIncorrect()
     {
-        ScoreManagerSingleton.getInstance().answer(false);
+        isCorrect = false;
         dispose();
     }
 
     public void onGameStageChanged(GameState gameState)
     {
-        switch (gameState)
-        {
-            case PAUSED:
+//        switch (gameState)
+//        {
+//            case PAUSED:
+//
+//                showDialog();
+//                break;
+//        }
+    }
 
-                String name = answerSideManager.getAnswersName();
+    public boolean showConfirmationDialog()
+    {
+        String name = answerSideManager.getAnswersName();
 
-                if (name != null && !name.equals(""))
-                    messageLabel.setText(name + ", правильно?");
-                else
-                    messageLabel.setText("Правильно?");
+        if (name != null && !name.equals(""))
+            messageLabel.setText(name + ", правильно?");
+        else
+            messageLabel.setText("Правильно?");
 
-                showDialog();
-                break;
-        }
+        showDialog();
+
+        return isCorrect;
     }
 }

@@ -2,6 +2,7 @@ package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
 import org.i4qwee.chgk.trainer.controller.brain.Initializer;
+import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 
 import javax.swing.*;
@@ -48,7 +49,13 @@ public class BrainPanelTest extends JFrame
 
         setVisible(true);
 
-        setFullScreen();
+        setSize(800, 600);
+
+//        setFullScreen();
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyboardDispatcher());
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(new org.i4qwee.chgk.trainer.new_brain.actionlisteners.MouseListener(), AWTEvent.MOUSE_EVENT_MASK);
     }
 
     private void setFullScreen()

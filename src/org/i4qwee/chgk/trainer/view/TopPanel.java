@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class TopPanel extends AbstractPanel
 {
     public static final int MAX_HEIGHT = 30;
-    private NewGameDialog newGameDialog;
 
     public TopPanel(JFrame parentFrame)
     {
@@ -41,11 +40,9 @@ public class TopPanel extends AbstractPanel
         {
             public void actionPerformed(ActionEvent e)
             {
-                newGameDialog.showDialog();
+                NewGameDialog.getInstance().showDialog();
             }
         });
         add(newGameButton);
-
-        newGameDialog = new NewGameDialog();
     }
 }

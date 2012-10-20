@@ -1,7 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
-import org.i4qwee.chgk.trainer.controller.brain.SoundManagerSingleton;
+import org.i4qwee.chgk.trainer.controller.brain.SoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
 import org.i4qwee.chgk.trainer.model.enums.GameState;
@@ -28,7 +28,7 @@ public class Timer
 
     private final GameStateManager gameStateManager = GameStateManager.getInstance();
     private final TimeManager timeManager = TimeManager.getInstance();
-    private final SoundManagerSingleton soundManager = SoundManagerSingleton.getInstance();
+    private final SoundManager soundManager = SoundManager.getInstance();
     private final ScoreManagerSingleton scoreManager = ScoreManagerSingleton.getInstance();
 
     public Timer()

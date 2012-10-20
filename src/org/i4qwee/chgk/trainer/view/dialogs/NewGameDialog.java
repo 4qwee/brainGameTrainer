@@ -11,6 +11,8 @@ import java.awt.event.*;
 
 public class NewGameDialog extends AbstractDialog
 {
+    private static NewGameDialog instance = new NewGameDialog();
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -18,7 +20,7 @@ public class NewGameDialog extends AbstractDialog
     private JTextField rightName;
     private JTextField roundsCount;
 
-    public NewGameDialog()
+    private NewGameDialog()
     {
         super();
 
@@ -79,5 +81,10 @@ public class NewGameDialog extends AbstractDialog
     private void onCancel()
     {
         dispose();
+    }
+
+    public static NewGameDialog getInstance()
+    {
+        return instance;
     }
 }

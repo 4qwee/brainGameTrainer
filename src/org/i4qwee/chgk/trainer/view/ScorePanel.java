@@ -106,6 +106,12 @@ public class ScorePanel extends AbstractPanel implements ScoreListener, NamesLis
 
     public void onAnswerSideChanged(AnswerSide answerSide)
     {
+        if (answerSide == null)
+        {
+            removeSelection();
+            return;
+        }
+
         switch (answerSide)
         {
             case LEFT:

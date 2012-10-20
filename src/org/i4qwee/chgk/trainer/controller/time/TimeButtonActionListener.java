@@ -28,26 +28,26 @@ public class TimeButtonActionListener implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-        switch (gameStateManager.getGameState())
-        {
-            case INIT:
-                setGameState(GameState.WAIT_START_TIMER);
-                questionManager.setQuestion(QuestionsCache.getNextQuestion());
-                break;
-            case WAIT_START_TIMER:
-                setGameState(GameState.RUNNING);
-                break;
-            case RUNNING:
-                break;
-            case PAUSED:
-                break;
-            case FINISHED:
-                questionManager.setQuestion(QuestionsCache.getNextQuestion());
-                setGameState(GameState.WAIT_START_TIMER);
-                break;
-            default:
-                logger.error("Unsupported game state: " + gameStateManager.getGameState());
-        }
+//        switch (gameStateManager.getGameState())
+//        {
+//            case INIT:
+//                setGameState(GameState.WAIT_START_TIMER);
+//                questionManager.setQuestion(QuestionsCache.getNextQuestion());
+//                break;
+//            case WAIT_START_TIMER:
+//                setGameState(GameState.RUNNING);
+//                break;
+//            case RUNNING:
+//                break;
+//            case PAUSED:
+//                break;
+//            case FINISHED:
+//                questionManager.setQuestion(QuestionsCache.getNextQuestion());
+//                setGameState(GameState.WAIT_START_TIMER);
+//                break;
+//            default:
+//                logger.error("Unsupported game state: " + gameStateManager.getGameState());
+//        }
     }
 
     private void setGameState(GameState gameState)

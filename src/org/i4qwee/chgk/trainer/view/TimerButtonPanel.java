@@ -2,7 +2,6 @@ package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.TimeListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
-import org.i4qwee.chgk.trainer.controller.time.TimeButtonActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +24,6 @@ public class TimerButtonPanel extends AbstractPanel implements TimeListener
     {
         timeButton = new JButton(INIT_TEXT);
         timeButton.setFont(DefaultUIProvider.getDisplayFont());
-        timeButton.addActionListener(new TimeButtonActionListener());
 
         setLayout(new BorderLayout());
         add(timeButton, BorderLayout.CENTER);

@@ -1,6 +1,5 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.controller.brain.BrainMouseListener;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManager;
 
 import javax.swing.*;
@@ -37,10 +36,6 @@ public class BrainPanel extends AbstractPanel
 
         add(scrollPane);
         add(scorePanel);
-
-        BrainMouseListener brainMouseListener = new BrainMouseListener();
-        addMouseListener(brainMouseListener);
-        questionPanel.addMouseListener(brainMouseListener);
 
         SoundManager.getInstance();
 

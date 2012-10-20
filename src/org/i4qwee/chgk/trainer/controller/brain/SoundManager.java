@@ -1,9 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
-import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
-import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.model.ApplicationConstants;
-import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.sound.sampled.*;
 import java.io.File;

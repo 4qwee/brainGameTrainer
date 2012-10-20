@@ -1,15 +1,12 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
-import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
-import org.i4qwee.chgk.trainer.model.enums.GameState;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.event.*;
 
-public class BrainConfirmationDialog extends AbstractDialog implements GameStateListener
+public class BrainConfirmationDialog extends AbstractDialog
 {
     private JPanel contentPane;
     private JButton correctButton;
@@ -22,8 +19,6 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
 
     public BrainConfirmationDialog()
     {
-        GameStateManager.getInstance().addListener(this);
-
         setResizable(false);
         setModal(true);
 
@@ -87,17 +82,6 @@ public class BrainConfirmationDialog extends AbstractDialog implements GameState
     {
         isCorrect = false;
         dispose();
-    }
-
-    public void onGameStageChanged(GameState gameState)
-    {
-//        switch (gameState)
-//        {
-//            case PAUSED:
-//
-//                showDialog();
-//                break;
-//        }
     }
 
     public boolean showConfirmationDialog()

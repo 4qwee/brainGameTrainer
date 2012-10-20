@@ -2,9 +2,9 @@ package org.i4qwee.chgk.trainer.controller.time;
 
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.SoundManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
-import org.i4qwee.chgk.trainer.model.enums.GameState;
+import org.i4qwee.chgk.trainer.new_brain.states.EndRound;
+import org.i4qwee.chgk.trainer.new_brain.states.StateManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +26,6 @@ public class Timer
 
     private boolean warnPlayed = false;
 
-    private final GameStateManager gameStateManager = GameStateManager.getInstance();
     private final TimeManager timeManager = TimeManager.getInstance();
     private final SoundManager soundManager = SoundManager.getInstance();
     private final ScoreManagerSingleton scoreManager = ScoreManagerSingleton.getInstance();
@@ -50,10 +49,10 @@ public class Timer
                 if (time > OVER_TIME)
                 {
                     soundManager.playOverSound();
-                    gameStateManager.setGameState(GameState.FINISHED);
+                    StateManager.getInstance().setState(new EndRound());
 
+                    Timer.getInstance().stop();
                     timeManager.setTime(OVER_TIME);
-                    scoreManager.noOneAnswered();
                 }
             }
         });

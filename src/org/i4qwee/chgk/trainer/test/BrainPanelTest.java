@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
-import org.i4qwee.chgk.trainer.controller.brain.Initializer;
 import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 
@@ -19,8 +18,6 @@ public class BrainPanelTest extends JFrame
     public BrainPanelTest() throws HeadlessException
     {
         super();
-
-        new Initializer();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

@@ -1,15 +1,12 @@
 package org.i4qwee.chgk.trainer.view;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.AnswerSideListener;
-import org.i4qwee.chgk.trainer.controller.brain.listener.GameStateListener;
 import org.i4qwee.chgk.trainer.controller.brain.listener.NamesListener;
 import org.i4qwee.chgk.trainer.controller.brain.listener.ScoreListener;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
-import org.i4qwee.chgk.trainer.controller.brain.manager.GameStateManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.ScoreManager;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
-import org.i4qwee.chgk.trainer.model.enums.GameState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +17,7 @@ import java.awt.event.MouseListener;
  * Date: 29.10.11
  * Time: 13:09
  */
-public class ScorePanel extends AbstractPanel implements ScoreListener, NamesListener, GameStateListener, AnswerSideListener
+public class ScorePanel extends AbstractPanel implements ScoreListener, NamesListener, AnswerSideListener
 {
     public static final int MAX_HEIGHT = 100;
 
@@ -29,14 +26,12 @@ public class ScorePanel extends AbstractPanel implements ScoreListener, NamesLis
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
     private final NamesManager namesManager = NamesManager.getInstance();
-    private final GameStateManager gameStateManager = GameStateManager.getInstance();
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
 
 
     public ScorePanel(TimerButtonPanel timerButtonPanel)
     {
         super();
-        gameStateManager.addListener(this);
         answerSideManager.addListener(this);
 
         scoreManager.addListener(this);
@@ -96,12 +91,6 @@ public class ScorePanel extends AbstractPanel implements ScoreListener, NamesLis
     public void onNamesChanged(String leftName, String rightName)
     {
         setNames(leftName, rightName);
-    }
-
-    public void onGameStageChanged(GameState gameState)
-    {
-        if (gameState == GameState.FINISHED || gameState == GameState.RUNNING)
-            removeSelection();
     }
 
     public void onAnswerSideChanged(AnswerSide answerSide)

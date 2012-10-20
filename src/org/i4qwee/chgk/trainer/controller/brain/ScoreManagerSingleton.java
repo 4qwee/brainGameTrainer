@@ -19,7 +19,6 @@ public class ScoreManagerSingleton extends Observable
     private final PriceManager priceManager = PriceManager.getInstance();
     private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
     private final AnswerStateManager answerStateManager = AnswerStateManager.getInstance();
-    private final GameStateManager gameStateManager = GameStateManager.getInstance();
 
     public static ScoreManagerSingleton getInstance()
     {
@@ -33,7 +32,6 @@ public class ScoreManagerSingleton extends Observable
     public void setFalseStart()
     {
         answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
-        gameStateManager.setGameState(GameState.RUNNING);
     }
 
     public void answer(boolean isCorrect)
@@ -52,7 +50,6 @@ public class ScoreManagerSingleton extends Observable
 
             priceManager.setPrice(1);
             answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
-            gameStateManager.setGameState(GameState.FINISHED);
             setChanged();
             notifyObservers();
         }
@@ -62,7 +59,6 @@ public class ScoreManagerSingleton extends Observable
             {
                 case NOBODY_ANSWERED:
                     answerStateManager.setAnswerState(AnswerState.ONE_ANSWERED);
-                    gameStateManager.setGameState(GameState.RUNNING);
                     break;
                 case ONE_ANSWERED:
                     noOneAnswered();
@@ -75,7 +71,6 @@ public class ScoreManagerSingleton extends Observable
     {
         answerStateManager.setAnswerState(AnswerState.NOBODY_ANSWERED);
         priceManager.setPrice(priceManager.getPrice() + 1);
-        gameStateManager.setGameState(GameState.FINISHED);
     }
 
     public void newGame()

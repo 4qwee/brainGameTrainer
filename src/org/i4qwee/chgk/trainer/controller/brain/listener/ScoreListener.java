@@ -7,5 +7,5 @@ package org.i4qwee.chgk.trainer.controller.brain.listener;
  */
 public interface ScoreListener
 {
-    void onScoreChanged(int leftScore, int rightScore);
+    void onScoreChanged();
 }

@@ -10,7 +10,7 @@ import java.awt.*;
  * Date: 29.10.11
  * Time: 14:02
  */
-public class SingleQuestionTextArea extends JEditorPane
+class SingleQuestionTextArea extends JEditorPane
 {
     public SingleQuestionTextArea()
     {

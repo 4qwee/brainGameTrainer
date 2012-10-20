@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
  * Date: 02.11.11
  * Time: 21:44
  */
-public class TopPanel extends AbstractPanel
+class TopPanel extends AbstractPanel
 {
-    public static final int MAX_HEIGHT = 30;
+    private static final int MAX_HEIGHT = 30;
 
-    public TopPanel(JFrame parentFrame)
+    public TopPanel()
     {
         setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
@@ -36,6 +36,7 @@ public class TopPanel extends AbstractPanel
         add(Box.createHorizontalGlue());
 
         JButton newGameButton = new JButton("Новая игра");
+        newGameButton.setFocusable(false);
         newGameButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

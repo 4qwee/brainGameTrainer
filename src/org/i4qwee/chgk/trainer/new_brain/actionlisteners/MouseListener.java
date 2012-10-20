@@ -16,11 +16,6 @@ import java.awt.event.MouseEvent;
  */
 public class MouseListener implements AWTEventListener
 {
-    public void mousePressed(MouseEvent mouseEvent)
-    {
-        System.out.println("Mouse pressed!");
-    }
-
     @Override
     public void eventDispatched(AWTEvent awtEvent)
     {

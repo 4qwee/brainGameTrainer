@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public abstract class AbstractDialog extends JDialog
 {
-    public AbstractDialog()
+    AbstractDialog()
     {
         super();
 

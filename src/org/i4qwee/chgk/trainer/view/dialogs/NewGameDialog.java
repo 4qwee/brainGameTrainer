@@ -3,7 +3,6 @@ package org.i4qwee.chgk.trainer.view.dialogs;
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
-import org.i4qwee.chgk.trainer.controller.questions.GameStateSingleton;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.awt.event.*;
 
 public class NewGameDialog extends AbstractDialog
 {
-    private static NewGameDialog instance = new NewGameDialog();
+    private static final NewGameDialog instance = new NewGameDialog();
 
     private JPanel contentPane;
     private JButton buttonOK;

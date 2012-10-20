@@ -1,7 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.brain.manager;
 
 import org.i4qwee.chgk.trainer.controller.brain.listener.TimeListener;
-import org.i4qwee.chgk.trainer.controller.time.Timer;
 
 /**
  * User: 4qwee
@@ -34,8 +33,7 @@ public class TimeManager extends Manager<TimeListener>
         notifyListeners();
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (TimeListener listener : listeners)
             listener.onTimeChanged(time);

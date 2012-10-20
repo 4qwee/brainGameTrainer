@@ -11,10 +11,10 @@ import java.sql.SQLException;
  * Date: 04.10.11
  * Time: 23:50
  */
-public class DatabaseConnector
+class DatabaseConnector
 {
+    @SuppressWarnings("CanBeFinal")
     private static Connection connection;
-    private static Logger logger = Logger.getLogger(DatabaseConnector.class);
 
     static
     {
@@ -25,11 +25,11 @@ public class DatabaseConnector
         }
         catch (ClassNotFoundException e)
         {
-            logger.error(null, e);
+            e.printStackTrace();
         }
         catch (SQLException e)
         {
-            logger.error("Cannot connect to database!", e);
+            e.printStackTrace();
         }
     }
 

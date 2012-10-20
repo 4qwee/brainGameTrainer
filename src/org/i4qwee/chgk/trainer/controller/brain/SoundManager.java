@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class SoundManager
 {
-    private static SoundManager ourInstance = new SoundManager();
+    private static final SoundManager ourInstance = new SoundManager();
 
     private Clip startClip;
     private Clip warnClip;

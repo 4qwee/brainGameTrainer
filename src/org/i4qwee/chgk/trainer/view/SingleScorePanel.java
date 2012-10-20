@@ -10,12 +10,12 @@ import java.awt.*;
  * Date: 29.10.11
  * Time: 13:14
  */
-public class SingleScorePanel extends AbstractPanel
+class SingleScorePanel extends AbstractPanel
 {
-    private JLabel scoreLabel;
-    private JLabel nameLabel;
+    private final JLabel scoreLabel;
+    private final JLabel nameLabel;
     private boolean selected;
-    private AnswerSide answerSide;
+    private final AnswerSide answerSide;
 
     public SingleScorePanel(AnswerSide answerSide)
     {

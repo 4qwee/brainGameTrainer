@@ -8,7 +8,7 @@ package org.i4qwee.chgk.trainer.new_brain.states;
  */
 public class StateManager
 {
-    private static StateManager ourInstance = new StateManager();
+    private static final StateManager ourInstance = new StateManager();
 
     private State state = new NoQuestionsLoaded();
 

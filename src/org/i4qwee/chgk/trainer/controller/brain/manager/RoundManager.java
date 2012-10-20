@@ -45,8 +45,7 @@ public class RoundManager extends Manager<RoundListener>
         notifyListeners();
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (RoundListener listener : listeners)
             listener.onRoundChanged(round, maxRound);

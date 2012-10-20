@@ -17,7 +17,7 @@ public enum Type
     ERUDITE(32),
     UNKNOWN(64);
 
-    int type;
+    private final int type;
 
     Type(int type)
     {
@@ -27,30 +27,6 @@ public enum Type
     public short getShortType()
     {
         return (short) type;
-    }
-
-    public static Type parseType(char source) throws UnknownTypeError
-    {
-        switch (source)
-        {
-            case 'Ч':
-                return CHGK;
-            case 'Б':
-                return BRAIN;
-            case 'Я':
-                return SVOYAK;
-            case 'Л':
-                return VERSE;
-            case 'И':
-                return INTERNET;
-            case 'Э':
-                return ERUDITE;
-            case 'Г':
-            case 'Т':
-                return UNKNOWN;
-            default:
-                throw new UnknownTypeError();
-        }
     }
 
     public static Type parseType(short source) throws UnknownTypeError

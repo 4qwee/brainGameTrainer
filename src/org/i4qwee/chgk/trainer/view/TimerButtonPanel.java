@@ -14,11 +14,9 @@ import java.awt.event.MouseListener;
  */
 public class TimerButtonPanel extends AbstractPanel implements TimeListener
 {
-    public static final String INIT_TEXT = "0:00:000";
+    private static final String INIT_TEXT = "0:00:000";
 
-    private final TimeManager timeManager = TimeManager.getInstance();
-
-    private JButton timeButton;
+    private final JButton timeButton;
 
     public TimerButtonPanel()
     {
@@ -30,12 +28,7 @@ public class TimerButtonPanel extends AbstractPanel implements TimeListener
 
         setBorder(DefaultUIProvider.getDefaultEmptyBorder());
 
-        timeManager.addListener(this);
-    }
-
-    public JButton getTimeButton()
-    {
-        return timeButton;
+        TimeManager.getInstance().addListener(this);
     }
 
     public void addMouseListener(MouseListener mouseListener)

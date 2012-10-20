@@ -12,14 +12,12 @@ import javax.swing.*;
  */
 public class RoundsLabel extends JLabel implements RoundListener
 {
-    public static final String INIT_TEXT = "Раунд ";
-    public static final String ADDITIONAL_OF_TEXT = " из ";
-
-    private final RoundManager roundManager = RoundManager.getInstance();
+    private static final String INIT_TEXT = "Раунд ";
+    private static final String ADDITIONAL_OF_TEXT = " из ";
 
     public RoundsLabel()
     {
-        roundManager.addListener(this);
+        RoundManager.getInstance().addListener(this);
 
         setText(INIT_TEXT + 1);
         setFont(DefaultUIProvider.getQuestionPriceFont());

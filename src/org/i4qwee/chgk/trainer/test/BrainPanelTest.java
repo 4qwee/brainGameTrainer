@@ -24,7 +24,7 @@ public class BrainPanelTest extends JFrame
         JLayeredPane layeredPane = new JLayeredPane();
         setLayeredPane(layeredPane);
 
-        final BrainPanel brainPanel = new BrainPanel(this);
+        final BrainPanel brainPanel = new BrainPanel();
         layeredPane.add(brainPanel, JLayeredPane.DEFAULT_LAYER);
 
         layeredPane.addComponentListener(new ComponentAdapter()

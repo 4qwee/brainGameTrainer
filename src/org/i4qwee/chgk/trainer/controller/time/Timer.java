@@ -22,15 +22,14 @@ public class Timer
     private static final int WARN_TIME = 15000;
     private static final int OVER_TIME = 20000;
 
-    private javax.swing.Timer timer;
+    private final javax.swing.Timer timer;
 
     private boolean warnPlayed = false;
 
     private final TimeManager timeManager = TimeManager.getInstance();
     private final SoundManager soundManager = SoundManager.getInstance();
-    private final ScoreManagerSingleton scoreManager = ScoreManagerSingleton.getInstance();
 
-    public Timer()
+    private Timer()
     {
         timer = new javax.swing.Timer(TIMER_DELAY, new ActionListener()
         {

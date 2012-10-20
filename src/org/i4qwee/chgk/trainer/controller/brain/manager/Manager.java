@@ -10,12 +10,11 @@ import java.util.List;
  */
 public abstract class Manager<T>
 {
-    List<T> listeners = new ArrayList<T>();
+    final List<T> listeners = new ArrayList<T>();
 
     public void addListener(T listener)
     {
         listeners.add(listener);
     }
 
-    protected abstract void notifyListeners();
 }

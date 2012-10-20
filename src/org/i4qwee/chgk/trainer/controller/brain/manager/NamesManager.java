@@ -31,24 +31,12 @@ public class NamesManager extends Manager<NamesListener>
             return leftName;
     }
 
-    public void setLeftName(String leftName)
-    {
-        this.leftName = leftName;
-        notifyListeners();
-    }
-
     public String getRightName()
     {
         if (rightName == null || rightName.equals(""))
             return "Правый";
         else
             return rightName;
-    }
-
-    public void setRightName(String rightName)
-    {
-        this.rightName = rightName;
-        notifyListeners();
     }
 
     public void setNames(String leftName, String rightName)
@@ -58,8 +46,7 @@ public class NamesManager extends Manager<NamesListener>
         notifyListeners();
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (NamesListener listener : listeners)
             listener.onNamesChanged(leftName, rightName);

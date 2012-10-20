@@ -25,11 +25,6 @@ public class AnswerSideManager extends Manager<AnswerSideListener>
         return instance;
     }
 
-    public AnswerSide getAnswerSide()
-    {
-        return answerSide;
-    }
-
     public void setAnswerSide(AnswerSide answerSide)
     {
         this.answerSide = answerSide;
@@ -49,8 +44,7 @@ public class AnswerSideManager extends Manager<AnswerSideListener>
         }
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (AnswerSideListener listener : listeners)
             listener.onAnswerSideChanged(answerSide);

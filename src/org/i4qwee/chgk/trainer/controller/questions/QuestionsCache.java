@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class QuestionsCache
 {
-    private static Logger logger = Logger.getLogger(QuestionsCache.class);
-
     private static int position;
     private static List<Question> questions;
-    private static LoadingDialog loadingDialog = new LoadingDialog();
+    private static final LoadingDialog loadingDialog = new LoadingDialog();
 
     public static Question getNextQuestion()
     {

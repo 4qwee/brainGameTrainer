@@ -33,8 +33,7 @@ public class PriceManager extends Manager<PriceListener>
         notifyListeners();
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (PriceListener listener : listeners)
             listener.onPriceChanged(price);

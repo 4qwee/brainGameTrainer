@@ -13,7 +13,6 @@ import java.awt.*;
  */
 public class LoadingDialog extends AbstractDialog
 {
-    private ImageIcon loaderImage = new ImageIcon(ApplicationConstants.APPLICATION_PATH + "/img/loader.gif");
 
     public LoadingDialog()
     {
@@ -31,6 +30,7 @@ public class LoadingDialog extends AbstractDialog
 
         mainPanel.add(Box.createVerticalGlue());
 
+        ImageIcon loaderImage = new ImageIcon(ApplicationConstants.APPLICATION_PATH + "/img/loader.gif");
         JLabel imageLabel = new JLabel(loaderImage);
         imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         mainPanel.add(imageLabel);

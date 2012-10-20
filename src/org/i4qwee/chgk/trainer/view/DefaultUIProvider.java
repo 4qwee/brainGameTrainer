@@ -12,18 +12,18 @@ import java.awt.*;
  */
 public class DefaultUIProvider
 {
-    public static final int MARGIN = 5;
+    private static final int MARGIN = 5;
     private static final String FONT_NAME = "Courier";
     private static final int DISPLAY_FONT_SIZE = 50;
     private static final int QUESTION_FONT_SIZE = 20;
     private static final int QUESTION_PRICE_FONT_SIZE = 13;
 
-    private static Border defaultEmptyBorder = BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN);
-    private static Border defaultEmptyEtchedBorder = BorderFactory.createCompoundBorder(defaultEmptyBorder, BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-    private static Border defaultEmptyEtchedEmptyBorder = BorderFactory.createCompoundBorder(defaultEmptyEtchedBorder, defaultEmptyBorder);
-    private static Font displayFont = new Font(FONT_NAME, Font.BOLD, DISPLAY_FONT_SIZE);
-    private static Font questionFont = new Font(FONT_NAME, Font.PLAIN, QUESTION_FONT_SIZE);
-    private static Font questionPriceFont = new Font(FONT_NAME, Font.BOLD, QUESTION_PRICE_FONT_SIZE);
+    private static final Border defaultEmptyBorder = BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN);
+    private static final Border defaultEmptyEtchedBorder = BorderFactory.createCompoundBorder(defaultEmptyBorder, BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+    private static final Border defaultEmptyEtchedEmptyBorder = BorderFactory.createCompoundBorder(defaultEmptyEtchedBorder, defaultEmptyBorder);
+    private static final Font displayFont = new Font(FONT_NAME, Font.BOLD, DISPLAY_FONT_SIZE);
+    private static final Font questionFont = new Font(FONT_NAME, Font.PLAIN, QUESTION_FONT_SIZE);
+    private static final Font questionPriceFont = new Font(FONT_NAME, Font.BOLD, QUESTION_PRICE_FONT_SIZE);
 
     public static Border getDefaultEmptyBorder()
     {

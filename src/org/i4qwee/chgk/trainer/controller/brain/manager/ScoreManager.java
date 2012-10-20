@@ -35,7 +35,7 @@ public class ScoreManager extends Manager<ScoreListener>
         notifyListeners();
     }
 
-    public void increaseLeftScore(int score)
+    void increaseLeftScore(int score)
     {
         setLeftScore(getLeftScore() + score);
     }
@@ -51,16 +51,15 @@ public class ScoreManager extends Manager<ScoreListener>
         notifyListeners();
     }
 
-    public void increaseRightScore(int score)
+    void increaseRightScore(int score)
     {
         setRightScore(getRightScore() + score);
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (ScoreListener listener : listeners)
-            listener.onScoreChanged(leftScore, rightScore);
+            listener.onScoreChanged();
     }
 
     public void increaseScore(AnswerSide answerSide, int score)

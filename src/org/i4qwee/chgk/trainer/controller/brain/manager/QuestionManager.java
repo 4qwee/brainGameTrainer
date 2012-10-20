@@ -23,19 +23,13 @@ public class QuestionManager extends Manager<QuestionListener>
         return instance;
     }
 
-    public Question getQuestion()
-    {
-        return question;
-    }
-
     public void setQuestion(Question question)
     {
         this.question = question;
         notifyListeners();
     }
 
-    @Override
-    protected void notifyListeners()
+    private void notifyListeners()
     {
         for (QuestionListener listener : listeners)
             listener.onQuestionChange(question);

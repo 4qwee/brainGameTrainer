@@ -15,12 +15,12 @@ import java.awt.event.ComponentEvent;
 public class BrainPanel extends AbstractPanel
 {
 
-    public BrainPanel(JFrame parentFrame)
+    public BrainPanel()
     {
         BoxLayout mainBoxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(mainBoxLayout);
 
-        TopPanel topPanel = new TopPanel(parentFrame);
+        TopPanel topPanel = new TopPanel();
         add(topPanel);
 
         final QuestionPanel questionPanel = new QuestionPanel();

@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
  * Date: 03.11.11
  * Time: 22:13
  */
-public abstract class AbstractPanel extends JPanel
+abstract class AbstractPanel extends JPanel
 {
     public void addMouseListener(MouseListener mouseListener)
     {

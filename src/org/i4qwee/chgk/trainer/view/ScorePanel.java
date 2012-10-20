@@ -21,20 +21,19 @@ public class ScorePanel extends AbstractPanel implements ScoreListener, NamesLis
 {
     public static final int MAX_HEIGHT = 100;
 
-    SingleScorePanel leftScorePanel;
-    SingleScorePanel rightScorePanel;
+    private final SingleScorePanel leftScorePanel;
+    private final SingleScorePanel rightScorePanel;
 
     private final ScoreManager scoreManager = ScoreManager.getInstance();
-    private final NamesManager namesManager = NamesManager.getInstance();
-    private final AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
 
 
     public ScorePanel(TimerButtonPanel timerButtonPanel)
     {
         super();
-        answerSideManager.addListener(this);
+        AnswerSideManager.getInstance().addListener(this);
 
         scoreManager.addListener(this);
+        NamesManager namesManager = NamesManager.getInstance();
         namesManager.addListener(this);
 
         BoxLayout boxLayout = new BoxLayout(this, BoxLayout.X_AXIS);
@@ -76,13 +75,13 @@ public class ScorePanel extends AbstractPanel implements ScoreListener, NamesLis
         rightScorePanel.setSelected(false);
     }
 
-    public void setNames(String leftName, String rightName)
+    void setNames(String leftName, String rightName)
     {
         leftScorePanel.setName(leftName);
         rightScorePanel.setName(rightName);
     }
 
-    public void onScoreChanged(int leftScore, int rightScore)
+    public void onScoreChanged()
     {
         leftScorePanel.setScore(scoreManager.getLeftScore());
         rightScorePanel.setScore(scoreManager.getRightScore());

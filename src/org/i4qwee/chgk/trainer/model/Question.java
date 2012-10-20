@@ -24,18 +24,6 @@ public class Question
     {
     }
 
-    public Question(short number, Type type, String question, String answer, String passCriteria, String authors, String sources, String comments)
-    {
-        this.number = number;
-        this.type = type;
-        this.question = question;
-        this.answer = answer;
-        this.passCriteria = passCriteria;
-        this.authors = authors;
-        this.sources = sources;
-        this.comments = comments;
-    }
-
     public String toString()
     {
         return "Id: " + getId() + "\n"
@@ -50,7 +38,7 @@ public class Question
             +"Comments: " + getComments() + "\n";
     }
 
-    public int getId()
+    int getId()
     {
         return id;
     }
@@ -60,7 +48,7 @@ public class Question
         this.id = id;
     }
 
-    public int getParentId()
+    int getParentId()
     {
         return parentId;
     }
@@ -70,7 +58,7 @@ public class Question
         this.parentId = parentId;
     }
 
-    public short getNumber()
+    short getNumber()
     {
         return number;
     }
@@ -80,7 +68,7 @@ public class Question
         this.number = number;
     }
 
-    public Type getType()
+    Type getType()
     {
         return type;
     }
@@ -110,7 +98,7 @@ public class Question
         this.answer = answer;
     }
 
-    public String getPassCriteria()
+    String getPassCriteria()
     {
         return passCriteria;
     }
@@ -120,7 +108,7 @@ public class Question
         this.passCriteria = passCriteria;
     }
 
-    public String getAuthors()
+    String getAuthors()
     {
         return authors;
     }
@@ -130,7 +118,7 @@ public class Question
         this.authors = authors;
     }
 
-    public String getSources()
+    String getSources()
     {
         return sources;
     }

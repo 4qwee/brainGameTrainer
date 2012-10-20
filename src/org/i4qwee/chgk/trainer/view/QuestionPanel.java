@@ -14,10 +14,9 @@ import java.awt.*;
  */
 public class QuestionPanel extends AbstractPanel implements QuestionListener
 {
-    private final QuestionManager questionManager = QuestionManager.getInstance();
 
-    private JEditorPane questionTextArea;
-    private JEditorPane answerTextArea;
+    private final JEditorPane questionTextArea;
+    private final JEditorPane answerTextArea;
 
     public QuestionPanel()
     {
@@ -33,15 +32,10 @@ public class QuestionPanel extends AbstractPanel implements QuestionListener
         add(Box.createVerticalStrut(10));
         add(answerTextArea);
 
-        questionManager.addListener(this);
+        QuestionManager.getInstance().addListener(this);
     }
 
-    public void setQuestion(Question question)
-    {
-        setQuestion(question, true);
-    }
-
-    public void setQuestion(Question question, boolean hideAnswer)
+    void setQuestion(Question question, boolean hideAnswer)
     {
         questionTextArea.setText(question.getQuestion());
 
@@ -71,6 +65,6 @@ public class QuestionPanel extends AbstractPanel implements QuestionListener
 
     public void onQuestionChange(Question question)
     {
-        setQuestion(question, false);;
+        setQuestion(question, false);
     }
 }

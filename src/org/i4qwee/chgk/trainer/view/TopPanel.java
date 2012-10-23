@@ -33,6 +33,10 @@ class TopPanel extends AbstractPanel
         RoundsLabel roundsLabel = new RoundsLabel();
         add(roundsLabel);
 
+        add(Box.createHorizontalStrut(10));
+
+        add(FalseStartLabel.getInstance());
+
         add(Box.createHorizontalGlue());
 
         JButton newGameButton = new JButton("Новая игра");

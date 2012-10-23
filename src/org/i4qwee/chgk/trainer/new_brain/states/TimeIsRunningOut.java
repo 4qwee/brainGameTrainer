@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.SoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.*;
 import org.i4qwee.chgk.trainer.controller.time.Timer;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
+import org.i4qwee.chgk.trainer.view.FalseStartLabel;
 import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
 import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
 
@@ -68,6 +69,7 @@ public class TimeIsRunningOut extends State
 
     private void goNext()
     {
+        FalseStartLabel.getInstance().clear();
         StateManager.getInstance().setState(new EndRound());
     }
 }

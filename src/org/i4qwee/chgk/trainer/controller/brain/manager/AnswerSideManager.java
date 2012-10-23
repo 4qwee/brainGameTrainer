@@ -33,6 +33,9 @@ public class AnswerSideManager extends Manager<AnswerSideListener>
 
     public String getAnswersName()
     {
+        if (answerSide == null)
+            return null;
+
         switch (answerSide)
         {
             case LEFT:

@@ -7,6 +7,18 @@ package org.i4qwee.chgk.trainer.model.enums;
  */
 public enum AnswerSide
 {
-    LEFT,
+    LEFT
+            {
+                public String toString()
+                {
+                    return "левый";
+                }
+            },
     RIGHT
+            {
+                public String toString()
+                {
+                    return "правый";
+                }
+            }
 }

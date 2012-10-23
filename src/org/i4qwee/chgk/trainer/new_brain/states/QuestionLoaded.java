@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.SoundManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.AnswerSideManager;
 import org.i4qwee.chgk.trainer.controller.time.Timer;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
+import org.i4qwee.chgk.trainer.view.FalseStartLabel;
 import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
 
@@ -21,6 +22,8 @@ public class QuestionLoaded extends State
         AnswerSideManager answerSideManager = AnswerSideManager.getInstance();
         answerSideManager.setAnswerSide(answerSide);
         MessageDialog.getInstance().show(answerSideManager.getAnswersName() + ", фальстарт!");
+        answerSideManager.setAnswerSide(null);
+        FalseStartLabel.getInstance().setFalseStart(answerSide);
 
         StateManager.getInstance().setState(new TimeIsRunningOut(answerSide));
         startGame();

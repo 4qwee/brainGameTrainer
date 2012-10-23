@@ -40,13 +40,7 @@ public class BrainPanelTest extends JFrame
 
         pack();
 
-        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-
-        setLocation(centerPoint.x - getWidth() / 2, centerPoint.y - getHeight() / 2);
-
         setVisible(true);
-
-        setSize(800, 600);
 
         setFullScreen();
 

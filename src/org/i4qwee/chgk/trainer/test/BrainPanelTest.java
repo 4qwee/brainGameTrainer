@@ -48,7 +48,7 @@ public class BrainPanelTest extends JFrame
 
         setSize(800, 600);
 
-//        setFullScreen();
+        setFullScreen();
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyboardDispatcher());
 

@@ -72,4 +72,10 @@ public class TimeIsRunningOut extends State
         FalseStartLabel.getInstance().clear();
         StateManager.getInstance().setState(new EndRound());
     }
+
+    public void doCancel()
+    {
+        FalseStartLabel.getInstance().clear();
+        answerSide = null;
+    }
 }

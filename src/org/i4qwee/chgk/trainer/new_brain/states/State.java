@@ -14,7 +14,6 @@ public abstract class State
 
     public void doAnswer(AnswerSide answerSide){}
 
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void doCancel(){}
 
     public void doNewGame(){}

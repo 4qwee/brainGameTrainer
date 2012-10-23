@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.new_brain.actionlisteners;
 
+import org.i4qwee.chgk.trainer.new_brain.states.State;
 import org.i4qwee.chgk.trainer.new_brain.states.StateManager;
 
 import java.awt.*;
@@ -19,10 +20,15 @@ public class KeyboardDispatcher implements KeyEventDispatcher
         if (keyEvent.getID() != KeyEvent.KEY_PRESSED)
             return false;
 
-        if (keyEvent.getKeyCode() == KeyEvent.VK_SPACE)
-            StateManager.getInstance().getState().doAction();
-        else if (keyEvent.getKeyCode() == KeyEvent.VK_N && (keyEvent.getModifiers() & KeyEvent.CTRL_MASK) != 0)
-            StateManager.getInstance().getState().doNewGame();
+        int keyCode = keyEvent.getKeyCode();
+        State state = StateManager.getInstance().getState();
+
+        if (keyCode == KeyEvent.VK_SPACE)
+            state.doAction();
+        else if (keyCode == KeyEvent.VK_ESCAPE)
+            state.doCancel();
+        else if (keyCode == KeyEvent.VK_N && (keyEvent.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+            state.doNewGame();
 
         return false;
     }

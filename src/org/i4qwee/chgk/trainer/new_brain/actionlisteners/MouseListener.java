@@ -16,10 +16,12 @@ import java.awt.event.MouseEvent;
  */
 public class MouseListener implements AWTEventListener
 {
+    private static boolean isHandle = true;
+
     @Override
     public void eventDispatched(AWTEvent awtEvent)
     {
-        if (awtEvent.getID() != MouseEvent.MOUSE_PRESSED)
+        if (awtEvent.getID() != MouseEvent.MOUSE_PRESSED || !isHandle)
             return;
 
         MouseEvent mouseEvent = (MouseEvent) awtEvent;
@@ -30,5 +32,10 @@ public class MouseListener implements AWTEventListener
             state.doAnswer(AnswerSide.LEFT);
         else if (button == MouseEvent.BUTTON3)
             state.doAnswer(AnswerSide.RIGHT);
+    }
+
+    public static void setHandle(boolean handle)
+    {
+        isHandle = handle;
     }
 }

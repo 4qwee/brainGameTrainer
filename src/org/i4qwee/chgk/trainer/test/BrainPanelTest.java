@@ -41,6 +41,7 @@ public class BrainPanelTest extends JFrame
         pack();
 
         setVisible(true);
+        setSize(800, 600);//unity hack
 
         setFullScreen();
 

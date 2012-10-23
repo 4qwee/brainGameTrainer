@@ -8,6 +8,7 @@ import org.i4qwee.chgk.trainer.controller.brain.manager.TimeManager;
 import org.i4qwee.chgk.trainer.controller.time.Timer;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.view.dialogs.BrainConfirmationDialog;
+import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +24,12 @@ public class TimeIsRunningOut extends State
     public TimeIsRunningOut(AnswerSide answerSide)
     {
         this.answerSide = answerSide;
+    }
+
+    public void doNewGame()
+    {
+        Timer.getInstance().stop();
+        NewGameDialog.getInstance().showDialog();
     }
 
     public void doAnswer(AnswerSide answerSide)

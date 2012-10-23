@@ -3,6 +3,7 @@ package org.i4qwee.chgk.trainer.view.dialogs;
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
+import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
@@ -85,5 +86,12 @@ public class NewGameDialog extends AbstractDialog
     public static NewGameDialog getInstance()
     {
         return instance;
+    }
+
+    public void showDialog()
+    {
+        org.i4qwee.chgk.trainer.new_brain.actionlisteners.MouseListener.setHandle(false);
+        super.showDialog();
+        org.i4qwee.chgk.trainer.new_brain.actionlisteners.MouseListener.setHandle(true);
     }
 }

@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
+import org.i4qwee.chgk.trainer.controller.brain.manager.MainWindow;
 import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 
@@ -64,6 +65,7 @@ public class BrainPanelTest extends JFrame
 //        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         UIManager.setLookAndFeel(WebLookAndFeel.class.getName());
 
-        new BrainPanelTest();
+        BrainPanelTest brainPanelTest = new BrainPanelTest();
+        MainWindow.setMainWindow(brainPanelTest);
     }
 }

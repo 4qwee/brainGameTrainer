@@ -1,5 +1,7 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
+import org.i4qwee.chgk.trainer.controller.brain.manager.MainWindow;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,11 +22,9 @@ public abstract class AbstractDialog extends JDialog
 
     public void showDialog()
     {
-        Point centerPoint = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-
         pack();
 
-        setLocation(centerPoint.x - getWidth() / 2, centerPoint.y - getHeight() / 2);
+        setLocationRelativeTo(MainWindow.getMainWindow());
 
         setVisible(true);
     }

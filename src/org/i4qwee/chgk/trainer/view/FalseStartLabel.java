@@ -18,7 +18,7 @@ public class FalseStartLabel extends JLabel
     private FalseStartLabel()
     {
         super();
-        setFont(DefaultUIProvider.getDisplayFont());
+        setFont(DefaultUIProvider.getQuestionPriceFont());
     }
 
     public static FalseStartLabel getInstance()

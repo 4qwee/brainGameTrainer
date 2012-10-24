@@ -20,7 +20,7 @@ public class BrainPanelTest extends JFrame
     {
         super();
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JLayeredPane layeredPane = new JLayeredPane();
         setLayeredPane(layeredPane);

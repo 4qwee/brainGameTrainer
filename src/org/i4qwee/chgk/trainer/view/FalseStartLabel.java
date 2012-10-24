@@ -18,6 +18,7 @@ public class FalseStartLabel extends JLabel
     private FalseStartLabel()
     {
         super();
+        setFont(DefaultUIProvider.getDisplayFont());
     }
 
     public static FalseStartLabel getInstance()

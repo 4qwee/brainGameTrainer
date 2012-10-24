@@ -4,6 +4,7 @@ import com.alee.laf.WebLookAndFeel;
 import org.i4qwee.chgk.trainer.controller.brain.manager.MainWindow;
 import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
+import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,5 +68,6 @@ public class BrainPanelTest extends JFrame
 
         BrainPanelTest brainPanelTest = new BrainPanelTest();
         MainWindow.setMainWindow(brainPanelTest);
+        NewGameDialog.getInstance();
     }
 }

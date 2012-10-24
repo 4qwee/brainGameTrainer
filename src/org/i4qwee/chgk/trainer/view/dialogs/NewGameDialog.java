@@ -3,14 +3,14 @@ package org.i4qwee.chgk.trainer.view.dialogs;
 import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
-import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
+import org.i4qwee.chgk.trainer.new_brain.preferences.BrainPreferences;
 import org.i4qwee.chgk.trainer.new_brain.preferences.PreferencesNames;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
-import java.util.Properties;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class NewGameDialog extends AbstractDialog
 {
@@ -19,9 +19,9 @@ public class NewGameDialog extends AbstractDialog
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField leftName;
-    private JTextField rightName;
-    private JTextField roundsCount;
+    private JTextField leftNameField;
+    private JTextField rightNameField;
+    private JTextField roundsCountField;
 
     private NewGameDialog()
     {
@@ -70,33 +70,59 @@ public class NewGameDialog extends AbstractDialog
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        loadPreferences();
+    }
+
+    private void loadPreferences()
+    {
+        Preferences preferences = BrainPreferences.getPreferences();
+        if (preferences != null)
+        {
+            String leftName = preferences.get(PreferencesNames.LEFT_NAME, "");
+            String rightName = preferences.get(PreferencesNames.RIGHT_NAME, "");
+            String maxRounds = preferences.get(PreferencesNames.MAX_SCORE, "0");
+
+            leftNameField.setText(leftName);
+            rightNameField.setText(rightName);
+            roundsCountField.setText(maxRounds);
+
+            NamesManager.getInstance().setNames(leftName, rightName);
+            RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRounds));
+        }
+
     }
 
     private void onOK()
     {
-        String leftName = this.leftName.getText();
-        String rightName = this.rightName.getText();
-        String maxRound = roundsCount.getText();
+        String leftName = this.leftNameField.getText();
+        String rightName = this.rightNameField.getText();
+        String maxRound = roundsCountField.getText();
 
         NamesManager.getInstance().setNames(leftName, rightName);
         RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRound));
         ScoreManagerSingleton.getInstance().newGame();
 
-        Properties properties = System.getProperties();
-        properties.setProperty(PreferencesNames.LEFT_NAME, leftName);
-        properties.setProperty(PreferencesNames.RIGHT_NAME, rightName);
-        properties.setProperty(PreferencesNames.MAX_SCORE, maxRound);
+        savePreferrences(leftName, rightName, maxRound);
+
+        dispose();
+    }
+
+    private void savePreferrences(String leftName, String rightName, String maxRound)
+    {
+        Preferences preferences = BrainPreferences.getPreferences();
+        preferences.put(PreferencesNames.LEFT_NAME, leftName);
+        preferences.put(PreferencesNames.RIGHT_NAME, rightName);
+        preferences.put(PreferencesNames.MAX_SCORE, maxRound);
 
         try
         {
-            properties.store(new FileOutputStream(PreferencesNames.FILE_NAME), null);
+            preferences.flush();
         }
-        catch (IOException e)
+        catch (BackingStoreException e)
         {
             e.printStackTrace();
         }
-
-        dispose();
     }
 
     private void onCancel()

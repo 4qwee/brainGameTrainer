@@ -57,7 +57,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="8930c" class="javax.swing.JTextField" binding="leftName">
+          <component id="8930c" class="javax.swing.JTextField" binding="leftNameField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -65,7 +65,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="fcf54" class="javax.swing.JTextField" binding="rightName">
+          <component id="fcf54" class="javax.swing.JTextField" binding="rightNameField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -97,7 +97,7 @@
               <text value="&lt;html&gt;Количество раундов&lt;br&gt;(если 0, то бесконечно много)" noi18n="true"/>
             </properties>
           </component>
-          <component id="6976f" class="javax.swing.JTextField" binding="roundsCount">
+          <component id="6976f" class="javax.swing.JTextField" binding="roundsCountField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>

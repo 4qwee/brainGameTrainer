@@ -9,6 +9,7 @@ package org.i4qwee.chgk.trainer.new_brain.preferences;
 public class PreferencesNames
 {
     public static final String FILE_NAME = "preferences";
+    public static final String NODE_NAME = "brainGameTrainer";
 
     public static final String LEFT_NAME = "left_name";
     public static final String RIGHT_NAME = "right_name";

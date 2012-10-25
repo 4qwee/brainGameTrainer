@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.view;
 
-import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
+import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
+import org.i4qwee.chgk.trainer.view.dialogs.SettingsDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,16 +40,31 @@ class TopPanel extends AbstractPanel
 
         add(Box.createHorizontalGlue());
 
-        Icon newGameIcon = new ImageIcon();
-        JButton newGameButton = new JButton("Новая игра");
+        Icon newGameIcon = new ImageIcon(getClass().getResource("/img/game.png"));
+        JButton newGameButton = new JButton(newGameIcon);
+        newGameButton.setToolTipText("Новая игра(Ctrl + N)");
         newGameButton.setFocusable(false);
         newGameButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                NewGameDialog.getInstance().showDialog();
+                ScoreManagerSingleton.getInstance().newGame();
             }
         });
         add(newGameButton);
+
+        Icon settingsIcon = new ImageIcon(getClass().getResource("/img/settings.png"));
+        JButton settingsButton = new JButton(settingsIcon);
+        settingsButton.setToolTipText("Настройки");
+        settingsButton.setFocusable(false);
+        settingsButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                SettingsDialog.getInstance().showDialog();
+            }
+        });
+
+        add(settingsButton);
     }
 }

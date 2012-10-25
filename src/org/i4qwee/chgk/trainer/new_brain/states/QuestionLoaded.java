@@ -6,7 +6,7 @@ import org.i4qwee.chgk.trainer.controller.time.Timer;
 import org.i4qwee.chgk.trainer.model.enums.AnswerSide;
 import org.i4qwee.chgk.trainer.view.FalseStartLabel;
 import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
-import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
+import org.i4qwee.chgk.trainer.view.dialogs.SettingsDialog;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,6 +45,6 @@ public class QuestionLoaded extends State
     @Override
     public void doNewGame()
     {
-        NewGameDialog.getInstance().showDialog();
+        SettingsDialog.getInstance().showDialog();
     }
 }

@@ -2,7 +2,7 @@ package org.i4qwee.chgk.trainer.new_brain.states;
 
 import org.i4qwee.chgk.trainer.controller.brain.manager.QuestionManager;
 import org.i4qwee.chgk.trainer.controller.questions.QuestionsCache;
-import org.i4qwee.chgk.trainer.view.dialogs.NewGameDialog;
+import org.i4qwee.chgk.trainer.view.dialogs.SettingsDialog;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +23,6 @@ public class NoQuestionsLoaded extends State
     @Override
     public void doNewGame()
     {
-        NewGameDialog.getInstance().showDialog();
+        SettingsDialog.getInstance().showDialog();
     }
 }

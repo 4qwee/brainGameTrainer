@@ -12,9 +12,9 @@ import java.awt.event.*;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-public class NewGameDialog extends AbstractDialog
+public class SettingsDialog extends AbstractDialog
 {
-    private static final NewGameDialog instance = new NewGameDialog();
+    private static final SettingsDialog instance = new SettingsDialog();
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -23,7 +23,7 @@ public class NewGameDialog extends AbstractDialog
     private JTextField rightNameField;
     private JTextField roundsCountField;
 
-    private NewGameDialog()
+    private SettingsDialog()
     {
         super();
 
@@ -101,7 +101,6 @@ public class NewGameDialog extends AbstractDialog
 
         NamesManager.getInstance().setNames(leftName, rightName);
         RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRound));
-        ScoreManagerSingleton.getInstance().newGame();
 
         savePreferrences(leftName, rightName, maxRound);
 
@@ -130,7 +129,7 @@ public class NewGameDialog extends AbstractDialog
         dispose();
     }
 
-    public static NewGameDialog getInstance()
+    public static SettingsDialog getInstance()
     {
         return instance;
     }

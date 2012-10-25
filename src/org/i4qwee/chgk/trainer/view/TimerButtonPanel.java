@@ -21,6 +21,7 @@ public class TimerButtonPanel extends AbstractPanel implements TimeListener
     public TimerButtonPanel()
     {
         timeButton = new JButton(INIT_TEXT);
+        timeButton.setFocusable(false);
         timeButton.setFont(DefaultUIProvider.getDisplayFont());
 
         setLayout(new BorderLayout());

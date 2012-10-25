@@ -2,6 +2,7 @@ package org.i4qwee.chgk.trainer.new_brain.actionlisteners;
 
 import org.i4qwee.chgk.trainer.new_brain.states.State;
 import org.i4qwee.chgk.trainer.new_brain.states.StateManager;
+import org.i4qwee.chgk.trainer.view.dialogs.SettingsDialog;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -29,6 +30,8 @@ public class KeyboardDispatcher implements KeyEventDispatcher
             state.doCancel();
         else if (keyCode == KeyEvent.VK_N && (keyEvent.getModifiers() & KeyEvent.CTRL_MASK) != 0)
             state.doNewGame();
+        else if (keyCode == KeyEvent.VK_P && (keyEvent.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+            SettingsDialog.getInstance().showDialog();
 
         return false;
     }

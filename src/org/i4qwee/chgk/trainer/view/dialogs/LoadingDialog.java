@@ -30,7 +30,7 @@ public class LoadingDialog extends AbstractDialog
 
         mainPanel.add(Box.createVerticalGlue());
 
-        ImageIcon loaderImage = new ImageIcon(ApplicationConstants.APPLICATION_PATH + "/img/loader.gif");
+        ImageIcon loaderImage = new ImageIcon(getClass().getResource("/img/loader.gif"));
         JLabel imageLabel = new JLabel(loaderImage);
         imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         mainPanel.add(imageLabel);

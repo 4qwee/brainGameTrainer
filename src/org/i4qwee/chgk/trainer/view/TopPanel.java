@@ -39,6 +39,7 @@ class TopPanel extends AbstractPanel
 
         add(Box.createHorizontalGlue());
 
+        Icon newGameIcon = new ImageIcon();
         JButton newGameButton = new JButton("Новая игра");
         newGameButton.setFocusable(false);
         newGameButton.addActionListener(new ActionListener()

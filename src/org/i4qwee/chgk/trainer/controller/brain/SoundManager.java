@@ -48,8 +48,7 @@ public class SoundManager
 
     private Clip initSound(String source) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
-        File startFile = new File(ApplicationConstants.APPLICATION_PATH + source);
-        AudioInputStream startAudioInputStream = AudioSystem.getAudioInputStream(startFile);
+        AudioInputStream startAudioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(source));
         DataLine.Info startInfo = new DataLine.Info(Clip.class, startAudioInputStream.getFormat());
         Clip clip = (Clip) AudioSystem.getLine(startInfo);
         clip.open(startAudioInputStream);

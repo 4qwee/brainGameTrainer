@@ -5,11 +5,22 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="brainGameTrainer" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/xercesImpl.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/WebLookAndFeel_no_examples.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-1.2.16.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlitejdbc-v056.jar" path-in-jar="/" />
+      <element id="directory" name="img">
+        <element id="dir-copy" path="$PROJECT_DIR$/img" />
+      </element>
+      <element id="directory" name="sounds">
+        <element id="dir-copy" path="$PROJECT_DIR$/sounds" />
+      </element>
+      <element id="directory" name="com">
+        <element id="dir-copy" path="$PROJECT_DIR$/out/com" />
+      </element>
+      <element id="directory" name="org">
+        <element id="dir-copy" path="$PROJECT_DIR$/out/org" />
+      </element>
     </root>
   </artifact>
 </component>

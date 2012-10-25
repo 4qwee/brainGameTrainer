@@ -1,6 +1,5 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
-import org.i4qwee.chgk.trainer.controller.brain.ScoreManagerSingleton;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.new_brain.preferences.BrainPreferences;
@@ -102,12 +101,12 @@ public class SettingsDialog extends AbstractDialog
         NamesManager.getInstance().setNames(leftName, rightName);
         RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRound));
 
-        savePreferrences(leftName, rightName, maxRound);
+        savePreferences(leftName, rightName, maxRound);
 
         dispose();
     }
 
-    private void savePreferrences(String leftName, String rightName, String maxRound)
+    private void savePreferences(String leftName, String rightName, String maxRound)
     {
         Preferences preferences = BrainPreferences.getPreferences();
         preferences.put(PreferencesNames.LEFT_NAME, leftName);

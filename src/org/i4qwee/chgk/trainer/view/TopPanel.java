@@ -55,7 +55,7 @@ class TopPanel extends AbstractPanel
 
         Icon settingsIcon = new ImageIcon(getClass().getResource("/img/settings.png"));
         JButton settingsButton = new JButton(settingsIcon);
-        settingsButton.setToolTipText("Настройки");
+        settingsButton.setToolTipText("Настройки(Ctrl + P)");
         settingsButton.setFocusable(false);
         settingsButton.addActionListener(new ActionListener()
         {

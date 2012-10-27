@@ -17,22 +17,7 @@ import java.util.List;
  */
 public class DatabaseManager
 {
-    @SuppressWarnings("CanBeFinal")
-    private static PreparedStatement getRandomQuestionsStatement;
-
-    private static final String GET_RANDOM_QUESTIONS = "select * from questions where type=? order by random() limit ?";
-
-    static
-    {
-        try
-        {
-            getRandomQuestionsStatement = DatabaseConnector.getConnection().prepareStatement(GET_RANDOM_QUESTIONS);
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
+    private static GetQuestionsFromDatabaseStrategy getQuestionsFromDatabaseStrategy = new GetQuestionsFromSqliteDatabase();
 
     public static List<Question> getRandomQuestions(int count, Type type)
     {
@@ -40,6 +25,8 @@ public class DatabaseManager
 
         try
         {
+            PreparedStatement getRandomQuestionsStatement = getQuestionsFromDatabaseStrategy.getStatement();
+
             getRandomQuestionsStatement.setShort(1, type.getShortType());
             getRandomQuestionsStatement.setInt(2, count);
 
@@ -73,5 +60,10 @@ public class DatabaseManager
         }
 
         return questionList;
+    }
+
+    public static void setGetQuestionsFromDatabaseStrategy(GetQuestionsFromDatabaseStrategy getQuestionsFromDatabaseStrategy)
+    {
+        DatabaseManager.getQuestionsFromDatabaseStrategy = getQuestionsFromDatabaseStrategy;
     }
 }

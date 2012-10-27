@@ -2,9 +2,12 @@ package org.i4qwee.chgk.trainer.view.dialogs;
 
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
+import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
+import org.i4qwee.chgk.trainer.controller.database.GetQuestionsFromMySqlDatabase;
 import org.i4qwee.chgk.trainer.new_brain.preferences.BrainPreferences;
 import org.i4qwee.chgk.trainer.new_brain.preferences.PreferencesNames;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -21,6 +24,7 @@ public class SettingsDialog extends AbstractDialog
     private JTextField leftNameField;
     private JTextField rightNameField;
     private JTextField roundsCountField;
+    private JComboBox dataSourceCombo;
 
     private SettingsDialog()
     {
@@ -73,6 +77,22 @@ public class SettingsDialog extends AbstractDialog
         loadPreferences();
     }
 
+    private void selectDataSource(int selectedIndex)
+    {
+        switch (selectedIndex)
+        {
+            case 0:
+                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase());
+                break;
+            case 1:
+                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase());
+                break;
+            default:
+                throw new NotImplementedException();
+        }
+
+    }
+
     private void loadPreferences()
     {
         Preferences preferences = BrainPreferences.getPreferences();
@@ -81,10 +101,13 @@ public class SettingsDialog extends AbstractDialog
             String leftName = preferences.get(PreferencesNames.LEFT_NAME, "");
             String rightName = preferences.get(PreferencesNames.RIGHT_NAME, "");
             String maxRounds = preferences.get(PreferencesNames.MAX_SCORE, "0");
+            int selectedDatasource = Integer.parseInt(preferences.get(PreferencesNames.DATASOURCE, "0"));
 
             leftNameField.setText(leftName);
             rightNameField.setText(rightName);
             roundsCountField.setText(maxRounds);
+            dataSourceCombo.setSelectedIndex(selectedDatasource);
+            selectDataSource(selectedDatasource);
 
             NamesManager.getInstance().setNames(leftName, rightName);
             RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRounds));
@@ -97,21 +120,25 @@ public class SettingsDialog extends AbstractDialog
         String leftName = this.leftNameField.getText();
         String rightName = this.rightNameField.getText();
         String maxRound = roundsCountField.getText();
+        int selectedDatasource = dataSourceCombo.getSelectedIndex();
 
         NamesManager.getInstance().setNames(leftName, rightName);
         RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRound));
+        selectDataSource(selectedDatasource);
 
-        savePreferences(leftName, rightName, maxRound);
+        savePreferences(leftName, rightName, maxRound, selectedDatasource);
 
         dispose();
     }
 
-    private void savePreferences(String leftName, String rightName, String maxRound)
+    private void savePreferences(String leftName, String rightName, String maxRound, int selectedDatasource)
     {
         Preferences preferences = BrainPreferences.getPreferences();
         preferences.put(PreferencesNames.LEFT_NAME, leftName);
         preferences.put(PreferencesNames.RIGHT_NAME, rightName);
         preferences.put(PreferencesNames.MAX_SCORE, maxRound);
+        preferences.put(PreferencesNames.DATASOURCE, maxRound);
+        preferences.put(PreferencesNames.DATASOURCE, String.valueOf(selectedDatasource));
 
         try
         {

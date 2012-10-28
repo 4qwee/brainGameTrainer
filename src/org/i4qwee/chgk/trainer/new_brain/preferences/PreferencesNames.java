@@ -14,4 +14,8 @@ public class PreferencesNames
     public static final String RIGHT_NAME = "right_name";
     public static final String MAX_SCORE = "max_score";
     public static final String DATASOURCE = "datasource";
+    public static final String HOSTNAME = "hostname";
+    public static final String MYSQL_DATABASE = "mysql_database";
+    public static final String MYSQL_USERNAME = "mysql_username";
+    public static final String MYSQL_PASSWORD = "mysql_password";
 }

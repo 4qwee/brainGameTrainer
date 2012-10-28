@@ -4,6 +4,7 @@ import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
 import org.i4qwee.chgk.trainer.controller.database.GetQuestionsFromMySqlDatabase;
+import org.i4qwee.chgk.trainer.controller.database.GetQuestionsFromSqliteDatabase;
 import org.i4qwee.chgk.trainer.new_brain.preferences.BrainPreferences;
 import org.i4qwee.chgk.trainer.new_brain.preferences.PreferencesNames;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
@@ -25,6 +26,11 @@ public class SettingsDialog extends AbstractDialog
     private JTextField rightNameField;
     private JTextField roundsCountField;
     private JComboBox dataSourceCombo;
+    private JTextField hostnameTextField;
+    private JTextField usernameTextField;
+    private JTextField passwordTextField;
+    private JPanel advancedMySQLSettings;
+    private JTextField databaseNameTextField;
 
     private SettingsDialog()
     {
@@ -74,18 +80,31 @@ public class SettingsDialog extends AbstractDialog
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
+        dataSourceCombo.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean advancedSettingsVisible = dataSourceCombo.getSelectedIndex() == 1;
+
+                advancedMySQLSettings.setVisible(advancedSettingsVisible);
+                SettingsDialog.this.pack();
+            }
+        });
+
         loadPreferences();
     }
 
-    private void selectDataSource(int selectedIndex)
+    private void selectDataSource()
     {
-        switch (selectedIndex)
+        switch (dataSourceCombo.getSelectedIndex())
         {
             case 0:
-                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase());
+                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromSqliteDatabase());
                 break;
             case 1:
-                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase());
+                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase(hostnameTextField.getText(),
+                        databaseNameTextField.getText(), usernameTextField.getText(), passwordTextField.getText()));
                 break;
             default:
                 throw new NotImplementedException();
@@ -101,13 +120,17 @@ public class SettingsDialog extends AbstractDialog
             String leftName = preferences.get(PreferencesNames.LEFT_NAME, "");
             String rightName = preferences.get(PreferencesNames.RIGHT_NAME, "");
             String maxRounds = preferences.get(PreferencesNames.MAX_SCORE, "0");
-            int selectedDatasource = Integer.parseInt(preferences.get(PreferencesNames.DATASOURCE, "0"));
 
             leftNameField.setText(leftName);
             rightNameField.setText(rightName);
             roundsCountField.setText(maxRounds);
-            dataSourceCombo.setSelectedIndex(selectedDatasource);
-            selectDataSource(selectedDatasource);
+            dataSourceCombo.setSelectedIndex(Integer.parseInt(preferences.get(PreferencesNames.DATASOURCE, "0")));
+            hostnameTextField.setText(preferences.get(PreferencesNames.HOSTNAME, "localhost"));
+            databaseNameTextField.setText(preferences.get(PreferencesNames.MYSQL_DATABASE, ""));
+            usernameTextField.setText(preferences.get(PreferencesNames.MYSQL_USERNAME, ""));
+            passwordTextField.setText(preferences.get(PreferencesNames.MYSQL_PASSWORD, ""));
+
+            selectDataSource();
 
             NamesManager.getInstance().setNames(leftName, rightName);
             RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRounds));
@@ -117,28 +140,26 @@ public class SettingsDialog extends AbstractDialog
 
     private void onOK()
     {
-        String leftName = this.leftNameField.getText();
-        String rightName = this.rightNameField.getText();
-        String maxRound = roundsCountField.getText();
-        int selectedDatasource = dataSourceCombo.getSelectedIndex();
+        NamesManager.getInstance().setNames(this.leftNameField.getText(), this.rightNameField.getText());
+        RoundManager.getInstance().setMaxRound(Integer.parseInt(roundsCountField.getText()));
+        selectDataSource();
 
-        NamesManager.getInstance().setNames(leftName, rightName);
-        RoundManager.getInstance().setMaxRound(Integer.parseInt(maxRound));
-        selectDataSource(selectedDatasource);
-
-        savePreferences(leftName, rightName, maxRound, selectedDatasource);
+        savePreferences();
 
         dispose();
     }
 
-    private void savePreferences(String leftName, String rightName, String maxRound, int selectedDatasource)
+    private void savePreferences()
     {
         Preferences preferences = BrainPreferences.getPreferences();
-        preferences.put(PreferencesNames.LEFT_NAME, leftName);
-        preferences.put(PreferencesNames.RIGHT_NAME, rightName);
-        preferences.put(PreferencesNames.MAX_SCORE, maxRound);
-        preferences.put(PreferencesNames.DATASOURCE, maxRound);
-        preferences.put(PreferencesNames.DATASOURCE, String.valueOf(selectedDatasource));
+        preferences.put(PreferencesNames.LEFT_NAME, this.leftNameField.getText());
+        preferences.put(PreferencesNames.RIGHT_NAME, this.rightNameField.getText());
+        preferences.put(PreferencesNames.MAX_SCORE, roundsCountField.getText());
+        preferences.put(PreferencesNames.DATASOURCE, String.valueOf(dataSourceCombo.getSelectedIndex()));
+        preferences.put(PreferencesNames.HOSTNAME, hostnameTextField.getText());
+        preferences.put(PreferencesNames.MYSQL_DATABASE, databaseNameTextField.getText());
+        preferences.put(PreferencesNames.MYSQL_USERNAME, usernameTextField.getText());
+        preferences.put(PreferencesNames.MYSQL_PASSWORD, passwordTextField.getText());
 
         try
         {

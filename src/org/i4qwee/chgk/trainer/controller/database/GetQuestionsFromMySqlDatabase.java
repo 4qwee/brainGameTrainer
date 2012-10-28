@@ -13,9 +13,17 @@ import java.sql.SQLException;
  */
 public class GetQuestionsFromMySqlDatabase implements GetQuestionsFromDatabaseStrategy
 {
-    public GetQuestionsFromMySqlDatabase()
-    {
+    private String hostname;
+    private String databaseName;
+    private String username;
+    private String password;
 
+    public GetQuestionsFromMySqlDatabase(String hostname, String databaseName, String username, String password)
+    {
+        this.hostname = hostname;
+        this.databaseName = databaseName;
+        this.username = username;
+        this.password = password;
     }
 
     @Override
@@ -35,7 +43,7 @@ public class GetQuestionsFromMySqlDatabase implements GetQuestionsFromDatabaseSt
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/questions?user=chgk_user&password=password");
+            return DriverManager.getConnection("jdbc:mysql://" + hostname + "/" + databaseName + "?user=" + username + "&password=" + password);
         }
         catch (ClassNotFoundException e)
         {

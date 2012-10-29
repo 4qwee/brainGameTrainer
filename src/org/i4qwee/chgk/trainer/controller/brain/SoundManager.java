@@ -1,9 +1,8 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
-import org.i4qwee.chgk.trainer.model.ApplicationConstants;
+import org.apache.log4j.Logger;
 
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -13,6 +12,7 @@ import java.io.IOException;
  */
 public class SoundManager
 {
+    private static final Logger LOGGER = Logger.getLogger(SoundManager.class);
     private static final SoundManager ourInstance = new SoundManager();
 
     private Clip startClip;
@@ -34,15 +34,15 @@ public class SoundManager
         }
         catch (UnsupportedAudioFileException e)
         {
-            e.printStackTrace();
+            LOGGER.error("Wrong audio file!", e);
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            LOGGER.error("Cannot read audio file!", e);
         }
         catch (LineUnavailableException e)
         {
-            e.printStackTrace();
+            LOGGER.error("Problem with audio file!", e);
         }
     }
 

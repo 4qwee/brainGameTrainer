@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.brain.manager.NamesManager;
 import org.i4qwee.chgk.trainer.controller.brain.manager.RoundManager;
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
@@ -17,6 +18,8 @@ import java.util.prefs.Preferences;
 
 public class SettingsDialog extends AbstractDialog
 {
+    private static final Logger LOGGER = Logger.getLogger(SettingsDialog.class);
+
     private static final SettingsDialog instance = new SettingsDialog();
 
     private JPanel contentPane;
@@ -167,7 +170,7 @@ public class SettingsDialog extends AbstractDialog
         }
         catch (BackingStoreException e)
         {
-            e.printStackTrace();
+            LOGGER.error("Cannot save settings", e);
         }
     }
 

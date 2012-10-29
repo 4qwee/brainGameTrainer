@@ -1,5 +1,6 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
+import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 import org.i4qwee.chgk.trainer.model.enums.Type;
@@ -17,6 +18,8 @@ import java.util.List;
  */
 public class DatabaseManager
 {
+    private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class);
+
     private static GetQuestionsFromDatabaseStrategy getQuestionsFromDatabaseStrategy = new GetQuestionsFromSqliteDatabase();
 
     public static List<Question> getRandomQuestions(int count, Type type)
@@ -52,11 +55,11 @@ public class DatabaseManager
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            LOGGER.error("Cannot get questions from database!", e);
         }
-        catch (UnknownTypeError unknownTypeError)
+        catch (UnknownTypeError e)
         {
-            unknownTypeError.printStackTrace();
+            LOGGER.error("Unknown error on getting questions!", e);
         }
 
         return questionList;

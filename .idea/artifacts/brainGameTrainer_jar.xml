@@ -16,10 +16,13 @@
         <element id="dir-copy" path="$PROJECT_DIR$/sounds" />
       </element>
       <element id="directory" name="com">
-        <element id="dir-copy" path="$PROJECT_DIR$/out/com" />
+        <element id="dir-copy" path="$PROJECT_DIR$/out/production/brainGameTrainer/com" />
       </element>
       <element id="directory" name="org">
-        <element id="dir-copy" path="$PROJECT_DIR$/out/org" />
+        <element id="dir-copy" path="$PROJECT_DIR$/out/production/brainGameTrainer/org" />
+      </element>
+      <element id="directory" name="config">
+        <element id="dir-copy" path="$PROJECT_DIR$/config" />
       </element>
     </root>
   </artifact>

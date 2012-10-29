@@ -1,6 +1,8 @@
 package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.i4qwee.chgk.trainer.controller.brain.manager.MainWindow;
 import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
@@ -50,6 +52,8 @@ public class BrainPanelTest extends JFrame
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyboardDispatcher());
 
         Toolkit.getDefaultToolkit().addAWTEventListener(new org.i4qwee.chgk.trainer.new_brain.actionlisteners.MouseListener(), AWTEvent.MOUSE_EVENT_MASK);
+
+        PropertyConfigurator.configure(getClass().getResource("/config/log4j.properties"));
     }
 
     private void setFullScreen()

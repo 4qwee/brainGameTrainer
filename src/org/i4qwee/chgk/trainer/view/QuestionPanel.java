@@ -35,14 +35,11 @@ public class QuestionPanel extends AbstractPanel implements QuestionListener
         QuestionManager.getInstance().addListener(this);
     }
 
-    void setQuestion(Question question, boolean hideAnswer)
+    void setQuestion(Question question)
     {
         questionTextArea.setText(question.getQuestion());
 
         answerTextArea.setText(prepareAnswer(question));
-
-        if (hideAnswer)
-            answerTextArea.setVisible(false);
     }
 
     private String prepareAnswer(Question question)
@@ -65,6 +62,6 @@ public class QuestionPanel extends AbstractPanel implements QuestionListener
 
     public void onQuestionChange(Question question)
     {
-        setQuestion(question, false);
+        setQuestion(question);
     }
 }

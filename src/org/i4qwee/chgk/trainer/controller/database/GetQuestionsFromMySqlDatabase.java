@@ -17,10 +17,10 @@ public class GetQuestionsFromMySqlDatabase implements GetQuestionsFromDatabaseSt
 {
     private static final Logger LOGGER = Logger.getLogger(GetQuestionsFromMySqlDatabase.class);
 
-    private String hostname;
-    private String databaseName;
-    private String username;
-    private String password;
+    private final String hostname;
+    private final String databaseName;
+    private final String username;
+    private final String password;
 
     public GetQuestionsFromMySqlDatabase(String hostname, String databaseName, String username, String password)
     {

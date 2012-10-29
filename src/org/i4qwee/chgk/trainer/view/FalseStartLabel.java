@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class FalseStartLabel extends JLabel
 {
-    private static FalseStartLabel instance = new FalseStartLabel();
+    private static final FalseStartLabel instance = new FalseStartLabel();
 
     private FalseStartLabel()
     {

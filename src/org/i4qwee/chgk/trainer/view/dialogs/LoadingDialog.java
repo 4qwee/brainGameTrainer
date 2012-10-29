@@ -1,6 +1,5 @@
 package org.i4qwee.chgk.trainer.view.dialogs;
 
-import org.i4qwee.chgk.trainer.model.ApplicationConstants;
 import org.i4qwee.chgk.trainer.view.DefaultUIProvider;
 
 import javax.swing.*;

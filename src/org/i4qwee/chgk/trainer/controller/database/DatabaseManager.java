@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.UnknownTypeError;
 import org.i4qwee.chgk.trainer.model.enums.Type;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,15 +56,22 @@ public class DatabaseManager
         }
         catch (SQLException e)
         {
-            LOGGER.error("Cannot get questions from database!", e);
+            handleError("Cannot get questions from database!", e);
         }
         catch (UnknownTypeError e)
         {
-            LOGGER.error("Unknown error on getting questions!", e);
+            handleError("Unknown error on getting questions!", e);
         }
 
         return questionList;
     }
+
+    private static void handleError(String message, Throwable e)
+    {
+        MessageDialog.getInstance().showError(message);
+        LOGGER.error(message, e);
+    }
+
 
     public static void setGetQuestionsFromDatabaseStrategy(GetQuestionsFromDatabaseStrategy getQuestionsFromDatabaseStrategy)
     {

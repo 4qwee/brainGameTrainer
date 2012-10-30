@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.brain;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
@@ -34,16 +35,22 @@ public class SoundManager
         }
         catch (UnsupportedAudioFileException e)
         {
-            LOGGER.error("Wrong audio file!", e);
+            handleError("Wrong audio file!", e);
         }
         catch (IOException e)
         {
-            LOGGER.error("Cannot read audio file!", e);
+            handleError("Cannot read audio file!", e);
         }
         catch (LineUnavailableException e)
         {
-            LOGGER.error("Problem with audio file!", e);
+            handleError("Problem with audio file!", e);
         }
+    }
+
+    private void handleError(String message, Exception e)
+    {
+        MessageDialog.getInstance().showError(message);
+        LOGGER.error(message, e);
     }
 
     private Clip initSound(String source) throws UnsupportedAudioFileException, IOException, LineUnavailableException

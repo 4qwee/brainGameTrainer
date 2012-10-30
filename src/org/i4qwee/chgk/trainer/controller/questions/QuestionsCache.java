@@ -1,12 +1,10 @@
 package org.i4qwee.chgk.trainer.controller.questions;
 
-import org.apache.log4j.Logger;
 import org.i4qwee.chgk.trainer.controller.database.DatabaseManager;
 import org.i4qwee.chgk.trainer.model.Question;
 import org.i4qwee.chgk.trainer.model.enums.Type;
 import org.i4qwee.chgk.trainer.view.dialogs.LoadingDialog;
 
-import javax.swing.*;
 import java.util.List;
 
 /**

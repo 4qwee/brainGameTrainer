@@ -58,8 +58,20 @@ public class MessageDialog extends AbstractDialog
 
     public void show(String message)
     {
+        messageLabel.setIcon(null);
+        showBasicDialogs(message);
+    }
+
+    private void showBasicDialogs(String message)
+    {
         messageLabel.setText(message);
 
         instance.showDialog();
+    }
+
+    public void showError(String message)
+    {
+        messageLabel.setIcon(UIManager.getIcon("OptionPane.errorIcon"));
+        showBasicDialogs(message);
     }
 }

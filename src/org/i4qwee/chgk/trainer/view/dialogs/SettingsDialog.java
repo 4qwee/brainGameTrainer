@@ -108,17 +108,21 @@ public class SettingsDialog extends AbstractDialog
                 {
                     if (getMySQLQuestionsStrategy().getStatement() != null)
                         messageDialog.show("Всё работает!");
-                    else
-                        messageDialog.show("Что-то не в порядке!");
                 }
                 catch (SQLException e1)
                 {
-                    LOGGER.error("Cannot connect to database!", e1);
+                    handleError("Cannot connect to database!", e1);
                 }
             }
         });
 
         loadPreferences();
+    }
+
+    private void handleError(String message, Exception e)
+    {
+        MessageDialog.getInstance().showError(message);
+        LOGGER.error(message, e);
     }
 
     private void selectDataSource()
@@ -198,7 +202,7 @@ public class SettingsDialog extends AbstractDialog
         }
         catch (BackingStoreException e)
         {
-            LOGGER.error("Cannot save settings", e);
+            handleError("Cannot save settings", e);
         }
     }
 

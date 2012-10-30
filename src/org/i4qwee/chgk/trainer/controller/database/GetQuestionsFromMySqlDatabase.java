@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,13 +52,20 @@ public class GetQuestionsFromMySqlDatabase implements GetQuestionsFromDatabaseSt
         }
         catch (ClassNotFoundException e)
         {
-            LOGGER.error("Cannot find MySQL driver!", e);
+            handleError("Cannot find MySQL driver!", e);
         }
         catch (SQLException e)
         {
-            LOGGER.error("Cannot connect to database!", e);
+            handleError("Cannot connect to database!", e);
         }
 
         return null;
     }
+
+    private void handleError(String message, Exception e)
+    {
+        MessageDialog.getInstance().showError(message);
+        LOGGER.error(message, e);
+    }
+
 }

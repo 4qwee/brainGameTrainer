@@ -1,6 +1,7 @@
 package org.i4qwee.chgk.trainer.controller.database;
 
 import org.apache.log4j.Logger;
+import org.i4qwee.chgk.trainer.view.dialogs.MessageDialog;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,13 +43,20 @@ public class GetQuestionsFromSqliteDatabase implements GetQuestionsFromDatabaseS
         }
         catch (ClassNotFoundException e)
         {
-            LOGGER.error("Cannot find SQLite driver!", e);
+            handleError("Cannot find SQLite driver!", e);
         }
         catch (SQLException e)
         {
-            LOGGER.error("Cannot connect to database!", e);
+            handleError("Cannot connect to database!", e);
         }
 
         return null;
     }
+
+    private void handleError(String message, Exception e)
+    {
+        MessageDialog.getInstance().showError(message);
+        LOGGER.error(message, e);
+    }
+
 }

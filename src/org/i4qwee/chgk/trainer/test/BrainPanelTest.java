@@ -1,16 +1,16 @@
 package org.i4qwee.chgk.trainer.test;
 
 import com.alee.laf.WebLookAndFeel;
-import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.i4qwee.chgk.trainer.controller.brain.manager.MainWindow;
-import org.i4qwee.chgk.trainer.new_brain.actionlisteners.*;
+import org.i4qwee.chgk.trainer.new_brain.actionlisteners.KeyboardDispatcher;
 import org.i4qwee.chgk.trainer.view.BrainPanel;
 import org.i4qwee.chgk.trainer.view.dialogs.SettingsDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * User: 4qwee

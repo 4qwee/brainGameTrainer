@@ -13,6 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -34,6 +35,7 @@ public class SettingsDialog extends AbstractDialog
     private JTextField passwordTextField;
     private JPanel advancedMySQLSettings;
     private JTextField databaseNameTextField;
+    private JButton testConnectionButton;
 
     private SettingsDialog()
     {
@@ -95,6 +97,27 @@ public class SettingsDialog extends AbstractDialog
             }
         });
 
+        testConnectionButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                MessageDialog messageDialog = MessageDialog.getInstance();
+
+                try
+                {
+                    if (getMySQLQuestionsStrategy().getStatement() != null)
+                        messageDialog.show("Всё работает!");
+                    else
+                        messageDialog.show("Что-то не в порядке!");
+                }
+                catch (SQLException e1)
+                {
+                    LOGGER.error("Cannot connect to database!", e1);
+                }
+            }
+        });
+
         loadPreferences();
     }
 
@@ -106,13 +129,18 @@ public class SettingsDialog extends AbstractDialog
                 DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromSqliteDatabase());
                 break;
             case 1:
-                DatabaseManager.setGetQuestionsFromDatabaseStrategy(new GetQuestionsFromMySqlDatabase(hostnameTextField.getText(),
-                        databaseNameTextField.getText(), usernameTextField.getText(), passwordTextField.getText()));
+                DatabaseManager.setGetQuestionsFromDatabaseStrategy(getMySQLQuestionsStrategy());
                 break;
             default:
                 throw new NotImplementedException();
         }
 
+    }
+
+    private GetQuestionsFromMySqlDatabase getMySQLQuestionsStrategy()
+    {
+        return new GetQuestionsFromMySqlDatabase(hostnameTextField.getText(),
+                databaseNameTextField.getText(), usernameTextField.getText(), passwordTextField.getText());
     }
 
     private void loadPreferences()

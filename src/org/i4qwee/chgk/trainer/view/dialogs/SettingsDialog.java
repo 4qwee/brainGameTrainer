@@ -36,6 +36,7 @@ public class SettingsDialog extends AbstractDialog
     private JPanel advancedMySQLSettings;
     private JTextField databaseNameTextField;
     private JButton testConnectionButton;
+    private JButton aboutButton;
 
     private SettingsDialog()
     {
@@ -113,6 +114,18 @@ public class SettingsDialog extends AbstractDialog
                 {
                     handleError("Cannot connect to database!", e1);
                 }
+            }
+        });
+
+        ImageIcon aboutIcon = new ImageIcon(getClass().getResource("/img/about.png"));
+        aboutButton.setIcon(aboutIcon);
+
+        aboutButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                new AboutDialog().showDialog();
             }
         });
 

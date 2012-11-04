@@ -69,7 +69,7 @@ public class BrainPanelTest extends JFrame
             LOGGER.error("Cannot get icon!", e);
         }
 
-        setTitle("Буйный лосось");
+        setTitle("Р‘СѓР№РЅС‹Р№ Р»РѕСЃРѕСЃСЊ");
     }
 
     private void setFullScreen()

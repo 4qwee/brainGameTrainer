@@ -22,6 +22,7 @@ public abstract class AbstractDialog extends JDialog
 
     public void showDialog()
     {
+        pack();
         setLocationRelativeTo(MainWindow.getMainWindow());
 
         setVisible(true);
